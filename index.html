@@ -3,9 +3,10 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Table de Billard 4 en 1 Premium - 185 000 FCFA</title>
+    <title>BILLARD PRESTIGE - L'Excellence du Jeu</title>
     
-    <link rel="icon" type="image/png" href="img/LOGO-Photoroom.png">
+    <!-- Favicon -->
+    <link rel="icon" type="image/png" href="assets/img/LOGO-Photoroom.png">
     
     <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@700&family=Montserrat:wght@300;400;600;700&display=swap" rel="stylesheet">
     
@@ -26,6 +27,10 @@
             box-sizing: border-box;
             margin: 0;
             padding: 0;
+        }
+
+        html {
+            scroll-behavior: smooth;
         }
 
         body {
@@ -90,10 +95,10 @@
         }
 
         .hero-image-container {
-            flex: 1.2;
+            flex: 1;
             position: relative;
             width: 100%;
-            max-width: 700px;
+            max-width: 650px;
             aspect-ratio: 4 / 3;
             max-height: 500px;
             overflow: hidden;
@@ -134,8 +139,38 @@
             z-index: 2;
         }
 
+        /* --- FLÈCHES DU CARROUSEL PRINCIPAL --- */
+        .hero-arrow {
+            position: absolute;
+            top: 50%;
+            transform: translateY(-50%);
+            background: rgba(0, 0, 0, 0.6);
+            color: var(--dore);
+            border: 1px solid var(--dore);
+            font-size: 1.5rem;
+            padding: 10px;
+            cursor: pointer;
+            z-index: 10;
+            border-radius: 50%;
+            width: 45px;
+            height: 45px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            transition: all 0.3s;
+        }
+
+        .hero-arrow:hover {
+            background: var(--dore);
+            color: var(--noir);
+        }
+
+        .hero-arrow.left { left: 20px; }
+        .hero-arrow.right { right: 20px; }
+
+        /* --- TEXTE HERO --- */
         .hero-text {
-            flex: 1;
+            flex: 1.2;
             z-index: 10;
         }
 
@@ -153,7 +188,7 @@
 
         .hero-text h1 {
             font-family: 'Cinzel', serif;
-            font-size: 3.5rem;
+            font-size: 3.2rem;
             line-height: 1.1;
             color: var(--dore);
             text-transform: uppercase;
@@ -161,39 +196,62 @@
             text-shadow: 0px 10px 20px rgba(0,0,0,0.5);
         }
 
-        .hero-text p {
-            font-size: 1.05rem;
-            margin-bottom: 20px;
-            color: #e0e0e0;
-            font-weight: 300;
+        /* --- DESCRIPTION SÉDUCTRICE --- */
+        .description-container {
+            margin-bottom: 25px;
+            background: rgba(0, 0, 0, 0.3);
+            padding: 20px;
+            border-radius: 10px;
+            border-left: 3px solid var(--dore);
         }
 
-        .specs-list {
-            list-style: none;
-            margin-bottom: 20px;
-            font-size: 0.9rem;
+        .description-container p {
+            font-size: 1rem;
+            color: #e0e0e0;
+            margin-bottom: 15px;
+            line-height: 1.7;
         }
-        .specs-list li {
-            margin-bottom: 5px;
-            display: flex;
-            align-items: center;
+
+        .description-container p:last-child {
+            margin-bottom: 0;
         }
-        .specs-list li::before {
-            content: '▪';
+
+        .description-container strong {
             color: var(--dore);
+        }
+
+        .selling-points {
+            list-style: none;
+            margin-top: 15px;
+            margin-bottom: 5px;
+        }
+        
+        .selling-points li {
+            margin-bottom: 8px;
+            display: flex;
+            align-items: flex-start;
+            font-size: 0.95rem;
+        }
+
+        .selling-points li::before {
+            content: '✨';
             margin-right: 10px;
+            font-size: 1rem;
         }
 
         .price-container {
-            margin-bottom: 25px;
-            background: rgba(0,0,0,0.4);
+            margin-bottom: 20px;
+            background: rgba(0,0,0,0.5);
             padding: 15px;
             border-radius: 10px;
-            border-left: 4px solid var(--dore);
+            border: 1px solid rgba(218, 165, 32, 0.3);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
         }
 
         .price-tag {
-            font-size: 2.8rem;
+            font-size: 2.5rem;
             font-weight: 700;
             color: var(--argent-clair);
             display: block;
@@ -203,37 +261,36 @@
         .price-currency {
             font-size: 1rem;
             color: var(--dore);
-            margin-left: 10px;
+            margin-left: 5px;
             font-weight: 400;
         }
 
         .promo-text {
             color: var(--dore);
             font-weight: 600;
-            font-size: 0.9rem;
-            margin-top: 5px;
-            display: block;
+            font-size: 0.85rem;
+            text-align: right;
+            max-width: 200px;
         }
 
+        /* --- BOUTONS D'ACTION --- */
         .action-buttons {
             display: flex;
-            gap: 15px;
+            gap: 10px;
             flex-wrap: wrap;
         }
 
-        /* --- BOUTONS CORRIGÉS ICI --- */
         .btn-commander {
-            display: flex;            /* Utilisation de Flexbox */
-            justify-content: center;  /* Centrage horizontal */
-            align-items: center;      /* Centrage vertical */
-            text-align: center;       /* Centrage du texte multi-lignes */
-            
-            padding: 15px 25px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            text-align: center;
+            padding: 12px 15px;
             background-color: transparent;
             color: var(--argent-clair);
             border: 2px solid var(--argent-clair);
             border-radius: 30px;
-            font-size: 0.95rem;
+            font-size: 0.85rem;
             font-weight: 600;
             letter-spacing: 1px;
             text-transform: uppercase;
@@ -241,7 +298,7 @@
             transition: all 0.4s ease;
             text-decoration: none;
             flex: 1;
-            min-width: 180px;
+            min-width: 130px;
             animation: clignoter 1.5s infinite; 
         }
 
@@ -263,6 +320,20 @@
             background-color: var(--dore);
             color: var(--noir);
             box-shadow: 0 0 20px rgba(218, 165, 32, 0.6);
+            animation: none;
+            opacity: 1;
+        }
+
+        .btn-preorder-hero {
+            border-color: #8A2BE2;
+            color: #8A2BE2;
+            box-shadow: 0 0 15px rgba(138, 43, 226, 0.2);
+        }
+
+        .btn-preorder-hero:hover {
+            background-color: #8A2BE2;
+            color: white;
+            box-shadow: 0 0 20px rgba(138, 43, 226, 0.6);
             animation: none;
             opacity: 1;
         }
@@ -301,18 +372,54 @@
             letter-spacing: 2px;
         }
 
+        /* --- WRAPPER POUR LES AVIS ET FLÈCHES --- */
+        .reviews-wrapper {
+            position: relative;
+        }
+
         .reviews-container {
             display: flex;
             gap: 20px;
             overflow-x: auto;
             padding-bottom: 20px;
+            padding-top: 10px;
             scroll-snap-type: x mandatory;
+            scroll-behavior: smooth;
             -ms-overflow-style: none;  
             scrollbar-width: none;  
         }
         .reviews-container::-webkit-scrollbar { 
             display: none; 
         }
+
+        /* --- FLÈCHES DES AVIS --- */
+        .review-arrow {
+            position: absolute;
+            top: 50%;
+            transform: translateY(-50%);
+            background: rgba(20, 20, 20, 0.9);
+            color: var(--dore);
+            border: 1px solid var(--dore);
+            font-size: 1.2rem;
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            cursor: pointer;
+            z-index: 10;
+            box-shadow: 0 0 15px rgba(0,0,0,0.8);
+            transition: all 0.3s ease;
+        }
+
+        .review-arrow:hover {
+            background: var(--dore);
+            color: var(--noir);
+        }
+
+        .review-arrow.left { left: -15px; }
+        .review-arrow.right { right: -15px; }
 
         .review-card {
             min-width: 320px;
@@ -371,7 +478,7 @@
             font-weight: 600;
         }
 
-        /* --- SECTION FORMULAIRE --- */
+        /* --- SECTION FORMULAIRE DE VENTE --- */
         .form-section {
             max-width: 800px;
             margin: 40px auto 80px;
@@ -471,6 +578,171 @@
             transform: scale(1.02);
         }
 
+        /* --- NOUVELLE SECTION PRECOMMANDE --- */
+        .preorder-section {
+            max-width: 1000px;
+            margin: 20px auto 80px;
+            padding: 40px;
+            background: rgba(20, 20, 20, 0.9);
+            backdrop-filter: blur(10px);
+            border-radius: 15px;
+            border: 2px solid var(--dore);
+            box-shadow: 0 20px 50px rgba(218, 165, 32, 0.2);
+        }
+
+        .preorder-section h2 {
+            font-family: 'Cinzel', serif;
+            color: var(--dore);
+            text-align: center;
+            margin-bottom: 10px;
+            font-size: 2.2rem;
+        }
+        
+        .preorder-subtitle {
+            text-align: center;
+            color: var(--argent-clair);
+            margin-bottom: 30px;
+            font-size: 1rem;
+        }
+
+        .preorder-options {
+            display: flex;
+            gap: 20px;
+            margin-bottom: 30px;
+            flex-wrap: wrap;
+        }
+
+        .preorder-card {
+            flex: 1;
+            min-width: 280px;
+            background: rgba(0,0,0,0.6);
+            border: 1px solid rgba(192, 192, 192, 0.3);
+            border-radius: 10px;
+            padding: 25px;
+            text-align: center;
+            transition: transform 0.3s;
+        }
+
+        .preorder-card:hover {
+            transform: translateY(-5px);
+        }
+
+        .preorder-card.express {
+            border-color: var(--dore);
+            box-shadow: 0 0 20px rgba(218, 165, 32, 0.15);
+        }
+
+        .preorder-card h3 {
+            color: white;
+            font-size: 1.3rem;
+            margin-bottom: 15px;
+        }
+
+        .preorder-card .price {
+            font-size: 2rem;
+            font-weight: 700;
+            color: var(--dore);
+            margin-bottom: 10px;
+            display: block;
+        }
+
+        .preorder-card .delay {
+            font-size: 0.9rem;
+            color: #ccc;
+            margin-bottom: 15px;
+        }
+
+        .preorder-card .payment-details {
+            font-size: 0.85rem;
+            background: rgba(255,255,255,0.05);
+            padding: 10px;
+            border-radius: 8px;
+            margin-bottom: 20px;
+        }
+
+        .preorder-card .payment-details strong {
+            color: var(--dore);
+        }
+
+        .btn-preorder {
+            display: block;
+            width: 100%;
+            padding: 12px;
+            background-color: transparent;
+            color: var(--argent-clair);
+            border: 2px solid var(--argent-clair);
+            border-radius: 30px;
+            font-size: 0.9rem;
+            font-weight: 600;
+            text-transform: uppercase;
+            cursor: pointer;
+            transition: all 0.3s;
+            text-decoration: none;
+        }
+
+        .btn-preorder:hover {
+            background-color: var(--argent-clair);
+            color: var(--noir);
+        }
+
+        .preorder-card.express .btn-preorder {
+            border-color: var(--dore);
+            color: var(--dore);
+            box-shadow: 0 0 15px rgba(218, 165, 32, 0.2);
+        }
+
+        .preorder-card.express .btn-preorder:hover {
+            background-color: var(--dore);
+            color: var(--noir);
+            box-shadow: 0 0 20px rgba(218, 165, 32, 0.6);
+        }
+
+        .trust-note {
+            background: rgba(255, 51, 51, 0.1);
+            border-left: 4px solid var(--rouge-urgence);
+            padding: 20px;
+            border-radius: 8px;
+            margin-bottom: 30px;
+            font-size: 0.95rem;
+        }
+
+        .trust-note strong {
+            color: white;
+            display: block;
+            margin-bottom: 5px;
+        }
+
+        .preorder-form-container {
+            background: rgba(0,0,0,0.4);
+            padding: 30px;
+            border-radius: 10px;
+            border: 1px solid rgba(218, 165, 32, 0.3);
+        }
+
+        .preorder-total-display {
+            background: rgba(218, 165, 32, 0.1);
+            border: 1px dashed var(--dore);
+            padding: 15px;
+            border-radius: 8px;
+            margin: 20px 0;
+            font-size: 0.95rem;
+        }
+        
+        .preorder-total-display div {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 8px;
+        }
+        
+        .preorder-total-display div:last-child {
+            margin-bottom: 0;
+            padding-top: 8px;
+            border-top: 1px solid rgba(218, 165, 32, 0.3);
+            font-weight: bold;
+            font-size: 1.1rem;
+            color: var(--dore);
+        }
+
         /* --- LIGHTBOX (MODAL) --- */
         .media-modal {
             display: none; 
@@ -532,17 +804,37 @@
                 aspect-ratio: 4 / 3;
                 max-height: 350px;
             }
+            
+            .hero-arrow.left { left: 5px; }
+            .hero-arrow.right { right: 5px; }
+            .hero-arrow { width: 35px; height: 35px; font-size: 1.2rem; }
+
             .hero-text {
-                text-align: center;
+                text-align: left;
             }
-            .hero-text h1 { font-size: 2.8rem; }
-            .action-buttons { flex-direction: column; }
+            .hero-text h1 { font-size: 2.5rem; }
+            
+            .price-container { flex-direction: column; align-items: flex-start; gap: 10px; }
+            .promo-text { text-align: left; max-width: 100%; }
+            
+            .action-buttons { 
+                flex-direction: column; 
+                width: 100%;
+            }
+            
             .form-section { margin: 20px; padding: 20px; }
             .total-price-display { flex-direction: column; gap: 10px; text-align: center; }
             .close-modal { top: 10px; right: 20px; font-size: 40px; }
             
             .reviews-section { padding: 0 20px; }
             .review-card { min-width: 280px; }
+            
+            .review-arrow.left { left: -10px; }
+            .review-arrow.right { right: -10px; }
+
+            .preorder-section { margin: 20px; padding: 20px; }
+            .preorder-options { flex-direction: column; }
+            .preorder-card { min-width: 100%; }
         }
     </style>
 </head>
@@ -558,29 +850,33 @@
 
     <section class="hero">
         
-        <div class="hero-image-container">
+        <!-- CARROUSEL PRINCIPAL AVEC FLÈCHES -->
+        <div class="hero-image-container" id="heroImageContainer">
+            <button class="hero-arrow left" onclick="prevSlide(event)">❮</button>
+            <button class="hero-arrow right" onclick="nextSlide(event)">❯</button>
+            
             <div class="carousel-track" id="carouselTrack">
                 
                 <!-- 1. Vidéo -->
-                <div class="carousel-slide active" onclick="openModal('videos/table-de-billard-1.mp4', 'video')">
-                    <video src="videos/table-de-billard-1.mp4" muted loop playsinline autoplay></video>
+                <div class="carousel-slide active" onclick="openModal('assets/videos/table-de-billard-1.mp4', 'video')">
+                    <video src="assets/videos/table-de-billard-1.mp4" muted loop playsinline autoplay></video>
                 </div>
                 
                 <!-- 2 à 10. Images -->
-                <div class="carousel-slide" onclick="openModal('img/table-de-billard-1.jpg', 'image')"><img src="img/table-de-billard-1.jpg" alt="Table de billard 1"></div>
-                <div class="carousel-slide" onclick="openModal('img/table-de-billard-2.jpg', 'image')"><img src="img/table-de-billard-2.jpg" alt="Table de billard 2"></div>
-                <div class="carousel-slide" onclick="openModal('img/table-de-billard-3.jpg', 'image')"><img src="img/table-de-billard-3.jpg" alt="Table de billard 3"></div>
-                <div class="carousel-slide" onclick="openModal('img/table-de-billard-4.jpg', 'image')"><img src="img/table-de-billard-4.jpg" alt="Table de billard 4"></div>
-                <div class="carousel-slide" onclick="openModal('img/table-de-billard-5.jpg', 'image')"><img src="img/table-de-billard-5.jpg" alt="Table de billard 5"></div>
-                <div class="carousel-slide" onclick="openModal('img/table-de-billard-6.jpg', 'image')"><img src="img/table-de-billard-6.jpg" alt="Table de billard 6"></div>
-                <div class="carousel-slide" onclick="openModal('img/table-de-billard-7.jpg', 'image')"><img src="img/table-de-billard-7.jpg" alt="Table de billard 7"></div>
-                <div class="carousel-slide" onclick="openModal('img/table-de-billard-8.jpg', 'image')"><img src="img/table-de-billard-8.jpg" alt="Table de billard 8"></div>
-                <div class="carousel-slide" onclick="openModal('img/table-de-billard-9.jpg', 'image')"><img src="img/table-de-billard-9.jpg" alt="Table de billard 9"></div>
-                <div class="carousel-slide" onclick="openModal('img/table-de-billard-10.jpg', 'image')"><img src="img/table-de-billard-10.jpg" alt="Table de billard 10"></div>
+                <div class="carousel-slide" onclick="openModal('assets/img/table-de-billard-1.jpg', 'image')"><img src="assets/img/table-de-billard-1.jpg" alt="Table de billard 1"></div>
+                <div class="carousel-slide" onclick="openModal('assets/img/table-de-billard-2.jpg', 'image')"><img src="assets/img/table-de-billard-2.jpg" alt="Table de billard 2"></div>
+                <div class="carousel-slide" onclick="openModal('assets/img/table-de-billard-3.jpg', 'image')"><img src="assets/img/table-de-billard-3.jpg" alt="Table de billard 3"></div>
+                <div class="carousel-slide" onclick="openModal('assets/img/table-de-billard-4.jpg', 'image')"><img src="assets/img/table-de-billard-4.jpg" alt="Table de billard 4"></div>
+                <div class="carousel-slide" onclick="openModal('assets/img/table-de-billard-5.jpg', 'image')"><img src="assets/img/table-de-billard-5.jpg" alt="Table de billard 5"></div>
+                <div class="carousel-slide" onclick="openModal('assets/img/table-de-billard-6.jpg', 'image')"><img src="assets/img/table-de-billard-6.jpg" alt="Table de billard 6"></div>
+                <div class="carousel-slide" onclick="openModal('assets/img/table-de-billard-7.jpg', 'image')"><img src="assets/img/table-de-billard-7.jpg" alt="Table de billard 7"></div>
+                <div class="carousel-slide" onclick="openModal('assets/img/table-de-billard-8.jpg', 'image')"><img src="assets/img/table-de-billard-8.jpg" alt="Table de billard 8"></div>
+                <div class="carousel-slide" onclick="openModal('assets/img/table-de-billard-9.jpg', 'image')"><img src="assets/img/table-de-billard-9.jpg" alt="Table de billard 9"></div>
+                <div class="carousel-slide" onclick="openModal('assets/img/table-de-billard-10.jpg', 'image')"><img src="assets/img/table-de-billard-10.jpg" alt="Table de billard 10"></div>
                 
                 <!-- 11. Vidéo -->
-                <div class="carousel-slide" onclick="openModal('videos/table-de-billard-2.mp4', 'video')">
-                    <video src="videos/table-de-billard-2.mp4" muted loop playsinline></video>
+                <div class="carousel-slide" onclick="openModal('assets/videos/table-de-billard-2.mp4', 'video')">
+                    <video src="assets/videos/table-de-billard-2.mp4" muted loop playsinline></video>
                 </div>
 
             </div>
@@ -588,31 +884,38 @@
 
         <div class="hero-text">
             <div class="stock-badge">⚠️ ALERTE STOCK : Plus que 4 en stock !</div>
-            <h1>L'Élégance<br>du Billard 4 en 1</h1>
-            <p>Table de jeu multifonction neuve : Billard, Tennis de table, Air Hockey et Snooker. Kit complet inclus pour des heures de divertissement.</p>
+            <h1>Transformez vos soirées.</h1>
             
-            <ul class="specs-list">
-                <li><strong>Dimensions :</strong>&nbsp;95 x 51 x 64 cm</li>
-                <li><strong>Matériaux :</strong>&nbsp;MDF, PVC et feutrine de qualité</li>
-                <li><strong>Poids :</strong>&nbsp;13 kg (net) / 15 kg (brut)</li>
-                <li><strong>Marque :</strong>&nbsp;Yuanda - Modèle 2003+P2</li>
-            </ul>
+            <div class="description-container">
+                <p>Imaginez l'ambiance des grandes occasions : les rires de vos amis autour d'une partie de billard endiablée, les défis familiaux au ping-pong, et l'excitation pure de l'air hockey. <strong>Ne vous contentez plus d'un simple salon, créez un véritable espace de prestige et de divertissement.</strong></p>
+                
+                <p>Ce n'est pas juste une table de jeu, c'est un <strong>investissement dans votre bonheur et votre statut.</strong> Conçue avec des matériaux haut de gamme, elle est pensée pour durer et impressionner vos invités dès leur arrivée.</p>
+
+                <ul class="selling-points">
+                    <li><strong>L'Expérience 4-en-1 :</strong> Billard, Ping-pong, Air Hockey et Snooker.</li>
+                    <li><strong>Prêt à Jouer :</strong> Tout est inclus ! Queues, boules, raquettes...</li>
+                    <li><strong>Design Premium :</strong> Dimensions parfaites (95x51x64 cm).</li>
+                </ul>
+            </div>
 
             <div class="price-container">
-                <div class="price-tag">
-                    185 000 <span class="price-currency">FCFA</span>
+                <div>
+                    <div class="price-tag">
+                        185 000 <span class="price-currency">FCFA</span>
+                    </div>
                 </div>
                 <span class="promo-text">Remises : -10% pour 2 | -13% pour 3 | -20% pour 4</span>
             </div>
 
             <div class="action-buttons">
                 <a href="#formulaire" class="btn-commander" onclick="setQuantity(1)">Acheter</a>
-                <a href="#formulaire" class="btn-commander btn-promo" onclick="setQuantity(2)">Profiter de la promotion</a>
+                <a href="#formulaire" class="btn-commander btn-promo" onclick="setQuantity(2)">Promo</a>
+                <a href="#precommande" class="btn-commander btn-preorder-hero">Précommander</a>
             </div>
         </div>
     </section>
 
-    <!-- SECTION AVIS CLIENTS -->
+    <!-- SECTION AVIS CLIENTS AVEC FLÈCHES ET AUTO-SCROLL -->
     <section class="reviews-section">
         <div class="reviews-header">
             <h2>Ils nous font confiance en Afrique de l'Ouest</h2>
@@ -622,14 +925,19 @@
             </div>
         </div>
         
-        <div class="reviews-container" id="reviewsContainer">
-            <!-- Les cartes d'avis sont injectées par JavaScript -->
+        <div class="reviews-wrapper" id="reviewsWrapper">
+            <button class="review-arrow left" onclick="scrollReviewsLeft()">❮</button>
+            <button class="review-arrow right" onclick="scrollReviewsRight()">❯</button>
+
+            <div class="reviews-container" id="reviewsContainer">
+                <!-- Les cartes d'avis sont injectées par JavaScript -->
+            </div>
         </div>
     </section>
 
-    <!-- FORMULAIRE -->
+    <!-- FORMULAIRE DE VENTE NORMALE -->
     <section class="form-section" id="formulaire">
-        <h2>Réserver votre table</h2>
+        <h2>Achat Immédiat (Stock Limité)</h2>
         <p class="form-subtitle">Remplissez ce formulaire pour finaliser votre commande via WhatsApp.</p>
         
         <form id="whatsappForm" onsubmit="sendToWhatsApp(event)">
@@ -672,6 +980,96 @@
         </form>
     </section>
 
+    <!-- NOUVELLE SECTION PRECOMMANDE -->
+    <section class="preorder-section" id="precommande">
+        <h2>Option de Précommande</h2>
+        <p class="preorder-subtitle">Vous n'êtes pas pressé(e) ou vous préférez payer en plusieurs fois ? Choisissez votre formule.</p>
+        
+        <div class="preorder-options">
+            <!-- Option Standard -->
+            <div class="preorder-card">
+                <h3>Livraison Standard</h3>
+                <span class="price">170 000 FCFA</span>
+                <span class="delay">⏳ Délai : 1 mois et demi</span>
+                <div class="payment-details">
+                    Acompte (75%) : <strong>127 500 FCFA</strong><br>
+                    À la livraison (25%) : <strong>42 500 FCFA</strong>
+                </div>
+                <button class="btn-preorder" onclick="setPreorder('standard')">Précommander (Standard)</button>
+            </div>
+
+            <!-- Option Express -->
+            <div class="preorder-card express">
+                <h3>Livraison Express ⚡</h3>
+                <span class="price">315 000 FCFA</span>
+                <span class="delay">🚀 Délai : 1 à 2 semaines</span>
+                <div class="payment-details">
+                    Acompte (75%) : <strong>236 250 FCFA</strong><br>
+                    À la livraison (25%) : <strong>78 750 FCFA</strong>
+                </div>
+                <button class="btn-preorder" onclick="setPreorder('express')">Précommander (Express)</button>
+            </div>
+        </div>
+
+        <div class="trust-note">
+            <strong>⚠️ Information importante sur les délais :</strong>
+            Nous mettons tout en œuvre pour respecter les délais annoncés. Cependant, des retards indépendants de notre volonté peuvent survenir. <strong style="display:inline; color: var(--dore);">Soyez 100% rassuré(e) : vous recevrez votre colis, c'est notre garantie absolue.</strong>
+        </div>
+
+        <!-- Formulaire de précommande -->
+        <div class="preorder-form-container" id="preorderFormContainer">
+            <h3 style="color: var(--dore); margin-bottom: 20px; text-align: center;">Finaliser ma précommande</h3>
+            <form id="preorderForm" onsubmit="sendPreorderToWhatsApp(event)">
+                
+                <div class="form-group">
+                    <label for="preorderType">FORMULE CHOISIE</label>
+                    <select id="preorderType" required onchange="updatePreorderPrice()">
+                        <option value="standard">Standard (170 000 FCFA - Délai 1.5 mois)</option>
+                        <option value="express">Express (315 000 FCFA - Délai 1-2 semaines)</option>
+                    </select>
+                </div>
+
+                <div class="form-group">
+                    <label for="pName">NOM COMPLET</label>
+                    <input type="text" id="pName" required placeholder="Ex: Jean Dupont">
+                </div>
+                
+                <div class="form-group">
+                    <label for="pPhone">NUMÉRO DE TÉLÉPHONE</label>
+                    <input type="tel" id="pPhone" required placeholder="Ex: +228 90 00 00 00">
+                </div>
+                
+                <div class="form-group">
+                    <label for="pLocation">LIEU DE LIVRAISON</label>
+                    <input type="text" id="pLocation" required placeholder="Ville / Quartier">
+                </div>
+
+                <div class="preorder-total-display">
+                    <div>
+                        <span>Prix total de la table :</span>
+                        <span id="displayTotalPreorder">170 000 FCFA</span>
+                    </div>
+                    <div>
+                        <span>💳 Acompte à payer (75%) :</span>
+                        <span id="displayDeposit">127 500 FCFA</span>
+                    </div>
+                    <div>
+                        <span>💵 Reste à la livraison (25%) :</span>
+                        <span id="displayBalance">42 500 FCFA</span>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label for="pMessage">MESSAGE (Optionnel)</label>
+                    <textarea id="pMessage" rows="2" placeholder="Une question sur la précommande ?"></textarea>
+                </div>
+                
+                <button type="submit" class="btn-submit">Envoyer ma précommande via WhatsApp</button>
+            </form>
+        </div>
+    </section>
+
+    <!-- LIGHTBOX (MODAL) -->
     <div id="mediaModal" class="media-modal" onclick="closeModal(event)">
         <span class="close-modal" onclick="closeModal(event)">&times;</span>
         <div id="modalContent" class="modal-content"></div>
@@ -692,23 +1090,7 @@
             { name: "Mariam C.", country: "Niger 🇳🇪", stars: 5, text: "J'avais peur pour la livraison à Niamey, mais tout est arrivé intact. L'emballage est très solide." },
             { name: "Ibrahima D.", country: "Guinée 🇬🇳", stars: 4, text: "Produit conforme. Un peu lourd mais c'est normal vu la qualité. Très bon rapport qualité/prix." },
             { name: "Sarah J.", country: "Togo 🇹🇬", stars: 5, text: "J'ai profité de la réduction pour 2 tables. Une pour la maison, une pour le bureau. C'est un excellent investissement." },
-            { name: "Kodjo A.", country: "Togo 🇹🇬", stars: 5, text: "Habitant Kara, la livraison a été plus rapide que prévu. Colis nickel, je suis très satisfait." },
-            { name: "Yao K.", country: "Côte d'Ivoire 🇨🇮", stars: 5, text: "Le plateau de ping-pong se pose très facilement. Les accessoires sont complets. Rien à redire." },
-            { name: "Binta S.", country: "Sénégal 🇸🇳", stars: 5, text: "Vraiment une belle surprise. La table fait très haut de gamme dans mon salon. Merci pour le sérieux." },
-            { name: "Tunde A.", country: "Nigéria 🇳🇬", stars: 5, text: "Excellent customer service. The package was well secured with foam. The table is sturdy." },
-            { name: "Seydou K.", country: "Mali 🇲🇱", stars: 4, text: "Très content de mon achat. Le colis a mis 5 jours pour arriver mais l'attente en valait la peine." },
-            { name: "Akosua B.", country: "Ghana 🇬🇭", stars: 5, text: "Perfect for family game nights. The kids love it. Delivery to Kumasi was smooth." },
-            { name: "Salifou M.", country: "Burkina Faso 🇧🇫", stars: 5, text: "Je recommande vivement. Le vendeur est de confiance, il m'a envoyé une vidéo du produit avant l'envoi." },
-            { name: "Grâce H.", country: "Bénin 🇧🇯", stars: 5, text: "Superbe table, les boules de billard sont de bonne qualité. Livrée à Parakou sans aucun problème." },
-            { name: "Abdoul R.", country: "Niger 🇳🇪", stars: 5, text: "Très bon produit. Le tapis est épais et les finitions sont propres. Je suis bluffé par la qualité." },
-            { name: "Moussa C.", country: "Guinée 🇬🇳", stars: 5, text: "Livraison à Conakry effectuée avec succès. Le colis était bien protégé. Vendeur à l'écoute." },
-            { name: "Efua O.", country: "Ghana 🇬🇭", stars: 5, text: "I was skeptical at first but the product exceeded my expectations. Highly recommend." },
-            { name: "Alioune F.", country: "Sénégal 🇸🇳", stars: 5, text: "Transaction parfaite. Le paiement à la livraison m'a rassuré. La table est magnifique." },
-            { name: "Adjoa P.", country: "Togo 🇹🇬", stars: 5, text: "Je l'ai offert à mon mari pour son anniversaire, il a adoré ! La livraison à Agoè a été très rapide." },
-            { name: "Souleymane D.", country: "Côte d'Ivoire 🇨🇮", stars: 4, text: "Bonne qualité générale. J'aurais aimé que les queues soient un peu plus longues, mais ça reste un excellent achat." },
-            { name: "Aicha B.", country: "Mali 🇲🇱", stars: 5, text: "Emballage soigné, aucun défaut. Le service client répond très vite sur WhatsApp. Je valide." },
-            { name: "Kojo A.", country: "Ghana 🇬🇭", stars: 5, text: "Very fast delivery to Accra. The 4-in-1 feature is amazing. Value for money." },
-            { name: "Nadia T.", country: "Bénin 🇧🇯", stars: 5, text: "Une très belle table, les enfants ne décollent plus de la maison. Merci pour votre professionnalisme." }
+            { name: "Kodjo A.", country: "Togo 🇹🇬", stars: 5, text: "Habitant Kara, la livraison a été plus rapide que prévu. Colis nickel, je suis très satisfait." }
         ];
 
         const reviewsContainer = document.getElementById('reviewsContainer');
@@ -735,7 +1117,7 @@
             reviewsContainer.appendChild(card);
         });
 
-        // --- LOGIQUE DU PRIX ET DU FORMULAIRE ---
+        // --- LOGIQUE DU PRIX ET DU FORMULAIRE DE VENTE NORMALE ---
         const basePrice = 185000; 
         const discounts = { 1: 0, 2: 0.10, 3: 0.13, 4: 0.20 };
 
@@ -753,14 +1135,41 @@
             updateFormPrice();
         }
 
-        // --- LOGIQUE DU CARROUSEL ---
+        // --- LOGIQUE DE LA PRECOMMANDE ---
+        const preorderPrices = {
+            'standard': 170000,
+            'express': 315000
+        };
+
+        function updatePreorderPrice() {
+            const type = document.getElementById('preorderType').value;
+            const total = preorderPrices[type];
+            const deposit = total * 0.75;
+            const balance = total * 0.25;
+
+            document.getElementById('displayTotalPreorder').innerText = total.toLocaleString('fr-FR') + ' FCFA';
+            document.getElementById('displayDeposit').innerText = Math.round(deposit).toLocaleString('fr-FR') + ' FCFA';
+            document.getElementById('displayBalance').innerText = Math.round(balance).toLocaleString('fr-FR') + ' FCFA';
+        }
+
+        updatePreorderPrice();
+
+        function setPreorder(type) {
+            document.getElementById('preorderType').value = type;
+            updatePreorderPrice();
+            document.getElementById('preorderFormContainer').scrollIntoView({ behavior: 'smooth' });
+        }
+
+        // --- LOGIQUE DU CARROUSEL PRINCIPAL (Images/Vidéos) ---
         const track = document.getElementById('carouselTrack');
         const slides = document.querySelectorAll('.carousel-slide');
+        const heroContainer = document.getElementById('heroImageContainer');
         let currentIndex = 0;
         const totalSlides = slides.length;
         let carouselInterval; 
 
         function startCarousel() {
+            clearInterval(carouselInterval);
             carouselInterval = setInterval(() => {
                 currentIndex = (currentIndex + 1) % totalSlides;
                 updateCarousel();
@@ -785,7 +1194,58 @@
                 }
             });
         }
+
+        // Fonctions pour les flèches
+        function nextSlide(event) {
+            event.stopPropagation(); // Empêche l'ouverture du modal si on clique sur la flèche
+            currentIndex = (currentIndex + 1) % totalSlides;
+            updateCarousel();
+            startCarousel(); // Réinitialise le timer
+        }
+
+        function prevSlide(event) {
+            event.stopPropagation();
+            currentIndex = (currentIndex - 1 + totalSlides) % totalSlides;
+            updateCarousel();
+            startCarousel();
+        }
+
+        // Pause au survol
+        heroContainer.addEventListener('mouseenter', () => clearInterval(carouselInterval));
+        heroContainer.addEventListener('mouseleave', startCarousel);
+
         startCarousel();
+
+        // --- LOGIQUE DU CARROUSEL D'AVIS (Auto-scroll + Flèches) ---
+        const reviewsWrapper = document.getElementById('reviewsWrapper');
+        const scrollAmount = 340; // Largeur de la carte + gap
+        let reviewAutoScrollInterval;
+
+        function startReviewAutoScroll() {
+            clearInterval(reviewAutoScrollInterval);
+            reviewAutoScrollInterval = setInterval(() => {
+                // Si on arrive à la fin, on revient au début
+                if (reviewsContainer.scrollLeft + reviewsContainer.clientWidth >= reviewsContainer.scrollWidth - 10) {
+                    reviewsContainer.scrollTo({ left: 0, behavior: 'smooth' });
+                } else {
+                    reviewsContainer.scrollBy({ left: scrollAmount, behavior: 'smooth' });
+                }
+            }, 3000); // Défilement toutes les 3 secondes
+        }
+
+        function scrollReviewsRight() {
+            reviewsContainer.scrollBy({ left: scrollAmount, behavior: 'smooth' });
+        }
+
+        function scrollReviewsLeft() {
+            reviewsContainer.scrollBy({ left: -scrollAmount, behavior: 'smooth' });
+        }
+
+        // Pause au survol pour les avis
+        reviewsWrapper.addEventListener('mouseenter', () => clearInterval(reviewAutoScrollInterval));
+        reviewsWrapper.addEventListener('mouseleave', startReviewAutoScroll);
+
+        startReviewAutoScroll();
 
         // --- LIGHTBOX ---
         const modal = document.getElementById('mediaModal');
@@ -811,7 +1271,7 @@
             }
         }
 
-        // --- WHATSAPP ---
+        // --- ENVOI WHATSAPP (VENTE NORMALE) ---
         function sendToWhatsApp(event) {
             event.preventDefault(); 
 
@@ -829,7 +1289,7 @@
             let formattedUnit = basePrice.toLocaleString('fr-FR');
             let formattedTotal = Math.round(totalPrice).toLocaleString('fr-FR');
 
-            let text = `*NOUVELLE COMMANDE - BILLARD 4 EN 1 PREMIUM*%0A%0A`;
+            let text = `*NOUVELLE COMMANDE (STOCK) - BILLARD PREMIUM*%0A%0A`;
             text += `*Nom :* ${encodeURIComponent(name)}%0A`;
             text += `*Téléphone :* ${encodeURIComponent(phone)}%0A`;
             text += `*Lieu de livraison :* ${encodeURIComponent(location)}%0A%0A`;
@@ -839,10 +1299,45 @@
             text += `*Prix unitaire :* ${formattedUnit} FCFA%0A`;
             
             if (discount > 0) {
-                text += `*Promotion appliquée :* OUI (-${discount * 100}% car achat de ${quantity} tables)%0A`;
+                text += `*Promotion appliquée :* OUI (-${discount * 100}%)%0A`;
             }
             
             text += `*PRIX TOTAL :* ${formattedTotal} FCFA%0A%0A`;
+            
+            if (message.trim() !== "") {
+                text += `*Message du client :* ${encodeURIComponent(message)}%0A`;
+            }
+
+            window.open(`https://wa.me/${waNumber}?text=${text}`, '_blank');
+        }
+
+        // --- ENVOI WHATSAPP (PRECOMMANDE) ---
+        function sendPreorderToWhatsApp(event) {
+            event.preventDefault();
+
+            const type = document.getElementById('preorderType').value;
+            const name = document.getElementById('pName').value;
+            const phone = document.getElementById('pPhone').value;
+            const location = document.getElementById('pLocation').value;
+            const message = document.getElementById('pMessage').value;
+            const waNumber = '22898722706';
+
+            const total = preorderPrices[type];
+            const deposit = total * 0.75;
+            const balance = total * 0.25;
+
+            let typeLabel = type === 'standard' ? 'STANDARD (1 mois et demi)' : 'EXPRESS (1 à 2 semaines)';
+
+            let text = `*NOUVELLE PRÉCOMMANDE - BILLARD PREMIUM*%0A%0A`;
+            text += `*Formule :* ${typeLabel}%0A`;
+            text += `*Nom :* ${encodeURIComponent(name)}%0A`;
+            text += `*Téléphone :* ${encodeURIComponent(phone)}%0A`;
+            text += `*Lieu de livraison :* ${encodeURIComponent(location)}%0A%0A`;
+            
+            text += `*DÉTAILS DU PAIEMENT :*%0A`;
+            text += `*Prix total :* ${total.toLocaleString('fr-FR')} FCFA%0A`;
+            text += `*Acompte à verser (75%) :* ${Math.round(deposit).toLocaleString('fr-FR')} FCFA%0A`;
+            text += `*Reste à payer à la livraison (25%) :* ${Math.round(balance).toLocaleString('fr-FR')} FCFA%0A%0A`;
             
             if (message.trim() !== "") {
                 text += `*Message du client :* ${encodeURIComponent(message)}%0A`;
