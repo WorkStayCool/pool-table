@@ -1,0 +1,852 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>POOL TABLE</title>
+    
+    <!-- FAVICON AJOUTÉ ICI -->
+    <link rel="icon" type="image/png" href="img/LOGO-Photoroom.png">
+    
+    <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@700&family=Montserrat:wght@300;400;600;700&display=swap" rel="stylesheet">
+    
+    <style>
+        /* --- PALETTE DE COULEURS --- */
+        :root {
+            --argent-brosse: #2a2a2a;    
+            --argent-clair: #C0C0C0;     
+            --violet-aubergine: #4B0082; 
+            --dore: #DAA520;             
+            --noir: #0a0a0a;
+            --rouge-urgence: #ff3333;
+            --vert-whatsapp: #25D366;
+        }
+
+        /* --- RESET & BASE --- */
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            background: radial-gradient(circle at 70% 50%, rgba(75, 0, 130, 0.15) 0%, transparent 50%), 
+                        linear-gradient(135deg, #1a1a1a 0%, #3a3a3a 50%, #1a1a1a 100%);
+            color: var(--argent-clair);
+            font-family: 'Montserrat', sans-serif;
+            line-height: 1.6;
+            min-height: 100vh;
+            overflow-x: hidden;
+        }
+
+        /* --- ANIMATIONS --- */
+        @keyframes pulseStock {
+            0% { transform: scale(1); box-shadow: 0 0 0 0 rgba(255, 51, 51, 0.7); }
+            70% { transform: scale(1.05); box-shadow: 0 0 0 10px rgba(255, 51, 51, 0); }
+            100% { transform: scale(1); box-shadow: 0 0 0 0 rgba(255, 51, 51, 0); }
+        }
+
+        @keyframes clignoter {
+            0% { opacity: 1; }
+            50% { opacity: 0.6; }
+            100% { opacity: 1; }
+        }
+
+        /* --- NAVBAR --- */
+        nav {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            padding: 20px 40px;
+            border-bottom: 1px solid rgba(192, 192, 192, 0.1);
+            font-size: 1.2rem;
+            letter-spacing: 2px;
+        }
+        
+        nav .logo {
+            font-weight: 700;
+            color: var(--dore);
+        }
+
+        /* --- BANNIÈRE PROMO --- */
+        .promo-banner {
+            background-color: var(--dore);
+            color: var(--noir);
+            text-align: center;
+            padding: 10px;
+            font-weight: 700;
+            font-size: 0.95rem;
+            letter-spacing: 1px;
+        }
+
+        /* --- SECTION HERO --- */
+        .hero {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            max-width: 1300px;
+            margin: 30px auto;
+            padding: 0 40px;
+            gap: 50px;
+        }
+
+        .hero-image-container {
+            flex: 1.2;
+            position: relative;
+            width: 100%;
+            max-width: 700px;
+            aspect-ratio: 4 / 3;
+            max-height: 500px;
+            overflow: hidden;
+            mask-image: linear-gradient(to right, transparent, black 10%, black 90%, transparent);
+            -webkit-mask-image: linear-gradient(to right, transparent, black 10%, black 90%, transparent);
+        }
+
+        .carousel-track {
+            display: flex;
+            transition: transform 0.8s cubic-bezier(0.25, 1, 0.5, 1);
+            height: 100%;
+        }
+
+        .carousel-slide {
+            min-width: 100%;
+            height: 100%;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            opacity: 0.3;
+            transform: scale(0.7);
+            transition: all 0.8s ease;
+            cursor: pointer;
+        }
+
+        .carousel-slide img, .carousel-slide video {
+            max-width: 100%;
+            max-height: 100%;
+            object-fit: contain;
+            border-radius: 15px;
+            filter: drop-shadow(0px 20px 30px rgba(0,0,0,0.8));
+            background-color: transparent;
+        }
+
+        .carousel-slide.active {
+            opacity: 1;
+            transform: scale(1);
+            z-index: 2;
+        }
+
+        .hero-text {
+            flex: 1;
+            z-index: 10;
+        }
+
+        .stock-badge {
+            display: inline-block;
+            background-color: var(--rouge-urgence);
+            color: white;
+            padding: 8px 15px;
+            border-radius: 20px;
+            font-weight: 700;
+            font-size: 0.85rem;
+            margin-bottom: 15px;
+            animation: pulseStock 2s infinite;
+        }
+
+        .hero-text h1 {
+            font-family: 'Cinzel', serif;
+            font-size: 3.5rem;
+            line-height: 1.1;
+            color: var(--dore);
+            text-transform: uppercase;
+            margin-bottom: 15px;
+            text-shadow: 0px 10px 20px rgba(0,0,0,0.5);
+        }
+
+        .hero-text p {
+            font-size: 1.05rem;
+            margin-bottom: 20px;
+            color: #e0e0e0;
+            font-weight: 300;
+        }
+
+        .specs-list {
+            list-style: none;
+            margin-bottom: 20px;
+            font-size: 0.9rem;
+        }
+        .specs-list li {
+            margin-bottom: 5px;
+            display: flex;
+            align-items: center;
+        }
+        .specs-list li::before {
+            content: '▪';
+            color: var(--dore);
+            margin-right: 10px;
+        }
+
+        .price-container {
+            margin-bottom: 25px;
+            background: rgba(0,0,0,0.4);
+            padding: 15px;
+            border-radius: 10px;
+            border-left: 4px solid var(--dore);
+        }
+
+        .price-tag {
+            font-size: 2.8rem;
+            font-weight: 700;
+            color: var(--argent-clair);
+            display: block;
+            line-height: 1;
+        }
+
+        .price-currency {
+            font-size: 1rem;
+            color: var(--dore);
+            margin-left: 10px;
+            font-weight: 400;
+        }
+
+        .promo-text {
+            color: var(--dore);
+            font-weight: 600;
+            font-size: 0.9rem;
+            margin-top: 5px;
+            display: block;
+        }
+
+        .action-buttons {
+            display: flex;
+            gap: 15px;
+            flex-wrap: wrap;
+        }
+
+        .btn-commander {
+            display: inline-block;
+            padding: 15px 25px;
+            background-color: transparent;
+            color: var(--argent-clair);
+            border: 2px solid var(--argent-clair);
+            border-radius: 30px;
+            font-size: 0.95rem;
+            font-weight: 600;
+            letter-spacing: 1px;
+            text-transform: uppercase;
+            cursor: pointer;
+            transition: all 0.4s ease;
+            text-decoration: none;
+            text-align: center;
+            flex: 1;
+            min-width: 180px;
+            animation: clignoter 1.5s infinite; 
+        }
+
+        .btn-commander:hover {
+            background-color: var(--argent-clair);
+            color: var(--noir);
+            transform: translateY(-3px);
+            animation: none;
+            opacity: 1;
+        }
+
+        .btn-promo {
+            border-color: var(--dore);
+            color: var(--dore);
+            box-shadow: 0 0 15px rgba(218, 165, 32, 0.2);
+        }
+
+        .btn-promo:hover {
+            background-color: var(--dore);
+            color: var(--noir);
+            box-shadow: 0 0 20px rgba(218, 165, 32, 0.6);
+            animation: none;
+            opacity: 1;
+        }
+
+        /* --- SECTION AVIS CLIENTS --- */
+        .reviews-section {
+            max-width: 1300px;
+            margin: 50px auto;
+            padding: 0 40px;
+        }
+
+        .reviews-header {
+            text-align: center;
+            margin-bottom: 30px;
+        }
+
+        .reviews-header h2 {
+            font-family: 'Cinzel', serif;
+            color: var(--dore);
+            font-size: 2.2rem;
+            margin-bottom: 10px;
+        }
+
+        .reviews-header .average-rating {
+            color: var(--argent-clair);
+            font-size: 1.1rem;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .stars {
+            color: var(--dore);
+            font-size: 1.2rem;
+            letter-spacing: 2px;
+        }
+
+        .reviews-container {
+            display: flex;
+            gap: 20px;
+            overflow-x: auto;
+            padding-bottom: 20px;
+            scroll-snap-type: x mandatory;
+            -ms-overflow-style: none;  
+            scrollbar-width: none;  
+        }
+        .reviews-container::-webkit-scrollbar { 
+            display: none; 
+        }
+
+        .review-card {
+            min-width: 320px;
+            max-width: 320px;
+            background: rgba(20, 20, 20, 0.8);
+            border: 1px solid rgba(218, 165, 32, 0.3);
+            border-radius: 15px;
+            padding: 20px;
+            scroll-snap-align: start;
+            box-shadow: 0 10px 20px rgba(0,0,0,0.5);
+            transition: transform 0.3s ease, border-color 0.3s ease;
+        }
+
+        .review-card:hover {
+            transform: translateY(-5px);
+            border-color: var(--dore);
+        }
+
+        .reviewer-info {
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-start;
+            margin-bottom: 10px;
+        }
+
+        .reviewer-name {
+            font-weight: 700;
+            color: white;
+            font-size: 1rem;
+        }
+
+        .reviewer-country {
+            font-size: 0.8rem;
+            color: var(--argent-clair);
+            background: rgba(255,255,255,0.1);
+            padding: 2px 8px;
+            border-radius: 10px;
+            display: inline-block;
+            margin-top: 5px;
+        }
+
+        .review-text {
+            font-size: 0.9rem;
+            font-style: italic;
+            color: #ccc;
+            margin-bottom: 15px;
+            line-height: 1.5;
+        }
+
+        .verified-badge {
+            display: flex;
+            align-items: center;
+            gap: 5px;
+            font-size: 0.75rem;
+            color: var(--vert-whatsapp);
+            font-weight: 600;
+        }
+
+        /* --- SECTION FORMULAIRE --- */
+        .form-section {
+            max-width: 800px;
+            margin: 40px auto 80px;
+            padding: 40px;
+            background: rgba(20, 20, 20, 0.9);
+            backdrop-filter: blur(10px);
+            border-radius: 15px;
+            border: 1px solid rgba(192, 192, 192, 0.2);
+            box-shadow: 0 20px 50px rgba(0,0,0,0.7);
+        }
+
+        .form-section h2 {
+            font-family: 'Cinzel', serif;
+            color: var(--dore);
+            text-align: center;
+            margin-bottom: 10px;
+            font-size: 2rem;
+        }
+        
+        .form-subtitle {
+            text-align: center;
+            color: var(--argent-clair);
+            margin-bottom: 30px;
+            font-size: 0.9rem;
+        }
+
+        .form-group {
+            margin-bottom: 20px;
+        }
+
+        .form-group label {
+            display: block;
+            margin-bottom: 8px;
+            color: var(--argent-clair);
+            font-size: 0.9rem;
+            letter-spacing: 1px;
+        }
+
+        .form-group input, .form-group textarea, .form-group select {
+            width: 100%;
+            padding: 15px;
+            background-color: rgba(0,0,0,0.5);
+            border: 1px solid #444;
+            border-radius: 8px;
+            color: white;
+            font-family: 'Montserrat', sans-serif;
+            transition: all 0.3s;
+        }
+
+        .form-group input:focus, .form-group textarea:focus, .form-group select:focus {
+            border-color: var(--violet-aubergine);
+            outline: none;
+            box-shadow: 0 0 10px rgba(75, 0, 130, 0.5);
+        }
+
+        .total-price-display {
+            background: rgba(218, 165, 32, 0.1);
+            border: 1px dashed var(--dore);
+            padding: 20px;
+            border-radius: 8px;
+            margin: 25px 0;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            box-shadow: inset 0 0 15px rgba(218, 165, 32, 0.1);
+        }
+
+        .total-price-display span {
+            color: var(--argent-clair);
+            font-size: 1.1rem;
+            letter-spacing: 1px;
+        }
+
+        .total-price-display strong {
+            color: var(--dore);
+            font-size: 2rem;
+            text-shadow: 0 0 10px rgba(218, 165, 32, 0.4);
+        }
+
+        .btn-submit {
+            width: 100%;
+            padding: 18px;
+            background: linear-gradient(45deg, var(--violet-aubergine), #6a00b8);
+            color: white;
+            border: none;
+            border-radius: 8px;
+            font-size: 1.2rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+        }
+
+        .btn-submit:hover {
+            box-shadow: 0 0 20px rgba(75, 0, 130, 0.8);
+            transform: scale(1.02);
+        }
+
+        /* --- LIGHTBOX (MODAL) --- */
+        .media-modal {
+            display: none; 
+            position: fixed;
+            z-index: 10000;
+            left: 0;
+            top: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.95);
+            align-items: center;
+            justify-content: center;
+            flex-direction: column;
+        }
+
+        .media-modal.show {
+            display: flex;
+        }
+
+        .modal-content {
+            max-width: 90%;
+            max-height: 85vh;
+            border-radius: 10px;
+            box-shadow: 0 0 50px rgba(218, 165, 32, 0.3); 
+        }
+
+        .modal-content img, .modal-content video {
+            max-width: 100%;
+            max-height: 85vh;
+            border-radius: 10px;
+            object-fit: contain;
+        }
+
+        .close-modal {
+            position: absolute;
+            top: 20px;
+            right: 40px;
+            color: var(--dore);
+            font-size: 50px;
+            font-weight: bold;
+            cursor: pointer;
+            transition: 0.3s;
+        }
+
+        .close-modal:hover {
+            color: white;
+            transform: scale(1.1);
+        }
+
+        /* --- RESPONSIVE --- */
+        @media (max-width: 900px) {
+            .hero {
+                flex-direction: column;
+                padding: 20px;
+                gap: 30px;
+            }
+            .hero-image-container {
+                width: 100%;
+                aspect-ratio: 4 / 3;
+                max-height: 350px;
+            }
+            .hero-text {
+                text-align: center;
+            }
+            .hero-text h1 { font-size: 2.8rem; }
+            .action-buttons { flex-direction: column; }
+            .form-section { margin: 20px; padding: 20px; }
+            .total-price-display { flex-direction: column; gap: 10px; text-align: center; }
+            .close-modal { top: 10px; right: 20px; font-size: 40px; }
+            
+            .reviews-section { padding: 0 20px; }
+            .review-card { min-width: 280px; }
+        }
+    </style>
+</head>
+<body>
+
+    <nav>
+        <div class="logo">BILLARD PRESTIGE</div>
+    </nav>
+
+    <div class="promo-banner">
+        ⚡ OFFRE SPÉCIALE : Jusqu'à -20% de réduction selon la quantité achetée ! ⚡
+    </div>
+
+    <section class="hero">
+        
+        <div class="hero-image-container">
+            <div class="carousel-track" id="carouselTrack">
+                
+                <!-- 1. Vidéo -->
+                <div class="carousel-slide active" onclick="openModal('videos/table-de-billard-1.mp4', 'video')">
+                    <video src="videos/table-de-billard-1.mp4" muted loop playsinline autoplay></video>
+                </div>
+                
+                <!-- 2 à 10. Images -->
+                <div class="carousel-slide" onclick="openModal('img/table-de-billard-1.jpg', 'image')"><img src="img/table-de-billard-1.jpg" alt="Table de billard 1"></div>
+                <div class="carousel-slide" onclick="openModal('img/table-de-billard-2.jpg', 'image')"><img src="img/table-de-billard-2.jpg" alt="Table de billard 2"></div>
+                <div class="carousel-slide" onclick="openModal('img/table-de-billard-3.jpg', 'image')"><img src="img/table-de-billard-3.jpg" alt="Table de billard 3"></div>
+                <div class="carousel-slide" onclick="openModal('img/table-de-billard-4.jpg', 'image')"><img src="img/table-de-billard-4.jpg" alt="Table de billard 4"></div>
+                <div class="carousel-slide" onclick="openModal('img/table-de-billard-5.jpg', 'image')"><img src="img/table-de-billard-5.jpg" alt="Table de billard 5"></div>
+                <div class="carousel-slide" onclick="openModal('img/table-de-billard-6.jpg', 'image')"><img src="img/table-de-billard-6.jpg" alt="Table de billard 6"></div>
+                <div class="carousel-slide" onclick="openModal('img/table-de-billard-7.jpg', 'image')"><img src="img/table-de-billard-7.jpg" alt="Table de billard 7"></div>
+                <div class="carousel-slide" onclick="openModal('img/table-de-billard-8.jpg', 'image')"><img src="img/table-de-billard-8.jpg" alt="Table de billard 8"></div>
+                <div class="carousel-slide" onclick="openModal('img/table-de-billard-9.jpg', 'image')"><img src="img/table-de-billard-9.jpg" alt="Table de billard 9"></div>
+                <div class="carousel-slide" onclick="openModal('img/table-de-billard-10.jpg', 'image')"><img src="img/table-de-billard-10.jpg" alt="Table de billard 10"></div>
+                
+                <!-- 11. Vidéo -->
+                <div class="carousel-slide" onclick="openModal('videos/table-de-billard-2.mp4', 'video')">
+                    <video src="videos/table-de-billard-2.mp4" muted loop playsinline></video>
+                </div>
+
+            </div>
+        </div>
+
+        <div class="hero-text">
+            <div class="stock-badge">⚠️ ALERTE STOCK : Plus que 4 en stock !</div>
+            <h1>L'Élégance<br>du Billard 4 en 1</h1>
+            <p>Table de jeu multifonction neuve : Billard, Tennis de table, Air Hockey et Snooker. Kit complet inclus pour des heures de divertissement.</p>
+            
+            <ul class="specs-list">
+                <li><strong>Dimensions :</strong>&nbsp;95 x 51 x 64 cm</li>
+                <li><strong>Matériaux :</strong>&nbsp;MDF, PVC et feutrine de qualité</li>
+                <li><strong>Poids :</strong>&nbsp;13 kg (net) / 15 kg (brut)</li>
+                <li><strong>Marque :</strong>&nbsp;Yuanda - Modèle 2003+P2</li>
+            </ul>
+
+            <div class="price-container">
+                <div class="price-tag">
+                    185 000 <span class="price-currency">FCFA</span>
+                </div>
+                <span class="promo-text">Remises : -10% pour 2 | -13% pour 3 | -20% pour 4</span>
+            </div>
+
+            <div class="action-buttons">
+                <a href="#formulaire" class="btn-commander" onclick="setQuantity(1)">Acheter</a>
+                <a href="#formulaire" class="btn-commander btn-promo" onclick="setQuantity(2)">Profiter de la promotion</a>
+            </div>
+        </div>
+    </section>
+
+    <!-- SECTION AVIS CLIENTS -->
+    <section class="reviews-section">
+        <div class="reviews-header">
+            <h2>Ils nous font confiance en Afrique de l'Ouest</h2>
+            <div class="average-rating">
+                <span class="stars">★★★★★</span> 
+                <span>4.9/5 basé sur plus de 300 livraisons</span>
+            </div>
+        </div>
+        
+        <div class="reviews-container" id="reviewsContainer">
+            <!-- Les cartes d'avis sont injectées par JavaScript -->
+        </div>
+    </section>
+
+    <!-- FORMULAIRE -->
+    <section class="form-section" id="formulaire">
+        <h2>Réserver votre table</h2>
+        <p class="form-subtitle">Remplissez ce formulaire pour finaliser votre commande via WhatsApp.</p>
+        
+        <form id="whatsappForm" onsubmit="sendToWhatsApp(event)">
+            <div class="form-group">
+                <label for="name">NOM COMPLET</label>
+                <input type="text" id="name" required placeholder="Ex: Jean Dupont">
+            </div>
+            
+            <div class="form-group">
+                <label for="phone">NUMÉRO DE TÉLÉPHONE</label>
+                <input type="tel" id="phone" required placeholder="Ex: +228 90 00 00 00">
+            </div>
+            
+            <div class="form-group">
+                <label for="location">LIEU DE LIVRAISON</label>
+                <input type="text" id="location" required placeholder="Ville / Quartier">
+            </div>
+
+            <div class="form-group">
+                <label for="quantity">QUANTITÉ SOUHAITÉE</label>
+                <select id="quantity" required onchange="updateFormPrice()">
+                    <option value="1">1 Table (Prix normal)</option>
+                    <option value="2">2 Tables (🔥 Promo -10%)</option>
+                    <option value="3">3 Tables (🔥 Promo -13%)</option>
+                    <option value="4">4 Tables (🔥 Dernier stock ! -20%)</option>
+                </select>
+            </div>
+
+            <div class="total-price-display">
+                <span>Total à payer :</span>
+                <strong id="displayTotalPrice">185 000 FCFA</strong>
+            </div>
+
+            <div class="form-group">
+                <label for="message">MESSAGE (Optionnel)</label>
+                <textarea id="message" rows="2" placeholder="Une question ?"></textarea>
+            </div>
+            
+            <button type="submit" class="btn-submit">Envoyer la commande sur WhatsApp</button>
+        </form>
+    </section>
+
+    <div id="mediaModal" class="media-modal" onclick="closeModal(event)">
+        <span class="close-modal" onclick="closeModal(event)">&times;</span>
+        <div id="modalContent" class="modal-content"></div>
+    </div>
+
+    <!-- SCRIPTS -->
+    <script>
+        // --- GÉNÉRATION DES AVIS CLIENTS ---
+        const reviewsData = [
+            { name: "Koffi A.", country: "Togo 🇹🇬", stars: 5, text: "Livraison très rapide à Lomé. Le colis était super bien emballé, aucune rayure sur la table. Mes enfants sont ravis !" },
+            { name: "Aminata D.", country: "Côte d'Ivoire 🇨🇮", stars: 5, text: "J'ai reçu ma commande à Abidjan en 3 jours. La qualité est au rendez-vous, le tapis est parfait. Je recommande à 100%." },
+            { name: "Ousmane S.", country: "Sénégal 🇸🇳", stars: 5, text: "Très sérieux. La table est exactement comme sur les photos. Le livreur a même aidé à monter les pieds. Merci !" },
+            { name: "Chidi O.", country: "Nigéria 🇳🇬", stars: 4, text: "Great product for the price. Delivery to Lagos took a bit longer than expected but the packaging was excellent." },
+            { name: "Fatoumata K.", country: "Mali 🇲🇱", stars: 5, text: "Reçu à Bamako en parfait état. La promotion sur les 2 tables valait vraiment le coup. Top qualité." },
+            { name: "Kwame M.", country: "Ghana 🇬🇭", stars: 5, text: "Very solid table. The air hockey feature is a big hit with my friends. Fast delivery to Accra." },
+            { name: "Awa T.", country: "Burkina Faso 🇧🇫", stars: 5, text: "Commande reçue à Ouagadougou rapidement. Le service client sur WhatsApp est très réactif. 5 étoiles." },
+            { name: "Rachid B.", country: "Bénin 🇧🇯", stars: 5, text: "Livraison à Cotonou impeccable. La table est très stable, on a passé toute la soirée à jouer. Super achat." },
+            { name: "Mariam C.", country: "Niger 🇳🇪", stars: 5, text: "J'avais peur pour la livraison à Niamey, mais tout est arrivé intact. L'emballage est très solide." },
+            { name: "Ibrahima D.", country: "Guinée 🇬🇳", stars: 4, text: "Produit conforme. Un peu lourd mais c'est normal vu la qualité. Très bon rapport qualité/prix." },
+            { name: "Sarah J.", country: "Togo 🇹🇬", stars: 5, text: "J'ai profité de la réduction pour 2 tables. Une pour la maison, une pour le bureau. C'est un excellent investissement." },
+            { name: "Kodjo A.", country: "Togo 🇹🇬", stars: 5, text: "Habitant Kara, la livraison a été plus rapide que prévu. Colis nickel, je suis très satisfait." },
+            { name: "Yao K.", country: "Côte d'Ivoire 🇨🇮", stars: 5, text: "Le plateau de ping-pong se pose très facilement. Les accessoires sont complets. Rien à redire." },
+            { name: "Binta S.", country: "Sénégal 🇸🇳", stars: 5, text: "Vraiment une belle surprise. La table fait très haut de gamme dans mon salon. Merci pour le sérieux." },
+            { name: "Tunde A.", country: "Nigéria 🇳🇬", stars: 5, text: "Excellent customer service. The package was well secured with foam. The table is sturdy." },
+            { name: "Seydou K.", country: "Mali 🇲🇱", stars: 4, text: "Très content de mon achat. Le colis a mis 5 jours pour arriver mais l'attente en valait la peine." },
+            { name: "Akosua B.", country: "Ghana 🇬🇭", stars: 5, text: "Perfect for family game nights. The kids love it. Delivery to Kumasi was smooth." },
+            { name: "Salifou M.", country: "Burkina Faso 🇧🇫", stars: 5, text: "Je recommande vivement. Le vendeur est de confiance, il m'a envoyé une vidéo du produit avant l'envoi." },
+            { name: "Grâce H.", country: "Bénin 🇧🇯", stars: 5, text: "Superbe table, les boules de billard sont de bonne qualité. Livrée à Parakou sans aucun problème." },
+            { name: "Abdoul R.", country: "Niger 🇳🇪", stars: 5, text: "Très bon produit. Le tapis est épais et les finitions sont propres. Je suis bluffé par la qualité." },
+            { name: "Moussa C.", country: "Guinée 🇬🇳", stars: 5, text: "Livraison à Conakry effectuée avec succès. Le colis était bien protégé. Vendeur à l'écoute." },
+            { name: "Efua O.", country: "Ghana 🇬🇭", stars: 5, text: "I was skeptical at first but the product exceeded my expectations. Highly recommend." },
+            { name: "Alioune F.", country: "Sénégal 🇸🇳", stars: 5, text: "Transaction parfaite. Le paiement à la livraison m'a rassuré. La table est magnifique." },
+            { name: "Adjoa P.", country: "Togo 🇹🇬", stars: 5, text: "Je l'ai offert à mon mari pour son anniversaire, il a adoré ! La livraison à Agoè a été très rapide." },
+            { name: "Souleymane D.", country: "Côte d'Ivoire 🇨🇮", stars: 4, text: "Bonne qualité générale. J'aurais aimé que les queues soient un peu plus longues, mais ça reste un excellent achat." },
+            { name: "Aicha B.", country: "Mali 🇲🇱", stars: 5, text: "Emballage soigné, aucun défaut. Le service client répond très vite sur WhatsApp. Je valide." },
+            { name: "Kojo A.", country: "Ghana 🇬🇭", stars: 5, text: "Very fast delivery to Accra. The 4-in-1 feature is amazing. Value for money." },
+            { name: "Nadia T.", country: "Bénin 🇧🇯", stars: 5, text: "Une très belle table, les enfants ne décollent plus de la maison. Merci pour votre professionnalisme." }
+        ];
+
+        const reviewsContainer = document.getElementById('reviewsContainer');
+
+        reviewsData.forEach(review => {
+            const starsHTML = '★'.repeat(review.stars) + '☆'.repeat(5 - review.stars);
+            
+            const card = document.createElement('div');
+            card.className = 'review-card';
+            card.innerHTML = `
+                <div class="reviewer-info">
+                    <div>
+                        <div class="reviewer-name">${review.name}</div>
+                        <div class="reviewer-country">${review.country}</div>
+                    </div>
+                    <div class="stars">${starsHTML}</div>
+                </div>
+                <p class="review-text">"${review.text}"</p>
+                <div class="verified-badge">
+                    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"></path><polyline points="22 4 12 14.01 9 11.01"></polyline></svg>
+                    Achat vérifié
+                </div>
+            `;
+            reviewsContainer.appendChild(card);
+        });
+
+        // --- LOGIQUE DU PRIX ET DU FORMULAIRE ---
+        const basePrice = 185000; 
+        const discounts = { 1: 0, 2: 0.10, 3: 0.13, 4: 0.20 };
+
+        function updateFormPrice() {
+            const quantity = parseInt(document.getElementById('quantity').value);
+            const discount = discounts[quantity] || 0; 
+            let totalPrice = basePrice * quantity;
+            if (discount > 0) totalPrice = totalPrice * (1 - discount);
+            document.getElementById('displayTotalPrice').innerText = Math.round(totalPrice).toLocaleString('fr-FR') + ' FCFA';
+        }
+        updateFormPrice();
+
+        function setQuantity(val) {
+            document.getElementById('quantity').value = val;
+            updateFormPrice();
+        }
+
+        // --- LOGIQUE DU CARROUSEL ---
+        const track = document.getElementById('carouselTrack');
+        const slides = document.querySelectorAll('.carousel-slide');
+        let currentIndex = 0;
+        const totalSlides = slides.length;
+        let carouselInterval; 
+
+        function startCarousel() {
+            carouselInterval = setInterval(() => {
+                currentIndex = (currentIndex + 1) % totalSlides;
+                updateCarousel();
+            }, 4500); 
+        }
+
+        function updateCarousel() {
+            track.style.transform = `translateX(-${currentIndex * 100}%)`;
+            
+            slides.forEach((slide, index) => {
+                const isActive = index === currentIndex;
+                slide.classList.toggle('active', isActive);
+
+                const video = slide.querySelector('video');
+                if (video) {
+                    if (isActive) {
+                        video.play().catch(e => console.log("Lecture auto bloquée :", e)); 
+                    } else {
+                        video.pause(); 
+                        video.currentTime = 0; 
+                    }
+                }
+            });
+        }
+        startCarousel();
+
+        // --- LIGHTBOX ---
+        const modal = document.getElementById('mediaModal');
+        const modalContent = document.getElementById('modalContent');
+
+        function openModal(src, type) {
+            clearInterval(carouselInterval); 
+
+            if (type === 'image') {
+                modalContent.innerHTML = `<img src="${src}" alt="Média en grand">`;
+            } else if (type === 'video') {
+                modalContent.innerHTML = `<video src="${src}" controls autoplay playsinline></video>`;
+            }
+
+            modal.classList.add('show');
+        }
+
+        function closeModal(event) {
+            if (event.target.classList.contains('media-modal') || event.target.classList.contains('close-modal')) {
+                modal.classList.remove('show');
+                modalContent.innerHTML = ''; 
+                startCarousel(); 
+            }
+        }
+
+        // --- WHATSAPP ---
+        function sendToWhatsApp(event) {
+            event.preventDefault(); 
+
+            const name = document.getElementById('name').value;
+            const phone = document.getElementById('phone').value;
+            const location = document.getElementById('location').value;
+            const quantity = parseInt(document.getElementById('quantity').value);
+            const message = document.getElementById('message').value;
+            const waNumber = '22898722706'; 
+
+            const discount = discounts[quantity] || 0;
+            let totalPrice = basePrice * quantity;
+            if (discount > 0) totalPrice = totalPrice * (1 - discount);
+
+            let formattedUnit = basePrice.toLocaleString('fr-FR');
+            let formattedTotal = Math.round(totalPrice).toLocaleString('fr-FR');
+
+            let text = `*NOUVELLE COMMANDE - BILLARD 4 EN 1 PREMIUM*%0A%0A`;
+            text += `*Nom :* ${encodeURIComponent(name)}%0A`;
+            text += `*Téléphone :* ${encodeURIComponent(phone)}%0A`;
+            text += `*Lieu de livraison :* ${encodeURIComponent(location)}%0A%0A`;
+            
+            text += `*DÉTAILS DE LA COMMANDE :*%0A`;
+            text += `*Quantité :* ${quantity} table(s)%0A`;
+            text += `*Prix unitaire :* ${formattedUnit} FCFA%0A`;
+            
+            if (discount > 0) {
+                text += `*Promotion appliquée :* OUI (-${discount * 100}% car achat de ${quantity} tables)%0A`;
+            }
+            
+            text += `*PRIX TOTAL :* ${formattedTotal} FCFA%0A%0A`;
+            
+            if (message.trim() !== "") {
+                text += `*Message du client :* ${encodeURIComponent(message)}%0A`;
+            }
+
+            window.open(`https://wa.me/${waNumber}?text=${text}`, '_blank');
+        }
+    </script>
+</body>
+</html>
