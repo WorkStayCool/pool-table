@@ -3,9 +3,8 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>POOL TABLE</title>
+    <title>Table de Billard 4 en 1 Premium - 185 000 FCFA</title>
     
-    <!-- FAVICON AJOUTÉ ICI -->
     <link rel="icon" type="image/png" href="img/LOGO-Photoroom.png">
     
     <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@700&family=Montserrat:wght@300;400;600;700&display=swap" rel="stylesheet">
@@ -222,8 +221,13 @@
             flex-wrap: wrap;
         }
 
+        /* --- BOUTONS CORRIGÉS ICI --- */
         .btn-commander {
-            display: inline-block;
+            display: flex;            /* Utilisation de Flexbox */
+            justify-content: center;  /* Centrage horizontal */
+            align-items: center;      /* Centrage vertical */
+            text-align: center;       /* Centrage du texte multi-lignes */
+            
             padding: 15px 25px;
             background-color: transparent;
             color: var(--argent-clair);
@@ -236,7 +240,6 @@
             cursor: pointer;
             transition: all 0.4s ease;
             text-decoration: none;
-            text-align: center;
             flex: 1;
             min-width: 180px;
             animation: clignoter 1.5s infinite; 
