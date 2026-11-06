@@ -4,7 +4,7 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
 <meta name="theme-color" content="#697667">
-<title>Ensemble table de jeux 4-en-1 — BILLARD PRESTIGE</title>
+<title>BILLARD PRESTIGE</title>
 <meta name="description" content="Ensemble avec tables de billard, ping-pong et hockey, accessoires inclus. Commande directe, paiement en ligne, livraison 24 à 48 h.">
 
 <!-- FAVICON -->
@@ -141,7 +141,7 @@ ul{padding-left:20px}
 .gallery-main{position:relative;aspect-ratio:1/1;border-radius:var(--radius-lg);overflow:hidden;background:var(--secondary);box-shadow:var(--shadow-soft)}
 .gallery-main .slide{position:absolute;inset:0;opacity:0;transition:opacity .35s ease;pointer-events:none}
 .gallery-main .slide.active{opacity:1;pointer-events:auto}
-.gallery-main img, .gallery-main video{display:block;width:100%;height:100%;object-fit:cover;}
+.gallery-main img, .gallery-main video{display:block;width:100%;height:100%;object-fit:cover; cursor: zoom-in;}
 .gallery-thumbs{display:grid;grid-template-columns:repeat(6, 1fr);gap:10px;margin-top:12px}
 .gallery-thumbs button{padding:0;border:2px solid transparent;border-radius:14px;background:var(--secondary);overflow:hidden;aspect-ratio:1/1;cursor:pointer;transition:border-color .15s,transform .12s}
 .gallery-thumbs button:hover{transform:translateY(-1px)}
@@ -420,7 +420,7 @@ ul{padding-left:20px}
 .trust-points .icon{color:var(--primary)}
 
 /* =====================================================================
-   AVIS CLIENTS (DÉFILEMENT HORIZONTAL)
+   AVIS CLIENTS (DÉFILEMENT HORIZONTAL AUTOMATIQUE)
    ===================================================================== */
 .review-list {
     display: flex;
@@ -588,6 +588,48 @@ ul{padding-left:20px}
     border-color: var(--primary);
 }
 
+/* --- LIGHTBOX (VISIONNEUSE) --- */
+.media-modal {
+    display: none;
+    position: fixed;
+    top: 0; left: 0; width: 100%; height: 100%;
+    background: rgba(14, 13, 10, 0.95);
+    z-index: 99999;
+    justify-content: center;
+    align-items: center;
+    backdrop-filter: blur(5px);
+}
+.media-modal.active {
+    display: flex;
+}
+.media-modal-content {
+    max-width: 90%;
+    max-height: 85vh;
+    border-radius: 8px;
+    box-shadow: 0 0 40px rgba(0,0,0,0.8);
+    position: relative;
+}
+.media-modal-content img, .media-modal-content video {
+    max-width: 100%;
+    max-height: 85vh;
+    border-radius: 8px;
+    object-fit: contain;
+    display: block;
+}
+.close-media-btn {
+    position: absolute;
+    top: 20px; right: 30px;
+    color: white;
+    font-size: 40px;
+    font-weight: bold;
+    cursor: pointer;
+    transition: 0.3s;
+    z-index: 100000;
+}
+.close-media-btn:hover {
+    color: #ccc;
+}
+
 /* --- OVERLAY DE TRANSITION --- */
 .loading-overlay {
     position: fixed; top: 0; left: 0; width: 100%; height: 100%;
@@ -669,12 +711,25 @@ ul{padding-left:20px}
       <!-- GALERIE -->
       <div class="gallery">
         <div class="gallery-main" id="galleryMain">
-          <div class="slide active"><video src="assets/videos/table-de-billard-1.mp4" muted loop playsinline autoplay></video></div>
-          <div class="slide"><img src="assets/img/table-de-billard-1.jpg" alt="Table de billard 2"></div>
-          <div class="slide"><img src="assets/img/table-de-billard-12.webp" alt="Table de billard 3"></div>
-          <div class="slide"><img src="assets/img/table-de-billard-7.jpg" alt="Table de billard 4"></div>
-          <div class="slide"><img src="assets/img/table-de-billard-16.webp" alt="Table de billard 5"></div>
-          <div class="slide"><video src="assets/videos/table-de-billard-2.mp4" muted loop playsinline></video></div>
+          <!-- Ajout de l'événement onclick pour ouvrir en grand -->
+          <div class="slide active">
+              <video src="assets/videos/table-de-billard-1.mp4" muted loop playsinline autoplay onclick="openMediaModal('assets/videos/table-de-billard-1.mp4', 'video')"></video>
+          </div>
+          <div class="slide">
+              <img src="assets/img/table-de-billard-1.jpg" alt="Table de billard 2" onclick="openMediaModal('assets/img/table-de-billard-1.jpg', 'image')">
+          </div>
+          <div class="slide">
+              <img src="assets/img/table-de-billard-12.webp" alt="Table de billard 3" onclick="openMediaModal('assets/img/table-de-billard-12.webp', 'image')">
+          </div>
+          <div class="slide">
+              <img src="assets/img/table-de-billard-7.jpg" alt="Table de billard 4" onclick="openMediaModal('assets/img/table-de-billard-7.jpg', 'image')">
+          </div>
+          <div class="slide">
+              <img src="assets/img/table-de-billard-16.webp" alt="Table de billard 5" onclick="openMediaModal('assets/img/table-de-billard-16.webp', 'image')">
+          </div>
+          <div class="slide">
+              <video src="assets/videos/table-de-billard-2.mp4" muted loop playsinline onclick="openMediaModal('assets/videos/table-de-billard-2.mp4', 'video')"></video>
+          </div>
         </div>
         
         <div class="gallery-thumbs" id="galleryThumbs">
@@ -694,7 +749,6 @@ ul{padding-left:20px}
 
         <div class="stock-badge">⚠️ ALERTE STOCK : Plus que 5 en stock !</div>
 
-        <!-- PRIX MODIFIÉS ICI -->
         <div class="price-block">
             <span class="old-price">145 000 FCFA</span>
             <p class="price">
@@ -1036,6 +1090,16 @@ ul{padding-left:20px}
 </div>
 
 <!-- =====================================================================
+     LIGHTBOX (MODAL POUR AFFICHER LES IMAGES/VIDEOS EN GRAND)
+     ===================================================================== -->
+<div id="mediaModal" class="media-modal" onclick="closeMediaModal()">
+    <span class="close-media-btn" onclick="closeMediaModal()">&times;</span>
+    <div class="media-modal-content" id="mediaModalContent" onclick="event.stopPropagation()">
+        <!-- Le contenu (image ou vidéo) sera injecté ici par JS -->
+    </div>
+</div>
+
+<!-- =====================================================================
      ÉCRAN DE TRANSITION (LOADING)
      ===================================================================== -->
 <div id="loadingOverlay" class="loading-overlay">
@@ -1060,7 +1124,7 @@ ul{padding-left:20px}
   var SHOP_NAME       = 'BILLARD PRESTIGE';
   var PRODUCT_NAME    = 'Ensemble table de jeux 4-en-1';
   var MAX_QTY         = 5; 
-  var BASE_PRICE      = 123000; // <-- PRIX MIS À JOUR ICI
+  var BASE_PRICE      = 123000;
   var DISCOUNT_RATE   = 0.20; 
 
   function formatFCFA(n){
@@ -1172,7 +1236,7 @@ ul{padding-left:20px}
       slideInterval = setInterval(function() {
           var nextIndex = (currentSlideIndex + 1) % slides.length;
           goToSlide(nextIndex);
-      }, 4000); // Change toutes les 4 secondes
+      }, 4000);
   }
 
   thumbs.forEach(function(btn){
@@ -1186,7 +1250,7 @@ ul{padding-left:20px}
   startSlideShow();
 
 
-  /* ---------- GÉNÉRATION DES AVIS CLIENTS ---------- */
+  /* ---------- GÉNÉRATION DES AVIS CLIENTS & AUTO-SCROLL ---------- */
   const reviewsData = [
     { name: "Koffi A.", city: "Lomé, Togo 🇹🇬", stars: 5, text: "Livraison très rapide à Lomé. Le colis était super bien emballé, aucune rayure sur la table. Mes enfants sont ravis !" },
     { name: "Aminata D.", city: "Abidjan, Côte d'Ivoire 🇨🇮", stars: 5, text: "J'ai reçu ma commande à Abidjan en 3 jours. La qualité est au rendez-vous, le tapis est parfait. Je recommande à 100%." },
@@ -1222,8 +1286,59 @@ ul{padding-left:20px}
     reviewListContainer.appendChild(article);
   });
 
+  // --- AUTO-SCROLL DES AVIS ---
+  let autoScrollInterval;
 
-  /* ---------- GESTION DU MODAL ---------- */
+  function startAutoScroll() {
+      autoScrollInterval = setInterval(() => {
+          // Si on est à la fin, on revient au début
+          if (reviewListContainer.scrollLeft + reviewListContainer.clientWidth >= reviewListContainer.scrollWidth - 10) {
+              reviewListContainer.scrollTo({ left: 0, behavior: 'smooth' });
+          } else {
+              // Sinon on défile vers la droite (largeur de la carte + gap)
+              reviewListContainer.scrollBy({ left: 320, behavior: 'smooth' });
+          }
+      }, 3000); // Défilement toutes les 3 secondes
+  }
+
+  // Pause au survol
+  reviewListContainer.addEventListener('mouseenter', () => clearInterval(autoScrollInterval));
+  reviewListContainer.addEventListener('mouseleave', startAutoScroll);
+
+  // Démarrage de l'auto-scroll
+  startAutoScroll();
+
+
+  /* ---------- LIGHTBOX (VISIONNEUSE D'IMAGES/VIDÉOS) ---------- */
+  window.openMediaModal = function(src, type) {
+      const modal = document.getElementById('mediaModal');
+      const content = document.getElementById('mediaModalContent');
+
+      // Pause du carrousel principal
+      clearInterval(slideInterval);
+
+      if (type === 'image') {
+          content.innerHTML = `<img src="${src}" alt="Zoom">`;
+      } else if (type === 'video') {
+          content.innerHTML = `<video src="${src}" controls autoplay playsinline></video>`;
+      }
+
+      modal.classList.add('active');
+  };
+
+  window.closeMediaModal = function() {
+      const modal = document.getElementById('mediaModal');
+      const content = document.getElementById('mediaModalContent');
+
+      modal.classList.remove('active');
+      content.innerHTML = ''; // Arrête la vidéo si elle tournait
+
+      // Relance du carrousel principal
+      startSlideShow();
+  };
+
+
+  /* ---------- GESTION DU MODAL DE COMMANDE ---------- */
   window.openOrderModal = function() {
       var qty = state.qty;
       var total = calculateTotal(qty);
