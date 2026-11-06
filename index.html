@@ -1,1141 +1,1310 @@
 <!DOCTYPE html>
 <html lang="fr">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>BILLARD PRESTIGE - L'Excellence du Jeu</title>
-    
-    <!-- Favicon -->
-    <link rel="icon" type="image/png" href="assets/img/LOGO-Photoroom.png">
-    
-    <!-- ========================================== -->
-    <!-- CODE DE BASE DU PIXEL META (À COMPLÉTER)   -->
-    <!-- ========================================== -->
-    <script>
-    !function(f,b,e,v,n,t,s)
-    {if(f.fbq)return;n=f.fbq=function(){n.callMethod?
-    n.callMethod.apply(n,arguments):n.queue.push(arguments)};
-    if(!f._fbq)f._fbq=n;n.push=n;n.loaded=!0;n.version='2.0';
-    n.queue=[];t=b.createElement(e);t.async=!0;
-    t.src=v;s=b.getElementsByTagName(e)[0];
-    s.parentNode.insertBefore(t,s)}(window, document,'script',
-    'https://connect.facebook.net/en_US/fbevents.js');
-    // REMPLACEZ 'VOTRE_ID_PIXEL' PAR VOTRE VRAI ID (ex: 123456789012345)
-    fbq('init', 'VOTRE_ID_PIXEL'); 
-    fbq('track', 'PageView');
-    </script>
-    <noscript><img height="1" width="1" style="display:none"
-    src="https://www.facebook.com/tr?id=VOTRE_ID_PIXEL&ev=PageView&noscript=1"
-    /></noscript>
-    <!-- ========================================== -->
-
-    <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@700&family=Montserrat:wght@300;400;600;700&display=swap" rel="stylesheet">
-    
-    <style>
-        /* --- PALETTE DE COULEURS --- */
-        :root {
-            --argent-brosse: #2a2a2a;    
-            --argent-clair: #C0C0C0;     
-            --violet-aubergine: #4B0082; 
-            --dore: #DAA520;             
-            --noir: #0a0a0a;
-            --rouge-urgence: #ff3333;
-            --vert-whatsapp: #25D366;
-            --rouge-noel: #cc0000;
-        }
-
-        /* --- RESET & BASE --- */
-        * {
-            box-sizing: border-box;
-            margin: 0;
-            padding: 0;
-        }
-
-        html {
-            scroll-behavior: smooth;
-        }
-
-        body {
-            background: radial-gradient(circle at 70% 50%, rgba(75, 0, 130, 0.15) 0%, transparent 50%), 
-                        linear-gradient(135deg, #1a1a1a 0%, #3a3a3a 50%, #1a1a1a 100%);
-            color: var(--argent-clair);
-            font-family: 'Montserrat', sans-serif;
-            line-height: 1.6;
-            min-height: 100vh;
-            overflow-x: hidden;
-        }
-
-        /* --- ANIMATIONS --- */
-        @keyframes pulseStock {
-            0% { transform: scale(1); box-shadow: 0 0 0 0 rgba(255, 51, 51, 0.7); }
-            70% { transform: scale(1.05); box-shadow: 0 0 0 10px rgba(255, 51, 51, 0); }
-            100% { transform: scale(1); box-shadow: 0 0 0 0 rgba(255, 51, 51, 0); }
-        }
-
-        @keyframes clignoter {
-            0% { opacity: 1; }
-            50% { opacity: 0.6; }
-            100% { opacity: 1; }
-        }
-
-        @keyframes spin {
-            0% { transform: rotate(0deg); }
-            100% { transform: rotate(360deg); }
-        }
-
-        /* --- NAVBAR --- */
-        nav {
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            padding: 20px 40px;
-            border-bottom: 1px solid rgba(192, 192, 192, 0.1);
-            font-size: 1.2rem;
-            letter-spacing: 2px;
-        }
-        
-        nav .logo {
-            font-weight: 700;
-            color: var(--dore);
-        }
-
-        /* --- BANNIÈRE PROMO FÊTES --- */
-        .promo-banner {
-            background: linear-gradient(90deg, var(--rouge-noel), #ff4d4d, var(--rouge-noel));
-            color: white;
-            text-align: center;
-            padding: 12px;
-            font-weight: 700;
-            font-size: 0.95rem;
-            letter-spacing: 1px;
-            box-shadow: 0 4px 15px rgba(204, 0, 0, 0.4);
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            gap: 10px;
-        }
-
-        /* --- SECTION HERO --- */
-        .hero {
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            max-width: 1300px;
-            margin: 30px auto;
-            padding: 0 40px;
-            gap: 50px;
-        }
-
-        .hero-image-container {
-            flex: 1;
-            position: relative;
-            width: 100%;
-            max-width: 650px;
-            aspect-ratio: 4 / 3;
-            max-height: 500px;
-            overflow: hidden;
-            mask-image: linear-gradient(to right, transparent, black 10%, black 90%, transparent);
-            -webkit-mask-image: linear-gradient(to right, transparent, black 10%, black 90%, transparent);
-        }
-
-        .carousel-track {
-            display: flex;
-            transition: transform 0.8s cubic-bezier(0.25, 1, 0.5, 1);
-            height: 100%;
-        }
-
-        .carousel-slide {
-            min-width: 100%;
-            height: 100%;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            opacity: 0.3;
-            transform: scale(0.7);
-            transition: all 0.8s ease;
-            cursor: pointer;
-        }
-
-        .carousel-slide img, .carousel-slide video {
-            max-width: 100%;
-            max-height: 100%;
-            object-fit: contain;
-            border-radius: 15px;
-            filter: drop-shadow(0px 20px 30px rgba(0,0,0,0.8));
-            background-color: transparent;
-        }
-
-        .carousel-slide.active {
-            opacity: 1;
-            transform: scale(1);
-            z-index: 2;
-        }
-
-        /* --- FLÈCHES DU CARROUSEL PRINCIPAL --- */
-        .hero-arrow {
-            position: absolute;
-            top: 50%;
-            transform: translateY(-50%);
-            background: rgba(0, 0, 0, 0.6);
-            color: var(--dore);
-            border: 1px solid var(--dore);
-            font-size: 1.5rem;
-            padding: 10px;
-            cursor: pointer;
-            z-index: 10;
-            border-radius: 50%;
-            width: 45px;
-            height: 45px;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            transition: all 0.3s;
-        }
-
-        .hero-arrow:hover {
-            background: var(--dore);
-            color: var(--noir);
-        }
-
-        .hero-arrow.left { left: 20px; }
-        .hero-arrow.right { right: 20px; }
-
-        /* --- TEXTE HERO --- */
-        .hero-text {
-            flex: 1.2;
-            z-index: 10;
-        }
-
-        .stock-badge {
-            display: inline-block;
-            background-color: var(--rouge-urgence);
-            color: white;
-            padding: 8px 15px;
-            border-radius: 20px;
-            font-weight: 700;
-            font-size: 0.85rem;
-            margin-bottom: 15px;
-            animation: pulseStock 2s infinite;
-        }
-
-        .hero-text h1 {
-            font-family: 'Cinzel', serif;
-            font-size: 3.2rem;
-            line-height: 1.1;
-            color: var(--dore);
-            text-transform: uppercase;
-            margin-bottom: 15px;
-            text-shadow: 0px 10px 20px rgba(0,0,0,0.5);
-        }
-
-        /* --- DESCRIPTION SÉDUCTRICE --- */
-        .description-container {
-            margin-bottom: 25px;
-            background: rgba(0, 0, 0, 0.3);
-            padding: 20px;
-            border-radius: 10px;
-            border-left: 3px solid var(--dore);
-        }
-
-        .description-container p {
-            font-size: 1rem;
-            color: #e0e0e0;
-            margin-bottom: 15px;
-            line-height: 1.7;
-        }
-
-        .description-container p:last-child {
-            margin-bottom: 0;
-        }
-
-        .description-container strong {
-            color: var(--dore);
-        }
-
-        .selling-points {
-            list-style: none;
-            margin-top: 15px;
-            margin-bottom: 5px;
-        }
-        
-        .selling-points li {
-            margin-bottom: 8px;
-            display: flex;
-            align-items: flex-start;
-            font-size: 0.95rem;
-        }
-
-        .selling-points li::before {
-            content: '✨';
-            margin-right: 10px;
-            font-size: 1rem;
-        }
-
-        /* --- CONTAINER PRIX MODIFIÉ (CENTRÉ) --- */
-        .price-container {
-            margin-bottom: 20px;
-            background: rgba(0,0,0,0.5);
-            padding: 20px;
-            border-radius: 10px;
-            border: 1px solid rgba(218, 165, 32, 0.3);
-            display: flex;
-            flex-direction: column;
-            justify-content: center;
-            align-items: center;
-            text-align: center;
-            gap: 5px;
-        }
-
-        .old-price {
-            font-size: 1.2rem;
-            color: #888;
-            text-decoration: line-through;
-            font-weight: 600;
-        }
-
-        .price-tag {
-            font-size: 3rem;
-            font-weight: 700;
-            color: var(--argent-clair);
-            display: flex;
-            align-items: baseline;
-            justify-content: center;
-            line-height: 1;
-        }
-
-        .price-currency {
-            font-size: 1.2rem;
-            color: var(--dore);
-            margin-left: 8px;
-            font-weight: 400;
-        }
-
-        .shipping-badge {
-            background: rgba(37, 211, 102, 0.15);
-            border: 1px solid var(--vert-whatsapp);
-            color: var(--vert-whatsapp);
-            padding: 8px 15px;
-            border-radius: 20px;
-            font-size: 0.85rem;
-            font-weight: 700;
-            display: inline-block;
-            margin-top: 5px;
-        }
-
-        /* --- BOUTONS D'ACTION --- */
-        .action-buttons {
-            display: flex;
-            gap: 10px;
-            flex-wrap: wrap;
-        }
-
-        .btn-commander {
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            text-align: center;
-            padding: 15px 20px;
-            background-color: transparent;
-            color: var(--argent-clair);
-            border: 2px solid var(--argent-clair);
-            border-radius: 30px;
-            font-size: 1rem;
-            font-weight: 600;
-            letter-spacing: 1px;
-            text-transform: uppercase;
-            cursor: pointer;
-            transition: all 0.4s ease;
-            text-decoration: none;
-            width: 100%;
-            animation: clignoter 1.5s infinite; 
-        }
-
-        .btn-commander:hover {
-            background-color: var(--argent-clair);
-            color: var(--noir);
-            transform: translateY(-3px);
-            animation: none;
-            opacity: 1;
-        }
-
-        /* --- SECTION AVIS CLIENTS --- */
-        .reviews-section {
-            max-width: 1300px;
-            margin: 50px auto;
-            padding: 0 40px;
-        }
-
-        .reviews-header {
-            text-align: center;
-            margin-bottom: 30px;
-        }
-
-        .reviews-header h2 {
-            font-family: 'Cinzel', serif;
-            color: var(--dore);
-            font-size: 2.2rem;
-            margin-bottom: 10px;
-        }
-
-        .reviews-header .average-rating {
-            color: var(--argent-clair);
-            font-size: 1.1rem;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            gap: 10px;
-        }
-
-        .stars {
-            color: var(--dore);
-            font-size: 1.2rem;
-            letter-spacing: 2px;
-        }
-
-        .reviews-wrapper {
-            position: relative;
-        }
-
-        .reviews-container {
-            display: flex;
-            gap: 20px;
-            overflow-x: auto;
-            padding-bottom: 20px;
-            padding-top: 10px;
-            scroll-snap-type: x mandatory;
-            scroll-behavior: smooth;
-            -ms-overflow-style: none;  
-            scrollbar-width: none;  
-        }
-        .reviews-container::-webkit-scrollbar { 
-            display: none; 
-        }
-
-        .review-arrow {
-            position: absolute;
-            top: 50%;
-            transform: translateY(-50%);
-            background: rgba(20, 20, 20, 0.9);
-            color: var(--dore);
-            border: 1px solid var(--dore);
-            font-size: 1.2rem;
-            width: 40px;
-            height: 40px;
-            border-radius: 50%;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            cursor: pointer;
-            z-index: 10;
-            box-shadow: 0 0 15px rgba(0,0,0,0.8);
-            transition: all 0.3s ease;
-        }
-
-        .review-arrow:hover {
-            background: var(--dore);
-            color: var(--noir);
-        }
-
-        .review-arrow.left { left: -15px; }
-        .review-arrow.right { right: -15px; }
-
-        .review-card {
-            min-width: 320px;
-            max-width: 320px;
-            background: rgba(20, 20, 20, 0.8);
-            border: 1px solid rgba(218, 165, 32, 0.3);
-            border-radius: 15px;
-            padding: 20px;
-            scroll-snap-align: start;
-            box-shadow: 0 10px 20px rgba(0,0,0,0.5);
-            transition: transform 0.3s ease, border-color 0.3s ease;
-        }
-
-        .review-card:hover {
-            transform: translateY(-5px);
-            border-color: var(--dore);
-        }
-
-        .reviewer-info {
-            display: flex;
-            justify-content: space-between;
-            align-items: flex-start;
-            margin-bottom: 10px;
-        }
-
-        .reviewer-name {
-            font-weight: 700;
-            color: white;
-            font-size: 1rem;
-        }
-
-        .reviewer-country {
-            font-size: 0.8rem;
-            color: var(--argent-clair);
-            background: rgba(255,255,255,0.1);
-            padding: 2px 8px;
-            border-radius: 10px;
-            display: inline-block;
-            margin-top: 5px;
-        }
-
-        .review-text {
-            font-size: 0.9rem;
-            font-style: italic;
-            color: #ccc;
-            margin-bottom: 15px;
-            line-height: 1.5;
-        }
-
-        .verified-badge {
-            display: flex;
-            align-items: center;
-            gap: 5px;
-            font-size: 0.75rem;
-            color: var(--vert-whatsapp);
-            font-weight: 600;
-        }
-
-        /* --- SECTION FORMULAIRE DE VENTE --- */
-        .form-section {
-            max-width: 800px;
-            margin: 40px auto 80px;
-            padding: 40px;
-            background: rgba(20, 20, 20, 0.9);
-            backdrop-filter: blur(10px);
-            border-radius: 15px;
-            border: 2px solid var(--vert-whatsapp);
-            box-shadow: 0 20px 50px rgba(0,0,0,0.7), 0 0 30px rgba(37, 211, 102, 0.1);
-        }
-
-        .form-section h2 {
-            font-family: 'Cinzel', serif;
-            color: var(--dore);
-            text-align: center;
-            margin-bottom: 10px;
-            font-size: 2rem;
-        }
-        
-        .form-subtitle {
-            text-align: center;
-            color: var(--argent-clair);
-            margin-bottom: 30px;
-            font-size: 0.9rem;
-        }
-
-        .form-group {
-            margin-bottom: 20px;
-        }
-
-        .form-group label {
-            display: block;
-            margin-bottom: 8px;
-            color: var(--argent-clair);
-            font-size: 0.9rem;
-            letter-spacing: 1px;
-        }
-
-        .form-group input, .form-group textarea, .form-group select {
-            width: 100%;
-            padding: 15px;
-            background-color: rgba(0,0,0,0.5);
-            border: 1px solid #444;
-            border-radius: 8px;
-            color: white;
-            font-family: 'Montserrat', sans-serif;
-            transition: all 0.3s;
-        }
-
-        .form-group input:focus, .form-group textarea:focus, .form-group select:focus {
-            border-color: var(--dore);
-            outline: none;
-            box-shadow: 0 0 10px rgba(218, 165, 32, 0.5);
-        }
-
-        .quantity-hint {
-            display: block;
-            color: var(--dore);
-            font-size: 0.8rem;
-            margin-top: 5px;
-            font-weight: 600;
-        }
-
-        .total-price-display {
-            background: rgba(218, 165, 32, 0.1);
-            border: 1px dashed var(--dore);
-            padding: 20px;
-            border-radius: 8px;
-            margin: 25px 0;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            box-shadow: inset 0 0 15px rgba(218, 165, 32, 0.1);
-        }
-
-        .total-price-display span {
-            color: var(--argent-clair);
-            font-size: 1.1rem;
-            letter-spacing: 1px;
-        }
-
-        .total-price-right {
-            text-align: right;
-        }
-
-        .old-total {
-            display: none;
-            font-size: 1rem;
-            color: #888;
-            text-decoration: line-through;
-            margin-bottom: 5px;
-            font-weight: bold;
-        }
-
-        .total-price-display strong {
-            color: var(--dore);
-            font-size: 2rem;
-            text-shadow: 0 0 10px rgba(218, 165, 32, 0.4);
-        }
-
-        .btn-submit {
-            width: 100%;
-            padding: 18px;
-            background: linear-gradient(45deg, var(--vert-whatsapp), #128C7E);
-            color: white;
-            border: none;
-            border-radius: 8px;
-            font-size: 1.2rem;
-            font-weight: 600;
-            cursor: pointer;
-            transition: all 0.3s;
-            text-transform: uppercase;
-            letter-spacing: 2px;
-            box-shadow: 0 4px 15px rgba(37, 211, 102, 0.3);
-        }
-
-        .btn-submit:hover {
-            box-shadow: 0 0 20px rgba(37, 211, 102, 0.8);
-            transform: scale(1.02);
-        }
-
-        /* --- ÉCRAN DE CHARGEMENT (TRANSITION) --- */
-        .loading-overlay {
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background: rgba(10, 10, 10, 0.95);
-            display: none;
-            flex-direction: column;
-            justify-content: center;
-            align-items: center;
-            z-index: 99999;
-            backdrop-filter: blur(5px);
-        }
-
-        .loading-overlay.active {
-            display: flex;
-        }
-
-        .spinner {
-            width: 50px;
-            height: 50px;
-            border: 4px solid rgba(218, 165, 32, 0.3);
-            border-top-color: var(--dore);
-            border-radius: 50%;
-            animation: spin 1s linear infinite;
-            margin-bottom: 20px;
-        }
-
-        .loading-text {
-            color: var(--dore);
-            font-size: 1.2rem;
-            font-weight: 600;
-            text-align: center;
-            letter-spacing: 1px;
-        }
-
-        /* --- LIGHTBOX (MODAL) --- */
-        .media-modal {
-            display: none; 
-            position: fixed;
-            z-index: 10000;
-            left: 0;
-            top: 0;
-            width: 100%;
-            height: 100%;
-            background-color: rgba(0, 0, 0, 0.95);
-            align-items: center;
-            justify-content: center;
-            flex-direction: column;
-        }
-
-        .media-modal.show {
-            display: flex;
-        }
-
-        .modal-content {
-            max-width: 90%;
-            max-height: 85vh;
-            border-radius: 10px;
-            box-shadow: 0 0 50px rgba(218, 165, 32, 0.3); 
-        }
-
-        .modal-content img, .modal-content video {
-            max-width: 100%;
-            max-height: 85vh;
-            border-radius: 10px;
-            object-fit: contain;
-        }
-
-        .close-modal {
-            position: absolute;
-            top: 20px;
-            right: 40px;
-            color: var(--dore);
-            font-size: 50px;
-            font-weight: bold;
-            cursor: pointer;
-            transition: 0.3s;
-        }
-
-        .close-modal:hover {
-            color: white;
-            transform: scale(1.1);
-        }
-
-        /* --- RESPONSIVE --- */
-        @media (max-width: 900px) {
-            .hero {
-                flex-direction: column;
-                padding: 20px;
-                gap: 30px;
-            }
-            .hero-image-container {
-                width: 100%;
-                aspect-ratio: 4 / 3;
-                max-height: 350px;
-            }
-            
-            .hero-arrow.left { left: 5px; }
-            .hero-arrow.right { right: 5px; }
-            .hero-arrow { width: 35px; height: 35px; font-size: 1.2rem; }
-
-            .hero-text {
-                text-align: left;
-            }
-            .hero-text h1 { font-size: 2.5rem; }
-            
-            .form-section { margin: 20px; padding: 20px; }
-            .total-price-display { flex-direction: column; gap: 10px; text-align: center; }
-            .total-price-right { text-align: center; }
-            .close-modal { top: 10px; right: 20px; font-size: 40px; }
-            
-            .reviews-section { padding: 0 20px; }
-            .review-card { min-width: 280px; }
-            
-            .review-arrow.left { left: -10px; }
-            .review-arrow.right { right: -10px; }
-        }
-    </style>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="theme-color" content="#697667">
+<title>Ensemble table de jeux 4-en-1 — BILLARD PRESTIGE</title>
+<meta name="description" content="Ensemble avec tables de billard, ping-pong et hockey, accessoires inclus. Commande directe, paiement en ligne, livraison 24 à 48 h.">
+
+<!-- FAVICON -->
+<link rel="icon" type="image/png" href="assets/img/LOGO-Photoroom.png">
+
+<!-- ========================================== -->
+<!-- CODE DE BASE DU PIXEL META (À COMPLÉTER)   -->
+<!-- ========================================== -->
+<script>
+!function(f,b,e,v,n,t,s)
+{if(f.fbq)return;n=f.fbq=function(){n.callMethod?
+n.callMethod.apply(n,arguments):n.queue.push(arguments)};
+if(!f._fbq)f._fbq=n;n.push=n;n.loaded=!0;n.version='2.0';
+n.queue=[];t=b.createElement(e);t.async=!0;
+t.src=v;s=b.getElementsByTagName(e)[0];
+s.parentNode.insertBefore(t,s)}(window, document,'script',
+'https://connect.facebook.net/en_US/fbevents.js');
+// REMPLACEZ 'VOTRE_ID_PIXEL' PAR VOTRE VRAI ID
+fbq('init', 'VOTRE_ID_PIXEL'); 
+fbq('track', 'PageView');
+</script>
+<noscript><img height="1" width="1" style="display:none"
+src="https://www.facebook.com/tr?id=VOTRE_ID_PIXEL&ev=PageView&noscript=1"
+/></noscript>
+<!-- ========================================== -->
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Newsreader:wght@400;500;600;700&family=Hanken+Grotesk:wght@400;500;600;700&display=swap" rel="stylesheet">
+
+<style>
+/* =====================================================================
+   VARIABLES & RESET
+   ===================================================================== */
+:root{
+  --primary:#697667;
+  --primary-dark:#57624f;
+  --primary-soft:#F4F6F2;
+  --secondary:#ECEDEB;
+  --accent:#271B12;
+  --text:#0E0D0A;
+  --muted:#626E60;
+  --bg:#FEFFFE;
+  --line:#E2E4DF;
+  --body:#3B4239;
+  --wa:#25D366;
+  --rouge-urgence: #ff3333;
+  --rouge-noel: #cc0000;
+  --radius-lg:28px;
+  --radius-md:18px;
+  --radius-sm:10px;
+  --shadow-soft:0 14px 34px -20px rgba(20,26,16,.45);
+  --shadow-lg:0 24px 60px -28px rgba(20,26,16,.55);
+  --font-head:'Newsreader', Georgia, 'Times New Roman', serif;
+  --font-body:'Hanken Grotesk', system-ui, -apple-system, 'Segoe UI', Roboto, sans-serif;
+}
+
+*,*::before,*::after{box-sizing:border-box}
+html{scroll-behavior:smooth;-webkit-text-size-adjust:100%}
+body{
+  margin:0;
+  font-family:var(--font-body);
+  color:var(--text);
+  background:var(--bg);
+  line-height:1.5;
+  -webkit-font-smoothing:antialiased;
+  text-rendering:optimizeLegibility;
+}
+h1,h2,h3{font-family:var(--font-head);font-weight:500;letter-spacing:-.01em;margin:0 0 .5em;line-height:1.08}
+h2{font-size:clamp(24px,2.8vw,32px)}
+h3{font-size:20px}
+p{margin:0 0 1em}
+a{color:inherit}
+button{font:inherit;color:inherit}
+img,svg,video{max-width:100%}
+ul{padding-left:20px}
+
+.container{max-width:1180px;margin:0 auto;padding:0 24px}
+
+.icon{width:16px;height:16px;fill:none;stroke:currentColor;stroke-width:2;stroke-linecap:round;stroke-linejoin:round;flex:none;display:inline-block;vertical-align:middle}
+.icon--fill{fill:currentColor;stroke:none}
+.icon--lg{width:20px;height:20px}
+.icon--sm{width:13px;height:13px}
+
+/* --- ANIMATIONS --- */
+@keyframes pulseStock {
+    0% { transform: scale(1); box-shadow: 0 0 0 0 rgba(255, 51, 51, 0.7); }
+    70% { transform: scale(1.05); box-shadow: 0 0 0 10px rgba(255, 51, 51, 0); }
+    100% { transform: scale(1); box-shadow: 0 0 0 0 rgba(255, 51, 51, 0); }
+}
+@keyframes spin {
+    0% { transform: rotate(0deg); }
+    100% { transform: rotate(360deg); }
+}
+
+/* =====================================================================
+   HEADER & BANNIÈRES
+   ===================================================================== */
+.site-header{
+  position:sticky;top:0;z-index:50;
+  background:rgba(254,255,254,.94);
+  backdrop-filter:blur(14px);-webkit-backdrop-filter:blur(14px);
+  border-bottom:1px solid var(--line);
+}
+.header-inner{display:flex;align-items:center;gap:14px;height:72px}
+.brand{display:flex;align-items:center;gap:11px;text-decoration:none;flex:none}
+.brand-logo{width:38px;height:38px;flex:none;border-radius:50%;overflow:hidden;display:block}
+.brand-logo img{display:block;width:100%;height:100%;object-fit:cover}
+.brand-name{font-family:var(--font-head);font-size:18px;letter-spacing:.03em;white-space:nowrap}
+
+/* --- BANNIÈRE PROMO FÊTES --- */
+.promo-banner {
+    background: linear-gradient(90deg, var(--rouge-noel), #ff4d4d, var(--rouge-noel));
+    color: white;
+    text-align: center;
+    padding: 10px;
+    font-weight: 700;
+    font-size: 0.95rem;
+    letter-spacing: 1px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 10px;
+}
+
+/* =====================================================================
+   PRODUIT
+   ===================================================================== */
+.product-page{padding:26px 0 90px}
+.product-grid{display:grid;grid-template-columns:1.02fr .98fr;gap:56px;align-items:start}
+
+/* --- Galerie --- */
+.gallery{position:sticky;top:96px}
+.gallery-main{position:relative;aspect-ratio:1/1;border-radius:var(--radius-lg);overflow:hidden;background:var(--secondary);box-shadow:var(--shadow-soft)}
+.gallery-main .slide{position:absolute;inset:0;opacity:0;transition:opacity .35s ease;pointer-events:none}
+.gallery-main .slide.active{opacity:1;pointer-events:auto}
+.gallery-main img, .gallery-main video{display:block;width:100%;height:100%;object-fit:cover;}
+.gallery-thumbs{display:grid;grid-template-columns:repeat(6, 1fr);gap:10px;margin-top:12px}
+.gallery-thumbs button{padding:0;border:2px solid transparent;border-radius:14px;background:var(--secondary);overflow:hidden;aspect-ratio:1/1;cursor:pointer;transition:border-color .15s,transform .12s}
+.gallery-thumbs button:hover{transform:translateY(-1px)}
+.gallery-thumbs button[aria-pressed="true"]{border-color:var(--primary)}
+.gallery-thumbs img, .gallery-thumbs video{display:block;width:100%;height:100%;object-fit:cover;}
+
+/* --- Buybox --- */
+.eyebrow{font-size:11.5px;letter-spacing:.16em;text-transform:uppercase;color:var(--muted);font-weight:600;margin:0 0 12px}
+.buybox h1{font-size:clamp(34px,4.2vw,46px);margin-bottom:14px;line-height:1.03}
+
+.stock-badge {
+    display: inline-block;
+    background-color: var(--rouge-urgence);
+    color: white;
+    padding: 6px 12px;
+    border-radius: 20px;
+    font-weight: 700;
+    font-size: 0.8rem;
+    margin-bottom: 15px;
+    animation: pulseStock 2s infinite;
+}
+
+/* --- PRIX --- */
+.price-block { margin: 0 0 15px; }
+.old-price { font-size: 1.1rem; color: #888; text-decoration: line-through; font-weight: 500; display: block; margin-bottom: 2px; }
+.price { display: flex; align-items: baseline; gap: 8px; font-family: var(--font-head); font-size: 34px; font-weight: 600; color: var(--text); margin:0; line-height:1; }
+.price small{font-family:var(--font-body);font-size:13px;color:var(--muted);font-weight:500}
+
+.delivery{display:flex;align-items:center;gap:8px;font-size:14px;color:var(--primary);margin:0 0 26px; font-weight: 600;}
+
+/* --- Paliers --- */
+.tiers{display:flex;flex-direction:column;gap:10px;margin:0 0 24px}
+.tiers-title{font-size:14px;font-weight:600;margin:0 0 4px;display:flex;flex-direction:column;gap:3px}
+.tiers-title span{font-weight:400;color:var(--muted);font-size:12.5px}
+.tier{display:flex;align-items:center;gap:14px;padding:14px 16px;border:1.5px solid var(--line);border-radius:var(--radius-md);background:#fff;cursor:pointer;text-align:left;width:100%;transition:border-color .15s,background .15s}
+.tier:hover{border-color:#C6CCC1}
+.tier[aria-checked="true"]{border-color:var(--primary);background:var(--primary-soft)}
+.tier__radio{width:19px;height:19px;border-radius:50%;border:1.5px solid #B9BDB5;flex:none;position:relative;transition:border-color .15s}
+.tier[aria-checked="true"] .tier__radio{border-color:var(--primary)}
+.tier[aria-checked="true"] .tier__radio::after{content:"";position:absolute;inset:3.5px;border-radius:50%;background:var(--primary)}
+.tier__body{display:flex;flex-direction:column;gap:2px;flex:1;min-width:0}
+.tier__qty{font-weight:600;font-size:15px;display:flex;align-items:center;gap:8px;flex-wrap:wrap}
+.tier__unit{font-size:12.5px;color:var(--muted)}
+.tier__numbers{display:flex;flex-direction:column;align-items:flex-end;gap:2px;flex:none}
+.tier__total{font-weight:600;font-size:15px;white-space:nowrap}
+.tier__save{font-size:11.5px;font-weight:600;color:var(--primary);background:#E9EEE4;padding:2px 8px;border-radius:999px;white-space:nowrap}
+.badge{background:var(--accent);color:#fff;font-size:10.5px;letter-spacing:.06em;text-transform:uppercase;padding:3px 8px;border-radius:999px;font-weight:600;white-space:nowrap}
+
+.desc{font-size:15px;color:var(--body);margin:0 0 20px;max-width:46ch}
+
+/* --- BLOC DE RÉASSURANCE --- */
+.reassurance-box {
+    background: #F4F6F2;
+    border: 1px solid var(--line);
+    border-radius: var(--radius-md);
+    padding: 16px 20px;
+    margin: 0 0 24px;
+    display: flex;
+    flex-direction: column;
+    gap: 14px;
+}
+.reassurance-item {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    font-size: 14.5px;
+    font-weight: 600;
+    color: var(--body);
+}
+.reassurance-item .icon {
+    color: var(--primary);
+    width: 20px;
+    height: 20px;
+}
+
+/* --- ZONE D'ACHAT --- */
+.purchase-row {
+    display: flex;
+    gap: 12px;
+    align-items: stretch;
+    margin-bottom: 15px;
+    flex-wrap: wrap;
+}
+
+.qty-stepper {
+    display: flex;
+    align-items: center;
+    border: 1.5px solid var(--line);
+    border-radius: 8px;
+    padding: 4px;
+    background: #fff;
+    flex-shrink: 0;
+}
+.qty-stepper button {
+    width: 32px;
+    height: 32px;
+    border: 0;
+    background: transparent;
+    border-radius: 4px;
+    cursor: pointer;
+    display: grid;
+    place-items: center;
+    font-size: 18px;
+    transition: background .15s;
+}
+.qty-stepper button:hover { background: var(--secondary); }
+.qty-stepper span {
+    min-width: 70px;
+    text-align: center;
+    font-weight: 600;
+    font-size: 14.5px;
+}
+
+.btn-main-order {
+    flex: 1;
+    background-color: var(--primary);
+    color: #fff;
+    border: none;
+    border-radius: 8px;
+    padding: 12px 20px;
+    font-weight: 600;
+    font-size: 16px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 8px;
+    cursor: pointer;
+    transition: background .2s;
+    min-width: 200px;
+}
+.btn-main-order:hover { background-color: var(--primary-dark); }
+
+.payment-note {
+    font-size: 12.5px;
+    color: var(--muted);
+    line-height: 1.6;
+    border-top: 1px solid var(--line);
+    padding-top: 15px;
+    margin-top: 10px;
+}
+
+/* =====================================================================
+   STORY / CONTENU
+   ===================================================================== */
+.story{max-width:860px;margin:84px auto 0;display:flex;flex-direction:column;gap:60px}
+.kicker{display:block;font-size:11.5px;letter-spacing:.16em;text-transform:uppercase;color:var(--muted);font-weight:600;margin-bottom:10px}
+.block h2{margin-bottom:12px}
+.block > p{color:var(--body);font-size:15px;max-width:64ch}
+
+/* --- COMPARATIF --- */
+.compare-section {
+    background: #F0F0F0;
+    padding: 40px 20px;
+    border-radius: var(--radius-lg);
+}
+.compare-section .kicker { color: #888; }
+.compare-section h2 { color: var(--text); margin-bottom: 10px; }
+.compare-section p { color: var(--muted); margin-bottom: 30px; }
+
+.compare {
+    width: 100%;
+    border-collapse: separate;
+    border-spacing: 0;
+    background: #fff;
+    border-radius: 12px;
+    overflow: hidden;
+    box-shadow: 0 4px 15px rgba(0,0,0,0.05);
+}
+.compare th, .compare td {
+    padding: 18px 20px;
+    font-size: 14.5px;
+    border-bottom: 1px solid #E5E5E5;
+    text-align: center;
+}
+.compare th:first-child, .compare td:first-child {
+    text-align: left;
+    font-weight: 600;
+    color: var(--text);
+    width: 40%;
+}
+.compare thead th {
+    background: #fff;
+    color: var(--text);
+    font-family: var(--font-body);
+    font-weight: 700;
+    border-bottom: none;
+}
+.compare thead th:nth-child(2) {
+    background-color: var(--primary);
+    color: #fff;
+    font-weight: 600;
+    font-size: 14px;
+    letter-spacing: 0.5px;
+}
+.compare thead th:first-child { background: transparent; }
+.compare tr:last-child td { border-bottom: none; }
+.compare tr:nth-child(even) td { background-color: #FAFAFA; }
+.cmp-yes { color: var(--primary); }
+.cmp-no { color: #333; }
+.cmp-yes svg, .cmp-no svg { width: 18px; height: 18px; stroke-width: 2.5; }
+
+/* --- À PROPOS --- */
+.about p{color:var(--body);margin:0 0 14px; line-height:1.6;}
+.about h2{font-size:clamp(21px,2.5vw,27px);margin-top:34px; margin-bottom: 15px;}
+.about h2:first-of-type{margin-top:0}
+
+/* Section "Ce qui fait la différence" */
+.diff-badges {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 12px;
+    margin-bottom: 30px;
+}
+.diff-badge {
+    background: #F4F4F4;
+    border: 1px solid #E0E0E0;
+    border-radius: 8px;
+    padding: 12px 16px;
+    font-size: 13.5px;
+    display: flex;
+    align-items: flex-start;
+    gap: 10px;
+    color: var(--text);
+    line-height: 1.4;
+}
+.diff-badge .icon {
+    color: var(--text);
+    width: 16px;
+    height: 16px;
+    margin-top: 2px;
+    flex-shrink: 0;
+    stroke-width: 3;
+}
+.diff-badge strong {
+    font-weight: 600;
+}
+
+/* Section "Installe l'ensemble" */
+.steps-list {
+    display: flex;
+    flex-direction: column;
+    margin-top: 20px;
+}
+.step-row {
+    display: flex;
+    gap: 20px;
+    padding: 24px 0;
+    border-bottom: 1px solid var(--line);
+}
+.step-row:last-child {
+    border-bottom: none;
+}
+.step-num {
+    font-family: var(--font-head);
+    font-size: 24px;
+    color: #8A8A8A;
+    font-weight: 700;
+    line-height: 1;
+}
+.step-text {
+    font-size: 14px;
+    color: var(--body);
+    line-height: 1.6;
+}
+.step-text strong {
+    color: var(--text);
+    font-weight: 600;
+}
+
+.figure{border-radius:var(--radius-md);overflow:hidden;margin:22px 0 26px;background:var(--secondary);box-shadow:var(--shadow-soft)}
+.figure img, .figure video{display:block;width:100%;height:auto;object-fit:cover;}
+
+/* Confiance */
+.trust-points{display:flex;flex-wrap:wrap;gap:12px;margin-top:20px}
+.trust-points span{display:inline-flex;align-items:center;gap:8px;font-size:13.5px;background:var(--secondary);padding:11px 16px;border-radius:999px;color:var(--body)}
+.trust-points .icon{color:var(--primary)}
+
+/* =====================================================================
+   AVIS CLIENTS (DÉFILEMENT HORIZONTAL)
+   ===================================================================== */
+.review-list {
+    display: flex;
+    gap: 18px;
+    overflow-x: auto;
+    padding-bottom: 20px;
+    scroll-snap-type: x mandatory;
+    -ms-overflow-style: none;
+    scrollbar-width: none;
+}
+.review-list::-webkit-scrollbar {
+    display: none;
+}
+.review {
+    min-width: 300px;
+    max-width: 300px;
+    flex-shrink: 0;
+    scroll-snap-align: start;
+    background: #fff;
+    border: 1px solid var(--line);
+    border-radius: var(--radius-md);
+    padding: 22px;
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+}
+.stars{display:flex;gap:3px;color:#D9A441}
+.stars .icon{width:14px;height:14px}
+.review p{margin:0;font-size:14.5px;color:var(--body)}
+.review__author{font-size:12.5px;color:var(--muted);font-weight:600;margin:0}
+
+/* FAQ */
+.faq-list{display:flex;flex-direction:column;border-top:1px solid var(--line);margin-top:20px}
+.faq-list details{border-bottom:1px solid var(--line)}
+.faq-list summary{list-style:none;cursor:pointer;display:flex;justify-content:space-between;align-items:center;gap:16px;font-weight:600;font-size:15px;padding:18px 0;color:var(--text)}
+.faq-list summary::-webkit-details-marker{display:none}
+.faq-list summary .icon{transition:transform .2s;color:var(--muted)}
+.faq-list details[open] summary .icon{transform:rotate(180deg)}
+.faq-list p{margin:0 0 18px;color:var(--body);font-size:14.5px;max-width:660px}
+
+/* =====================================================================
+   FOOTER & OVERLAY & MODAL & FLOATING BTN
+   ===================================================================== */
+.site-footer{border-top:1px solid var(--line);background:var(--secondary);padding:40px 0 32px;margin-top:90px}
+.footer-inner{display:flex;justify-content:space-between;align-items:center;gap:18px;flex-wrap:wrap}
+.footer-brand{font-family:var(--font-head);font-size:18px;letter-spacing:.03em}
+.footer-inner p{font-size:13px;color:var(--muted);margin:0}
+
+/* --- BOUTON FLOTTANT --- */
+.wa-float{position:fixed;right:20px;bottom:22px;z-index:60;display:inline-flex;align-items:center;gap:10px;background:var(--wa);color:#fff;text-decoration:none;padding:14px 20px;border-radius:999px;font-weight:600;font-size:14px;box-shadow:0 16px 34px -14px rgba(37,211,102,.75);transition:transform .15s ease,background .15s; border: none; cursor: pointer;}
+.wa-float:hover{transform:translateY(-2px);background:#1EBE59}
+.wa-float .icon{width:20px;height:20px}
+
+/* --- MODAL DE COMMANDE --- */
+.modal-overlay {
+    position: fixed;
+    top: 0; left: 0; width: 100%; height: 100%;
+    background: rgba(0, 0, 0, 0.6);
+    backdrop-filter: blur(4px);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 1000;
+    opacity: 0;
+    pointer-events: none;
+    transition: opacity 0.3s ease;
+}
+.modal-overlay.active {
+    opacity: 1;
+    pointer-events: auto;
+}
+.modal-content {
+    background: #fff;
+    width: 90%;
+    max-width: 450px;
+    border-radius: var(--radius-lg);
+    padding: 30px;
+    position: relative;
+    box-shadow: 0 20px 40px rgba(0,0,0,0.2);
+    transform: translateY(20px);
+    transition: transform 0.3s ease;
+}
+.modal-overlay.active .modal-content {
+    transform: translateY(0);
+}
+.close-btn {
+    position: absolute;
+    top: 15px; right: 20px;
+    font-size: 24px;
+    cursor: pointer;
+    color: var(--muted);
+    transition: color 0.2s;
+}
+.close-btn:hover { color: var(--text); }
+
+.modal-content h3 {
+    font-family: var(--font-head);
+    font-size: 24px;
+    margin-bottom: 5px;
+    text-align: center;
+}
+.modal-content p.subtitle {
+    text-align: center;
+    font-size: 14px;
+    color: var(--muted);
+    margin-bottom: 15px;
+}
+
+/* --- RECAPITULATIF DANS LE MODAL --- */
+.modal-summary {
+    background: var(--primary-soft);
+    border: 1px solid var(--line);
+    border-radius: 8px;
+    padding: 15px;
+    margin-bottom: 20px;
+    font-size: 14px;
+}
+.modal-summary-row {
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 8px;
+}
+.modal-summary-row:last-child {
+    margin-bottom: 0;
+    border-top: 1px dashed #ccc;
+    padding-top: 8px;
+    font-weight: 700;
+    color: var(--primary);
+}
+.modal-shipping {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    color: var(--wa);
+    font-weight: 600;
+    font-size: 13px;
+    margin-top: 8px;
+    background: rgba(37, 211, 102, 0.1);
+    padding: 6px 10px;
+    border-radius: 4px;
+    justify-content: center;
+}
+
+.form-group {
+    margin-bottom: 15px;
+}
+.form-group label {
+    display: block;
+    font-size: 13.5px;
+    font-weight: 600;
+    margin-bottom: 6px;
+    color: var(--text);
+}
+.form-group input {
+    width: 100%;
+    padding: 12px 15px;
+    border: 1.5px solid var(--line);
+    border-radius: 8px;
+    font-family: inherit;
+    font-size: 15px;
+    transition: border-color 0.2s;
+}
+.form-group input:focus {
+    outline: none;
+    border-color: var(--primary);
+}
+
+/* --- OVERLAY DE TRANSITION --- */
+.loading-overlay {
+    position: fixed; top: 0; left: 0; width: 100%; height: 100%;
+    background: rgba(14, 13, 10, 0.95);
+    display: none; flex-direction: column; justify-content: center; align-items: center;
+    z-index: 99999; backdrop-filter: blur(5px);
+}
+.loading-overlay.active { display: flex; }
+.spinner {
+    width: 50px; height: 50px; border: 4px solid rgba(218, 165, 32, 0.3);
+    border-top-color: #DAA520; border-radius: 50%;
+    animation: spin 1s linear infinite; margin-bottom: 20px;
+}
+.loading-text { color: #DAA520; font-size: 1.2rem; font-weight: 600; text-align: center; letter-spacing: 1px; }
+
+.toast{position:fixed;bottom:26px;left:50%;transform:translate(-50%,20px);background:var(--accent);color:#fff;padding:13px 22px;border-radius:999px;font-size:14px;z-index:100;opacity:0;transition:all .25s;pointer-events:none;max-width:90vw;text-align:center;box-shadow:0 20px 40px -20px rgba(0,0,0,.5)}
+.toast.show{opacity:1;transform:translate(-50%,0)}
+
+/* =====================================================================
+   RESPONSIVE
+   ===================================================================== */
+@media (max-width:960px){
+  .product-grid{grid-template-columns:1fr;gap:36px}
+  .gallery{position:static}
+  .story{margin-top:56px;gap:48px}
+  .gallery-thumbs {grid-template-columns:repeat(5, 1fr);}
+  .compare-section { padding: 30px 15px; }
+  .diff-badges { grid-template-columns: 1fr; }
+}
+@media (max-width:760px){
+  .wa-float{bottom:22px;padding:12px 16px;}
+  .wa-float span { font-size: 13px; }
+  .container{padding:0 18px}
+  .product-page{padding-top:18px}
+  .gallery-thumbs{gap:6px; grid-template-columns:repeat(4, 1fr);}
+  .gallery-thumbs button{border-radius:10px}
+  .buybox h1{font-size:34px}
+  .tier{padding:12px 14px}
+  .tier__numbers{display:none}
+  .purchase-row { flex-direction: column; }
+  .btn-main-order { width: 100%; padding: 14px; }
+  .footer-inner{flex-direction:column;align-items:flex-start;gap:10px}
+  .modal-content { padding: 20px; }
+  .review { min-width: 260px; max-width: 260px; }
+  
+  .compare th, .compare td { padding: 12px 10px; font-size: 13px; }
+  .compare thead th:nth-child(2) { font-size: 12px; }
+}
+</style>
 </head>
 <body>
 
-    <nav>
-        <div class="logo">BILLARD PRESTIGE</div>
-    </nav>
+<!-- BANNIÈRE PROMO FÊTES -->
+<div class="promo-banner">
+    🎄LIVRAISON OFFERTE 🎁
+</div>
 
-    <!-- BANNIÈRE PROMO FÊTES -->
-    <div class="promo-banner">
-        🎄 PROMO FÊTES : LIVRAISON OFFERTE + -20% DÈS 2 TABLES ! 🎁
+<!-- =====================================================================
+     HEADER
+     ===================================================================== -->
+<header class="site-header">
+  <div class="container header-inner">
+    <a class="brand" href="#">
+      <span class="brand-logo"><img src="assets/img/LOGO-Photoroom.png" alt="Logo Billard Prestige"></span>
+      <span class="brand-name">BILLARD PRESTIGE</span>
+    </a>
+  </div>
+</header>
+
+<!-- =====================================================================
+     PRODUIT
+     ===================================================================== -->
+<main>
+<section class="product-page" id="produit">
+  <div class="container">
+
+    <div class="product-grid">
+
+      <!-- GALERIE -->
+      <div class="gallery">
+        <div class="gallery-main" id="galleryMain">
+          <div class="slide active"><video src="assets/videos/table-de-billard-1.mp4" muted loop playsinline autoplay></video></div>
+          <div class="slide"><img src="assets/img/table-de-billard-1.jpg" alt="Table de billard 2"></div>
+          <div class="slide"><img src="assets/img/table-de-billard-12.webp" alt="Table de billard 3"></div>
+          <div class="slide"><img src="assets/img/table-de-billard-7.jpg" alt="Table de billard 4"></div>
+          <div class="slide"><img src="assets/img/table-de-billard-16.webp" alt="Table de billard 5"></div>
+          <div class="slide"><video src="assets/videos/table-de-billard-2.mp4" muted loop playsinline></video></div>
+        </div>
+        
+        <div class="gallery-thumbs" id="galleryThumbs">
+          <button type="button" aria-label="Vidéo 1" aria-pressed="true" data-index="0"><video src="assets/videos/table-de-billard-1.mp4" muted></video></button>
+          <button type="button" aria-label="Image 2" aria-pressed="false" data-index="1"><img src="assets/img/table-de-billard-2.jpg" alt="Vignette 2"></button>
+          <button type="button" aria-label="Image 3" aria-pressed="false" data-index="2"><img src="assets/img/table-de-billard-12.webp" alt="Vignette 3"></button>
+          <button type="button" aria-label="Image 4" aria-pressed="false" data-index="3"><img src="assets/img/table-de-billard-7.jpg" alt="Vignette 4"></button>
+          <button type="button" aria-label="Image 5" aria-pressed="false" data-index="4"><img src="assets/img/table-de-billard-16.webp" alt="Vignette 5"></button>
+          <button type="button" aria-label="Vidéo 6" aria-pressed="false" data-index="5"><video src="assets/videos/table-de-billard-2.mp4" muted></video></button>
+        </div>
+      </div>
+
+      <!-- BUYBOX -->
+      <div class="buybox">
+        <p class="eyebrow">Disponible à la commande</p>
+        <h1>Ensemble table de jeux 4-en-1</h1>
+
+        <div class="stock-badge">⚠️ ALERTE STOCK : Plus que 5 en stock !</div>
+
+        <!-- PRIX MODIFIÉS ICI -->
+        <div class="price-block">
+            <span class="old-price">145 000 FCFA</span>
+            <p class="price">
+              <span id="priceUnit">123 000 FCFA</span>
+              <small id="priceUnitLabel">la pièce</small>
+            </p>
+        </div>
+        
+        <p class="delivery">
+          <svg class="icon" viewBox="0 0 24 24"><path d="M14 18V6a2 2 0 0 0-2-2H4a2 2 0 0 0-2 2v11a1 1 0 0 0 1 1h2"/><path d="M15 18H9"/><path d="M19 18h2a1 1 0 0 0 1-1v-3.65a1 1 0 0 0-.22-.624l-3.48-4.35A1 1 0 0 0 17.52 8H14"/><circle cx="17" cy="18" r="2"/><circle cx="7" cy="18" r="2"/></svg>
+          Livraison gratuite · 24 à 48 h
+        </p>
+
+        <!-- PALIERS RECALCULÉS -->
+        <div class="tiers" role="radiogroup" aria-label="Choisis ta quantité">
+          <p class="tiers-title">
+            Choisis ta quantité
+            <span>Plus tu en prends, moins tu paies</span>
+          </p>
+
+          <button type="button" class="tier" role="radio" aria-checked="true" data-qty="1">
+            <span class="tier__radio" aria-hidden="true"></span>
+            <span class="tier__body">
+              <span class="tier__qty">1 pièce</span>
+              <span class="tier__unit">Prix normal</span>
+            </span>
+            <span class="tier__numbers">
+              <span class="tier__total">123 000 FCFA</span>
+            </span>
+          </button>
+
+          <button type="button" class="tier" role="radio" aria-checked="false" data-qty="2">
+            <span class="tier__radio" aria-hidden="true"></span>
+            <span class="tier__body">
+              <span class="tier__qty">2 pièces <span class="badge">Populaire</span></span>
+              <span class="tier__unit">-20% sur le total</span>
+            </span>
+            <span class="tier__numbers">
+              <span class="tier__total">196 800 FCFA</span>
+              <span class="tier__save">−49 200 FCFA</span>
+            </span>
+          </button>
+
+          <button type="button" class="tier" role="radio" aria-checked="false" data-qty="3">
+            <span class="tier__radio" aria-hidden="true"></span>
+            <span class="tier__body">
+              <span class="tier__qty">3 pièces <span class="badge">Meilleur prix</span></span>
+              <span class="tier__unit">-20% sur le total</span>
+            </span>
+            <span class="tier__numbers">
+              <span class="tier__total">295 200 FCFA</span>
+              <span class="tier__save">−73 800 FCFA</span>
+            </span>
+          </button>
+        </div>
+
+        <p class="desc">Réunis billard, ping-pong, hockey et snooker dans un même ensemble, avec les accessoires de jeu inclus.</p>
+
+        <!-- BLOC DE RÉASSURANCE -->
+        <div class="reassurance-box">
+            <span class="reassurance-item">
+                <svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 13c0 5-3.5 7.5-7.66 8.95a1 1 0 0 1-.67-.01C7.5 20.5 4 18 4 13V6a1 1 0 0 1 1-1c2 0 4.5-1.2 6.24-2.72a1.17 1.17 0 0 1 1.52 0C14.51 3.81 17 5 19 5a1 1 0 0 1 1 1z"/><path d="m9 12 2 2 4-4"/></svg> 
+                Commande sécurisée
+            </span>
+            <span class="reassurance-item">
+                <svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"/></svg>
+                Confirmation par téléphone
+            </span>
+            <span class="reassurance-item">
+                <svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M14 18V6a2 2 0 0 0-2-2H4a2 2 0 0 0-2 2v11a1 1 0 0 0 1 1h2"/><path d="M15 18H9"/><path d="M19 18h2a1 1 0 0 0 1-1v-3.65a1 1 0 0 0-.22-.624l-3.48-4.35A1 1 0 0 0 17.52 8H14"/><circle cx="17" cy="18" r="2"/><circle cx="7" cy="18" r="2"/></svg>
+                Livraison locale ou expédition selon ta ville
+            </span>
+        </div>
+
+        <!-- ZONE D'ACHAT -->
+        <div class="purchase">
+          
+          <div class="purchase-row">
+            <!-- Stepper -->
+            <div class="qty-stepper" aria-label="Quantité">
+              <button type="button" id="qtyMinus" aria-label="Diminuer la quantité">
+                <svg class="icon" viewBox="0 0 24 24"><path d="M5 12h14"/></svg>
+              </button>
+              <span id="qtyDisplay">1 pièce</span>
+              <button type="button" id="qtyPlus" aria-label="Augmenter la quantité">
+                <svg class="icon" viewBox="0 0 24 24"><path d="M5 12h14"/><path d="M12 5v14"/></svg>
+              </button>
+            </div>
+
+            <!-- Bouton Commander -->
+            <button class="btn-main-order" id="orderBtn" onclick="openOrderModal()">
+              Commander · <span id="orderTotal">123 000 FCFA</span>
+              <svg class="icon" viewBox="0 0 24 24" style="width:18px;height:18px;stroke-width:2.5;margin-left:4px;"><path d="M5 12h14"/><path d="m12 5 7 7-7 7"/></svg>
+            </button>
+          </div>
+
+          <p class="payment-note">
+            Frais de livraison à nos frais. Vous aurez juste à payer votre commande en ligne. La boutique t'appelle pour confirmer tes informations.
+          </p>
+
+        </div>
+      </div>
     </div>
 
-    <section class="hero">
+    <!-- ===================== STORY ===================== -->
+    <div class="story">
+      
+      <!-- COMPARATIF -->
+      <section class="block compare-section">
+        <span class="kicker">LA DIFFÉRENCE EN UN REGARD</span>
+        <h2>Pourquoi choisir ce produit ?</h2>
+        <p>Compare les points essentiels avant de te décider.</p>
         
-        <!-- CARROUSEL PRINCIPAL AVEC FLÈCHES -->
-        <div class="hero-image-container" id="heroImageContainer">
-            <button class="hero-arrow left" onclick="prevSlide(event)">❮</button>
-            <button class="hero-arrow right" onclick="nextSlide(event)">❯</button>
-            
-            <div class="carousel-track" id="carouselTrack">
-                
-                <!-- 1. Vidéo -->
-                <div class="carousel-slide active" onclick="openModal('assets/videos/table-de-billard-1.mp4', 'video')">
-                    <video src="assets/videos/table-de-billard-1.mp4" muted loop playsinline autoplay></video>
-                </div>
-                
-                <!-- 2 à 10. Images -->
-                <div class="carousel-slide" onclick="openModal('assets/img/table-de-billard-1.jpg', 'image')"><img src="assets/img/table-de-billard-1.jpg" alt="Table de billard 1"></div>
-                <div class="carousel-slide" onclick="openModal('assets/img/table-de-billard-2.jpg', 'image')"><img src="assets/img/table-de-billard-2.jpg" alt="Table de billard 2"></div>
-                <div class="carousel-slide" onclick="openModal('assets/img/table-de-billard-3.jpg', 'image')"><img src="assets/img/table-de-billard-3.jpg" alt="Table de billard 3"></div>
-                <div class="carousel-slide" onclick="openModal('assets/img/table-de-billard-4.jpg', 'image')"><img src="assets/img/table-de-billard-4.jpg" alt="Table de billard 4"></div>
-                <div class="carousel-slide" onclick="openModal('assets/img/table-de-billard-5.jpg', 'image')"><img src="assets/img/table-de-billard-5.jpg" alt="Table de billard 5"></div>
-                <div class="carousel-slide" onclick="openModal('assets/img/table-de-billard-6.jpg', 'image')"><img src="assets/img/table-de-billard-6.jpg" alt="Table de billard 6"></div>
-                <div class="carousel-slide" onclick="openModal('assets/img/table-de-billard-7.jpg', 'image')"><img src="assets/img/table-de-billard-7.jpg" alt="Table de billard 7"></div>
-                <div class="carousel-slide" onclick="openModal('assets/img/table-de-billard-8.jpg', 'image')"><img src="assets/img/table-de-billard-8.jpg" alt="Table de billard 8"></div>
-                <div class="carousel-slide" onclick="openModal('assets/img/table-de-billard-9.jpg', 'image')"><img src="assets/img/table-de-billard-9.jpg" alt="Table de billard 9"></div>
-                <div class="carousel-slide" onclick="openModal('assets/img/table-de-billard-10.jpg', 'image')"><img src="assets/img/table-de-billard-10.jpg" alt="Table de billard 10"></div>
-                
-                <!-- 11. Vidéo -->
-                <div class="carousel-slide" onclick="openModal('assets/videos/table-de-billard-2.mp4', 'video')">
-                    <video src="assets/videos/table-de-billard-2.mp4" muted loop playsinline></video>
-                </div>
-
-            </div>
+        <div style="overflow-x:auto">
+          <table class="compare">
+            <thead>
+              <tr>
+                <th scope="col"></th>
+                <th scope="col">Ensemble de jeux 4-en-1</th>
+                <th scope="col">Autre produit</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <th scope="row">Plusieurs jeux réunis à la maison</th>
+                <td class="cmp-yes" aria-label="Oui">
+                    <svg class="icon" viewBox="0 0 24 24"><path d="M20 6 9 17l-5-5"/></svg>
+                </td>
+                <td class="cmp-no" aria-label="Non">
+                    <svg class="icon" viewBox="0 0 24 24"><path d="M18 6 6 18"/><path d="m6 6 12 12"/></svg>
+                </td>
+              </tr>
+              <tr>
+                <th scope="row">Accessoires de jeu inclus dans le lot</th>
+                <td class="cmp-yes" aria-label="Oui"><svg class="icon" viewBox="0 0 24 24"><path d="M20 6 9 17l-5-5"/></svg></td>
+                <td class="cmp-no" aria-label="Non"><svg class="icon" viewBox="0 0 24 24"><path d="M18 6 6 18"/><path d="m6 6 12 12"/></svg></td>
+              </tr>
+              <tr>
+                <th scope="row">Plateau de billard avec queues</th>
+                <td class="cmp-yes" aria-label="Oui"><svg class="icon" viewBox="0 0 24 24"><path d="M20 6 9 17l-5-5"/></svg></td>
+                <td class="cmp-no" aria-label="Non"><svg class="icon" viewBox="0 0 24 24"><path d="M18 6 6 18"/><path d="m6 6 12 12"/></svg></td>
+              </tr>
+              <tr>
+                <th scope="row">Plateau de ping-pong avec filet</th>
+                <td class="cmp-yes" aria-label="Oui"><svg class="icon" viewBox="0 0 24 24"><path d="M20 6 9 17l-5-5"/></svg></td>
+                <td class="cmp-no" aria-label="Non"><svg class="icon" viewBox="0 0 24 24"><path d="M18 6 6 18"/><path d="m6 6 12 12"/></svg></td>
+              </tr>
+              <tr>
+                <th scope="row">Table de hockey dans l'ensemble</th>
+                <td class="cmp-yes" aria-label="Oui"><svg class="icon" viewBox="0 0 24 24"><path d="M20 6 9 17l-5-5"/></svg></td>
+                <td class="cmp-no" aria-label="Non"><svg class="icon" viewBox="0 0 24 24"><path d="M18 6 6 18"/><path d="m6 6 12 12"/></svg></td>
+              </tr>
+            </tbody>
+          </table>
         </div>
-
-        <div class="hero-text">
-            <div class="stock-badge">⚠️ ALERTE STOCK : Plus que 5 en stock !</div>
-            <h1>Transformez vos soirées.</h1>
-            
-            <div class="description-container">
-                <p>Imaginez l'ambiance des grandes occasions : les rires de vos amis autour d'une partie de billard endiablée, les défis familiaux au ping-pong, et l'excitation pure de l'air hockey. <strong>Ne vous contentez plus d'un simple salon, créez un véritable espace de prestige et de divertissement.</strong></p>
-                
-                <p>Ce n'est pas juste une table de jeu, c'est un <strong>investissement dans votre bonheur et votre statut.</strong> Conçue avec des matériaux haut de gamme, elle est pensée pour durer et impressionner vos invités dès leur arrivée.</p>
-
-                <ul class="selling-points">
-                    <li><strong>L'Expérience 4-en-1 :</strong> Billard, Ping-pong, Air Hockey et Snooker.</li>
-                    <li><strong>Prêt à Jouer :</strong> Tout est inclus ! Queues, boules, raquettes...</li>
-                    <li><strong>Design Premium :</strong> Dimensions parfaites (95x51x64 cm).</li>
-                </ul>
-            </div>
-
-            <div class="price-container">
-                <span class="old-price">185 000 FCFA</span>
-                <div class="price-tag">
-                    165 000 <span class="price-currency">FCFA</span>
-                </div>
-                <div class="shipping-badge">🚚 Livraison Offerte (Promo Fêtes)</div>
-            </div>
-
-            <div class="action-buttons">
-                <a href="#formulaire" class="btn-commander">Acheter Maintenant</a>
-            </div>
-        </div>
-    </section>
-
-    <!-- SECTION AVIS CLIENTS -->
-    <section class="reviews-section">
-        <div class="reviews-header">
-            <h2>Ils nous font confiance en Afrique de l'Ouest</h2>
-            <div class="average-rating">
-                <span class="stars">★★★★★</span> 
-                <span>4.9/5 basé sur plus de 300 livraisons</span>
-            </div>
-        </div>
+        <div class="figure" style="margin-top:30px;"><img src="assets/img/table-de-billard-18.png" alt="Accessoires inclus"></div>
         
-        <div class="reviews-wrapper" id="reviewsWrapper">
-            <button class="review-arrow left" onclick="scrollReviewsLeft()">❮</button>
-            <button class="review-arrow right" onclick="scrollReviewsRight()">❯</button>
+      </section>
 
-            <div class="reviews-container" id="reviewsContainer">
-                <!-- Les cartes d'avis sont injectées par JavaScript -->
+      <!-- À PROPOS (CONTENU DES IMAGES) -->
+      <section class="block about">
+        <span class="kicker">DÉCOUVRIR LE PRODUIT</span>
+        
+        <h2>Choisis une activité qui rassemble tes proches</h2>
+        <p>Pour une rencontre en famille, tu peux vouloir une activité où chacun trouve son tour et son jeu. La table de billard permet de lancer une partie avec la queue et la boule incluses, tandis que la table de ping-pong se joue avec une raquette et un filet. La table de hockey offre une autre option visible dans l'ensemble. Tu peux organiser la soirée autour du jeu qui attire tes invités.</p>
+
+        <h2>Vérifie l'espace avant de commander</h2>
+        <p>Avant de prévoir une place dans ton salon, il est utile de connaître l'encombrement annoncé. La description donne les dimensions de 95 × 51 × 64 cm pour la table. L'image présente les plateaux séparés au-dessus de la table de billard, avec le matériel de ping-pong et de hockey visible. Mesure l'espace disponible chez toi pour t'assurer que l'ensemble pourra y trouver sa place.</p>
+
+        <h2>Ce qui fait la différence</h2>
+        
+        <div class="diff-badges">
+            <div class="diff-badge">
+                <svg class="icon" viewBox="0 0 24 24"><path d="M20 6 9 17l-5-5"/></svg>
+                <span><strong>Contenu du lot :</strong> Table de billard, table de ping-pong, table de hockey, queue de billard</span>
+            </div>
+            <div class="diff-badge">
+                <svg class="icon" viewBox="0 0 24 24"><path d="M20 6 9 17l-5-5"/></svg>
+                <span><strong>Jeux annoncés :</strong> Billard, ping-pong, hockey et snooker</span>
+            </div>
+            <div class="diff-badge">
+                <svg class="icon" viewBox="0 0 24 24"><path d="M20 6 9 17l-5-5"/></svg>
+                <span><strong>Accessoires mentionnés :</strong> Queue, boule, raquette et filet</span>
+            </div>
+            <div class="diff-badge">
+                <svg class="icon" viewBox="0 0 24 24"><path d="M20 6 9 17l-5-5"/></svg>
+                <span><strong>Présentation du lot :</strong> Un ensemble vendu en un seul lot</span>
+            </div>
+            <div class="diff-badge">
+                <svg class="icon" viewBox="0 0 24 24"><path d="M20 6 9 17l-5-5"/></svg>
+                <span><strong>Éléments visibles :</strong> Plateaux de jeu et accessoires représentés sur la photo</span>
             </div>
         </div>
-    </section>
 
-    <!-- FORMULAIRE DE VENTE NORMALE -->
-    <section class="form-section" id="formulaire">
-        <h2>Finaliser Votre Commande</h2>
-        <p class="form-subtitle">Livraison gratuite incluse. Remplissez ce formulaire pour valider votre commande.</p>
+        <h2>Installe l'ensemble et choisis ton jeu</h2>
         
-        <form id="whatsappForm" onsubmit="validerCommande(event)">
-            <div class="form-group">
-                <label for="name">NOM COMPLET</label>
-                <input type="text" id="name" required placeholder="Ex: Jean Dupont">
+        <div class="steps-list">
+            <div class="step-row">
+                <div class="step-num">01</div>
+                <div class="step-text">
+                    <strong>Prépare l'emplacement :</strong> Choisis un espace dégagé chez toi et vérifie qu'il peut accueillir la table selon les dimensions annoncées.
+                </div>
             </div>
-            
-            <div class="form-group">
-                <label for="phone">NUMÉRO DE TÉLÉPHONE</label>
-                <input type="tel" id="phone" required placeholder="Ex: +228 90 00 00 00">
+            <div class="step-row">
+                <div class="step-num">02</div>
+                <div class="step-text">
+                    <strong>Mets en place le jeu choisi :</strong> Installe le plateau correspondant au jeu que tu veux proposer, en t'aidant de la présentation visible sur la photo.
+                </div>
             </div>
-            
-            <div class="form-group">
-                <label for="location">LIEU DE LIVRAISON</label>
-                <input type="text" id="location" required placeholder="Ville / Quartier">
+            <div class="step-row">
+                <div class="step-num">03</div>
+                <div class="step-text">
+                    <strong>Rassemble les accessoires utiles :</strong> Pour le billard, prends la queue et la boule du lot ; pour le ping-pong, prépare la raquette et le filet.
+                </div>
             </div>
+            <div class="step-row">
+                <div class="step-num">04</div>
+                <div class="step-text">
+                    <strong>Lance la partie à tour de rôle :</strong> Explique le jeu choisi à tes invités, puis laisse chacun participer selon les accessoires disponibles.
+                </div>
+            </div>
+        </div>
 
-            <div class="form-group">
-                <label for="quantity">QUANTITÉ SOUHAITÉE</label>
-                <input type="number" id="quantity" min="1" value="1" required onchange="updateFormPrice()">
-                <span class="quantity-hint">🔥 Offre spéciale : -20% sur le total dès l'achat de 2 tables !</span>
-            </div>
+<div class="figure" style="margin-top:30px;"><img src="assets/img/table-de-billard-14.webp" alt="Accessoires inclus"></div>
+      </section>
 
-            <div class="total-price-display">
+      <!-- Confiance -->
+      <section class="block">
+        <span class="kicker">Achète en confiance</span>
+        <h2>Un achat simple, des réponses claires.</h2>
+        <p>La livraison est annoncée sous 24 à 48 h. La commande est confirmée par téléphone avant l'expédition.</p>
+        <div class="trust-points">
+          <span><svg class="icon" viewBox="0 0 24 24"><path d="M14 18V6a2 2 0 0 0-2-2H4a2 2 0 0 0-2 2v11a1 1 0 0 0 1 1h2"/><path d="M15 18H9"/><path d="M19 18h2a1 1 0 0 0 1-1v-3.65a1 1 0 0 0-.22-.624l-3.48-4.35A1 1 0 0 0 17.52 8H14"/><circle cx="17" cy="18" r="2"/><circle cx="7" cy="18" r="2"/></svg> Livraison sous 24 à 48 h</span>
+          <span><svg class="icon" viewBox="0 0 24 24"><path d="M20 13c0 5-3.5 7.5-7.66 8.95a1 1 0 0 1-.67-.01C7.5 20.5 4 18 4 13V6a1 1 0 0 1 1-1c2 0 4.5-1.2 6.24-2.72a1.17 1.17 0 0 1 1.52 0C14.51 3.81 17 5 19 5a1 1 0 0 1 1 1z"/><path d="m9 12 2 2 4-4"/></svg> Paiement sécurisé</span>
+        </div>
+      </section>
+
+      <!-- Avis (Défilement horizontal) -->
+      <section class="block" id="avis">
+        <span class="kicker">Ils en parlent</span>
+        <h2>L'expérience de nos clients</h2>
+        <div class="review-list" id="reviewList">
+            <!-- Les avis sont injectés par JS -->
+        </div>
+      </section>
+
+      <!-- FAQ -->
+      <section class="block" id="faq">
+        <span class="kicker">Encore une question ?</span>
+        <h2>Questions fréquentes</h2>
+        <div class="faq-list">
+          <details open>
+            <summary>Quels jeux sont annoncés dans cet ensemble ?<svg class="icon" viewBox="0 0 24 24"><path d="m6 9 6 6 6-6"/></svg></summary>
+            <p>La description annonce le billard, le ping-pong, le hockey et le snooker.</p>
+          </details>
+          <details>
+            <summary>Quelles pièces sont vendues dans le lot ?<svg class="icon" viewBox="0 0 24 24"><path d="m6 9 6 6 6-6"/></svg></summary>
+            <p>Le lot comprend une table de billard, une table de ping-pong, une table de hockey, une queue de billard, une boule de billard et une raquette de ping-pong.</p>
+          </details>
+          <details>
+            <summary>Quelles sont les dimensions annoncées ?<svg class="icon" viewBox="0 0 24 24"><path d="m6 9 6 6 6-6"/></svg></summary>
+            <p>La description donne 95 × 51 × 64 cm. Elle ne précise pas à quelle configuration exacte ces dimensions correspondent.</p>
+          </details>
+          <details>
+            <summary>Comment se fait le paiement ?<svg class="icon" viewBox="0 0 24 24"><path d="m6 9 6 6 6-6"/></svg></summary>
+            <p>Le paiement en ligne est disponible. La commande se confirme via notre service client.</p>
+          </details>
+        </div>
+      </section>
+
+    </div>
+  </div>
+</section>
+</main>
+
+<!-- =====================================================================
+     FOOTER
+     ===================================================================== -->
+<footer class="site-footer">
+  <div class="container footer-inner">
+    <div class="footer-brand">BILLARD PRESTIGE</div>
+    <p>Commande sécurisée · Paiement en ligne · Livraison sous 24 à 48 h</p>
+  </div>
+</footer>
+
+<!-- =====================================================================
+     BOUTON FLOTTANT AVEC PANIER
+     ===================================================================== -->
+<button class="wa-float" id="waFloat" onclick="openOrderModal()" aria-label="Valider la commande">
+  <svg class="icon icon--lg" viewBox="0 0 24 24"><path d="M6 2 3 6v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V6l-3-4Z"/><path d="M3 6h18"/><path d="M16 10a4 4 0 0 1-8 0"/></svg>
+  <span id="waFloatText">Valider la commande (1 pièce)</span>
+</button>
+
+<!-- =====================================================================
+     MODAL DE COMMANDE (FORMULAIRE)
+     ===================================================================== -->
+<div id="orderModal" class="modal-overlay">
+    <div class="modal-content">
+        <span class="close-btn" onclick="closeOrderModal()">&times;</span>
+        <h3>Finaliser votre commande</h3>
+        <p class="subtitle">Remplissez vos informations pour la livraison.</p>
+        
+        <!-- RECAPITULATIF DANS LE MODAL -->
+        <div class="modal-summary">
+            <div class="modal-summary-row">
+                <span>Votre sélection :</span>
+                <strong id="modalQtyDisplay">1 pièce</strong>
+            </div>
+            <div class="modal-summary-row">
                 <span>Total à payer :</span>
-                <div class="total-price-right">
-                    <div class="old-total" id="oldTotalDisplay">0 FCFA</div>
-                    <strong id="displayTotalPrice">165 000 FCFA</strong>
-                </div>
+                <span id="modalPriceDisplay">123 000 FCFA</span>
             </div>
+            <div class="modal-shipping">
+                <svg class="icon" style="width:16px;height:16px;" viewBox="0 0 24 24"><path d="M14 18V6a2 2 0 0 0-2-2H4a2 2 0 0 0-2 2v11a1 1 0 0 0 1 1h2"/><path d="M15 18H9"/><path d="M19 18h2a1 1 0 0 0 1-1v-3.65a1 1 0 0 0-.22-.624l-3.48-4.35A1 1 0 0 0 17.52 8H14"/><circle cx="17" cy="18" r="2"/><circle cx="7" cy="18" r="2"/></svg>
+                Livraison 100% Offerte
+            </div>
+        </div>
 
+        <form id="checkoutForm" onsubmit="submitOrder(event)">
             <div class="form-group">
-                <label for="message">MESSAGE (Optionnel)</label>
-                <textarea id="message" rows="2" placeholder="Une question ?"></textarea>
+                <label for="custName">Nom complet</label>
+                <input type="text" id="custName" required placeholder="Ex: Jean Dupont">
+            </div>
+            <div class="form-group">
+                <label for="custCity">Ville de livraison</label>
+                <input type="text" id="custCity" required placeholder="Ex: Lomé">
+            </div>
+            <div class="form-group">
+                <label for="custPhone">Numéro de téléphone</label>
+                <input type="tel" id="custPhone" required placeholder="Ex: +228 90 00 00 00">
             </div>
             
-            <!-- NOUVEAU TEXTE DU BOUTON -->
-            <button type="submit" class="btn-submit">Valider ma commande</button>
+            <button type="submit" class="btn-main-order" style="width:100%; margin-top:10px;">
+                Confirmer ma commande
+                <svg class="icon" viewBox="0 0 24 24" style="width:18px;height:18px;stroke-width:2.5;margin-left:4px;"><path d="M5 12h14"/><path d="m12 5 7 7-7 7"/></svg>
+            </button>
         </form>
-    </section>
-
-    <!-- ÉCRAN DE TRANSITION POUR LA REDIRECTION -->
-    <div id="loadingOverlay" class="loading-overlay">
-        <div class="spinner"></div>
-        <div class="loading-text">Validation de votre commande en cours...<br>Redirection sécurisée vers notre service client.</div>
     </div>
+</div>
 
-    <!-- LIGHTBOX (MODAL) -->
-    <div id="mediaModal" class="media-modal" onclick="closeModal(event)">
-        <span class="close-modal" onclick="closeModal(event)">&times;</span>
-        <div id="modalContent" class="modal-content"></div>
-    </div>
+<!-- =====================================================================
+     ÉCRAN DE TRANSITION (LOADING)
+     ===================================================================== -->
+<div id="loadingOverlay" class="loading-overlay">
+    <div class="spinner"></div>
+    <div class="loading-text">Validation de votre commande en cours...<br>Redirection sécurisée vers notre service client.</div>
+</div>
 
-    <!-- SCRIPTS -->
-    <script>
-        // --- GÉNÉRATION DES AVIS CLIENTS ---
-        const reviewsData = [
-            { name: "Koffi A.", country: "Togo 🇹🇬", stars: 5, text: "Livraison très rapide à Lomé. Le colis était super bien emballé, aucune rayure sur la table. Mes enfants sont ravis !" },
-            { name: "Aminata D.", country: "Côte d'Ivoire 🇨🇮", stars: 5, text: "J'ai reçu ma commande à Abidjan en 3 jours. La qualité est au rendez-vous, le tapis est parfait. Je recommande à 100%." },
-            { name: "Ousmane S.", country: "Sénégal 🇸🇳", stars: 5, text: "Très sérieux. La table est exactement comme sur les photos. Le livreur a même aidé à monter les pieds. Merci !" },
-            { name: "Chidi O.", country: "Nigéria 🇳🇬", stars: 4, text: "Great product for the price. Delivery to Lagos took a bit longer than expected but the packaging was excellent." },
-            { name: "Fatoumata K.", country: "Mali 🇲🇱", stars: 5, text: "Reçu à Bamako en parfait état. La promotion sur les 2 tables valait vraiment le coup. Top qualité." },
-            { name: "Kwame M.", country: "Ghana 🇬🇭", stars: 5, text: "Very solid table. The air hockey feature is a big hit with my friends. Fast delivery to Accra." },
-            { name: "Awa T.", country: "Burkina Faso 🇧🇫", stars: 5, text: "Commande reçue à Ouagadougou rapidement. Le service client sur WhatsApp est très réactif. 5 étoiles." },
-            { name: "Rachid B.", country: "Bénin 🇧🇯", stars: 5, text: "Livraison à Cotonou impeccable. La table est très stable, on a passé toute la soirée à jouer. Super achat." },
-            { name: "Mariam C.", country: "Niger 🇳🇪", stars: 5, text: "J'avais peur pour la livraison à Niamey, mais tout est arrivé intact. L'emballage est très solide." },
-            { name: "Ibrahima D.", country: "Guinée 🇬🇳", stars: 4, text: "Produit conforme. Un peu lourd mais c'est normal vu la qualité. Très bon rapport qualité/prix." },
-            { name: "Sarah J.", country: "Togo 🇹🇬", stars: 5, text: "J'ai profité de la réduction pour 2 tables. Une pour la maison, une pour le bureau. C'est un excellent investissement." },
-            { name: "Kodjo A.", country: "Togo 🇹🇬", stars: 5, text: "Habitant Kara, la livraison a été plus rapide que prévu. Colis nickel, je suis très satisfait." }
-        ];
+<!-- =====================================================================
+     TOAST
+     ===================================================================== -->
+<div class="toast" id="toast" role="status" aria-live="polite"></div>
 
-        const reviewsContainer = document.getElementById('reviewsContainer');
+<!-- =====================================================================
+     JAVASCRIPT
+     ===================================================================== -->
+<script>
+(function(){
+  'use strict';
 
-        reviewsData.forEach(review => {
-            const starsHTML = '★'.repeat(review.stars) + '☆'.repeat(5 - review.stars);
-            
-            const card = document.createElement('div');
-            card.className = 'review-card';
-            card.innerHTML = `
-                <div class="reviewer-info">
-                    <div>
-                        <div class="reviewer-name">${review.name}</div>
-                        <div class="reviewer-country">${review.country}</div>
-                    </div>
-                    <div class="stars">${starsHTML}</div>
-                </div>
-                <p class="review-text">"${review.text}"</p>
-                <div class="verified-badge">
-                    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"></path><polyline points="22 4 12 14.01 9 11.01"></polyline></svg>
-                    Achat vérifié
-                </div>
-            `;
-            reviewsContainer.appendChild(card);
-        });
+  /* ---------- CONFIG ---------- */
+  var WHATSAPP_NUMBER = '22898722706';
+  var SHOP_NAME       = 'BILLARD PRESTIGE';
+  var PRODUCT_NAME    = 'Ensemble table de jeux 4-en-1';
+  var MAX_QTY         = 5; 
+  var BASE_PRICE      = 123000; // <-- PRIX MIS À JOUR ICI
+  var DISCOUNT_RATE   = 0.20; 
 
-        // --- LOGIQUE DU PRIX ET DU FORMULAIRE ---
-        const basePrice = 165000; 
-        const discountRate = 0.20;
+  function formatFCFA(n){
+    return String(Math.round(n)).replace(/\B(?=(\d{3})+(?!\d))/g, ' ') + ' FCFA';
+  }
 
-        function updateFormPrice() {
-            let quantity = parseInt(document.getElementById('quantity').value);
-            if (isNaN(quantity) || quantity < 1) quantity = 1;
+  function calculateTotal(qty) {
+      let total = BASE_PRICE * qty;
+      if (qty >= 2) {
+          total = total * (1 - DISCOUNT_RATE);
+      }
+      return total;
+  }
 
-            let totalPrice = basePrice * quantity;
-            let originalTotal = totalPrice;
+  function qtyLabel(qty){
+    return qty + (qty > 1 ? ' pièces' : ' pièce');
+  }
 
-            const oldTotalDisplay = document.getElementById('oldTotalDisplay');
+  /* ---------- STATE ---------- */
+  var state = { qty: 1 };
 
-            if (quantity >= 2) {
-                totalPrice = totalPrice * (1 - discountRate);
-                oldTotalDisplay.style.display = 'block';
-                oldTotalDisplay.innerText = Math.round(originalTotal).toLocaleString('fr-FR') + ' FCFA';
-            } else {
-                oldTotalDisplay.style.display = 'none';
-            }
+  /* ---------- DOM ---------- */
+  var $ = function(id){ return document.getElementById(id); };
+  var qtyDisplay     = $('qtyDisplay');
+  var orderTotal     = $('orderTotal');
+  var waFloatText    = $('waFloatText');
+  var modalQtyDisplay = $('modalQtyDisplay');
+  var modalPriceDisplay = $('modalPriceDisplay');
+  var modalOverlay   = $('orderModal');
+  var loadingOverlay = $('loadingOverlay');
 
-            document.getElementById('displayTotalPrice').innerText = Math.round(totalPrice).toLocaleString('fr-FR') + ' FCFA';
-        }
-        updateFormPrice();
+  var toastEl = $('toast');
+  var toastTimer = null;
+  function toast(msg){
+    toastEl.textContent = msg;
+    toastEl.classList.add('show');
+    clearTimeout(toastTimer);
+    toastTimer = setTimeout(function(){ toastEl.classList.remove('show'); }, 2600);
+  }
 
-        // --- LOGIQUE DU CARROUSEL PRINCIPAL ---
-        const track = document.getElementById('carouselTrack');
-        const slides = document.querySelectorAll('.carousel-slide');
-        const heroContainer = document.getElementById('heroImageContainer');
-        let currentIndex = 0;
-        const totalSlides = slides.length;
-        let carouselInterval; 
+  /* ---------- UI UPDATE ---------- */
+  var tierButtons = document.querySelectorAll('.tier');
 
-        function startCarousel() {
-            clearInterval(carouselInterval);
-            carouselInterval = setInterval(() => {
-                currentIndex = (currentIndex + 1) % totalSlides;
-                updateCarousel();
-            }, 4500); 
-        }
+  function updateUI(){
+    var qty = state.qty;
+    var total = calculateTotal(qty);
 
-        function updateCarousel() {
-            track.style.transform = `translateX(-${currentIndex * 100}%)`;
-            
-            slides.forEach((slide, index) => {
-                const isActive = index === currentIndex;
-                slide.classList.toggle('active', isActive);
+    qtyDisplay.textContent = qtyLabel(qty);
+    orderTotal.textContent = formatFCFA(total);
+    
+    if(waFloatText) {
+        waFloatText.textContent = `Valider la commande (${qtyLabel(qty)})`;
+    }
 
-                const video = slide.querySelector('video');
-                if (video) {
-                    if (isActive) {
-                        video.play().catch(e => console.log("Lecture auto bloquée :", e)); 
-                    } else {
-                        video.pause(); 
-                        video.currentTime = 0; 
-                    }
-                }
-            });
-        }
+    tierButtons.forEach(function(btn){
+      var q = parseInt(btn.getAttribute('data-qty'), 10);
+      let isChecked = false;
 
-        function nextSlide(event) {
-            event.stopPropagation();
-            currentIndex = (currentIndex + 1) % totalSlides;
-            updateCarousel();
-            startCarousel();
-        }
+      if (qty === 1 && q === 1) isChecked = true;
+      else if (qty === 2 && q === 2) isChecked = true;
+      else if (qty >= 3 && q === 3) isChecked = true;
 
-        function prevSlide(event) {
-            event.stopPropagation();
-            currentIndex = (currentIndex - 1 + totalSlides) % totalSlides;
-            updateCarousel();
-            startCarousel();
-        }
+      btn.setAttribute('aria-checked', isChecked ? 'true' : 'false');
+    });
+  }
 
-        heroContainer.addEventListener('mouseenter', () => clearInterval(carouselInterval));
-        heroContainer.addEventListener('mouseleave', startCarousel);
+  /* ---------- ACTIONS QUANTITE ---------- */
+  $('qtyMinus').addEventListener('click', function(){
+    if (state.qty > 1){ state.qty--; updateUI(); }
+  });
+  $('qtyPlus').addEventListener('click', function(){
+    if (state.qty < MAX_QTY){ state.qty++; updateUI(); }
+    else { toast('Stock limité à 5 unités'); }
+  });
 
-        startCarousel();
+  tierButtons.forEach(function(btn){
+    btn.addEventListener('click', function(){
+      var q = parseInt(btn.getAttribute('data-qty'), 10);
+      state.qty = q;
+      updateUI();
+    });
+  });
 
-        // --- LOGIQUE DU CARROUSEL D'AVIS ---
-        const reviewsWrapper = document.getElementById('reviewsWrapper');
-        const scrollAmount = 340; 
-        let reviewAutoScrollInterval;
+  /* ---------- GALERIE (AUTO-SCROLL) ---------- */
+  var slides = document.querySelectorAll('#galleryMain .slide');
+  var thumbs = document.querySelectorAll('#galleryThumbs button');
+  var currentSlideIndex = 0;
+  var slideInterval;
 
-        function startReviewAutoScroll() {
-            clearInterval(reviewAutoScrollInterval);
-            reviewAutoScrollInterval = setInterval(() => {
-                if (reviewsContainer.scrollLeft + reviewsContainer.clientWidth >= reviewsContainer.scrollWidth - 10) {
-                    reviewsContainer.scrollTo({ left: 0, behavior: 'smooth' });
-                } else {
-                    reviewsContainer.scrollBy({ left: scrollAmount, behavior: 'smooth' });
-                }
-            }, 3000); 
-        }
+  function goToSlide(index) {
+      slides.forEach(function(s, i){ 
+          s.classList.toggle('active', i === index); 
+          var video = s.querySelector('video');
+          if (video) {
+              if (i === index) {
+                  video.play().catch(e => console.log("Auto-play blocked"));
+              } else {
+                  video.pause();
+                  video.currentTime = 0;
+              }
+          }
+      });
+      thumbs.forEach(function(t, i){ t.setAttribute('aria-pressed', i === index ? 'true' : 'false'); });
+      currentSlideIndex = index;
+  }
 
-        function scrollReviewsRight() {
-            reviewsContainer.scrollBy({ left: scrollAmount, behavior: 'smooth' });
-        }
+  function startSlideShow() {
+      clearInterval(slideInterval);
+      slideInterval = setInterval(function() {
+          var nextIndex = (currentSlideIndex + 1) % slides.length;
+          goToSlide(nextIndex);
+      }, 4000); // Change toutes les 4 secondes
+  }
 
-        function scrollReviewsLeft() {
-            reviewsContainer.scrollBy({ left: -scrollAmount, behavior: 'smooth' });
-        }
+  thumbs.forEach(function(btn){
+    btn.addEventListener('click', function(){
+      var idx = parseInt(btn.getAttribute('data-index'), 10);
+      goToSlide(idx);
+      startSlideShow();
+    });
+  });
 
-        reviewsWrapper.addEventListener('mouseenter', () => clearInterval(reviewAutoScrollInterval));
-        reviewsWrapper.addEventListener('mouseleave', startReviewAutoScroll);
+  startSlideShow();
 
-        startReviewAutoScroll();
 
-        // --- LIGHTBOX ---
-        const modal = document.getElementById('mediaModal');
-        const modalContent = document.getElementById('modalContent');
+  /* ---------- GÉNÉRATION DES AVIS CLIENTS ---------- */
+  const reviewsData = [
+    { name: "Koffi A.", city: "Lomé, Togo 🇹🇬", stars: 5, text: "Livraison très rapide à Lomé. Le colis était super bien emballé, aucune rayure sur la table. Mes enfants sont ravis !" },
+    { name: "Aminata D.", city: "Abidjan, Côte d'Ivoire 🇨🇮", stars: 5, text: "J'ai reçu ma commande à Abidjan en 3 jours. La qualité est au rendez-vous, le tapis est parfait. Je recommande à 100%." },
+    { name: "Ousmane S.", city: "Dakar, Sénégal 🇸🇳", stars: 5, text: "Très sérieux. La table est exactement comme sur les photos. Le livreur a même aidé à monter les pieds. Merci !" },
+    { name: "Chidi O.", city: "Lagos, Nigéria 🇳🇬", stars: 4, text: "Great product for the price. Delivery to Lagos took a bit longer than expected but the packaging was excellent." },
+    { name: "Fatoumata K.", city: "Bamako, Mali 🇲🇱", stars: 5, text: "Reçu à Bamako en parfait état. La promotion sur les 2 tables valait vraiment le coup. Top qualité." },
+    { name: "Kwame M.", city: "Accra, Ghana 🇬🇭", stars: 5, text: "Very solid table. The air hockey feature is a big hit with my friends. Fast delivery to Accra." },
+    { name: "Awa T.", city: "Ouagadougou, Burkina Faso 🇧🇫", stars: 5, text: "Commande reçue à Ouagadougou rapidement. Le service client sur WhatsApp est très réactif. 5 étoiles." },
+    { name: "Rachid B.", city: "Cotonou, Bénin 🇧🇯", stars: 5, text: "Livraison à Cotonou impeccable. La table est très stable, on a passé toute la soirée à jouer. Super achat." },
+    { name: "Mariam C.", city: "Niamey, Niger 🇳🇪", stars: 5, text: "J'avais peur pour la livraison à Niamey, mais tout est arrivé intact. L'emballage est très solide." },
+    { name: "Ibrahima D.", city: "Conakry, Guinée 🇬🇳", stars: 4, text: "Produit conforme. Un peu lourd mais c'est normal vu la qualité. Très bon rapport qualité/prix." },
+    { name: "Sarah J.", city: "Lomé, Togo 🇹🇬", stars: 5, text: "J'ai profité de la réduction pour 2 tables. Une pour la maison, une pour le bureau. C'est un excellent investissement." },
+    { name: "Kodjo A.", city: "Kara, Togo 🇹🇬", stars: 5, text: "Habitant Kara, la livraison a été plus rapide que prévu. Colis nickel, je suis très satisfait." },
+    { name: "Yao K.", city: "Bouaké, Côte d'Ivoire 🇨🇮", stars: 5, text: "Le plateau de ping-pong se pose très facilement. Les accessoires sont complets. Rien à redire." },
+    { name: "Binta S.", city: "Saint-Louis, Sénégal 🇸🇳", stars: 5, text: "Vraiment une belle surprise. La table fait très haut de gamme dans mon salon. Merci pour le sérieux." },
+    { name: "Tunde A.", city: "Abuja, Nigéria 🇳🇬", stars: 5, text: "Excellent customer service. The package was well secured with foam. The table is sturdy." },
+    { name: "Seydou K.", city: "Sikasso, Mali 🇲🇱", stars: 4, text: "Très content de mon achat. Le colis a mis 5 jours pour arriver mais l'attente en valait la peine." },
+    { name: "Akosua B.", city: "Kumasi, Ghana 🇬🇭", stars: 5, text: "Perfect for family game nights. The kids love it. Delivery to Kumasi was smooth." },
+    { name: "Salifou M.", city: "Bobo-Dioulasso, Burkina Faso 🇧🇫", stars: 5, text: "Je recommande vivement. Le vendeur est de confiance, il m'a envoyé une vidéo du produit avant l'envoi." }
+  ];
 
-        function openModal(src, type) {
-            clearInterval(carouselInterval); 
+  const reviewListContainer = document.getElementById('reviewList');
 
-            if (type === 'image') {
-                modalContent.innerHTML = `<img src="${src}" alt="Média en grand">`;
-            } else if (type === 'video') {
-                modalContent.innerHTML = `<video src="${src}" controls autoplay playsinline></video>`;
-            }
+  reviewsData.forEach(review => {
+    const starsHTML = '★'.repeat(review.stars) + '☆'.repeat(5 - review.stars);
+    const article = document.createElement('article');
+    article.className = 'review';
+    article.innerHTML = `
+        <div class="stars" aria-label="Note ${review.stars} sur 5">${starsHTML}</div>
+        <p>"${review.text}"</p>
+        <p class="review__author">${review.name} — ${review.city}</p>
+    `;
+    reviewListContainer.appendChild(article);
+  });
 
-            modal.classList.add('show');
-        }
 
-        function closeModal(event) {
-            if (event.target.classList.contains('media-modal') || event.target.classList.contains('close-modal')) {
-                modal.classList.remove('show');
-                modalContent.innerHTML = ''; 
-                startCarousel(); 
-            }
-        }
+  /* ---------- GESTION DU MODAL ---------- */
+  window.openOrderModal = function() {
+      var qty = state.qty;
+      var total = calculateTotal(qty);
+      
+      if(modalQtyDisplay) modalQtyDisplay.textContent = qtyLabel(qty);
+      if(modalPriceDisplay) modalPriceDisplay.textContent = formatFCFA(total);
 
-        // --- FONCTION DE VALIDATION & REDIRECTION (SANS AFFICHER "WHATSAPP" DIRECTEMENT) ---
-        function validerCommande(event) {
-            event.preventDefault(); 
+      modalOverlay.classList.add('active');
+      setTimeout(() => {
+          document.getElementById('custName').focus();
+      }, 300);
+  };
 
-            // 1. Afficher l'écran de transition
-            document.getElementById('loadingOverlay').classList.add('active');
+  window.closeOrderModal = function() {
+      modalOverlay.classList.remove('active');
+  };
 
-            const name = document.getElementById('name').value;
-            const phone = document.getElementById('phone').value;
-            const location = document.getElementById('location').value;
-            let quantity = parseInt(document.getElementById('quantity').value);
-            if (isNaN(quantity) || quantity < 1) quantity = 1;
-            const message = document.getElementById('message').value;
-            const waNumber = '22898722706'; 
+  modalOverlay.addEventListener('click', function(e) {
+      if (e.target === modalOverlay) {
+          closeOrderModal();
+      }
+  });
 
-            let totalPrice = basePrice * quantity;
-            let originalTotal = totalPrice;
-            let promoApplied = false;
+  /* ---------- SOUMISSION DU FORMULAIRE & REDIRECTION WHATSAPP ---------- */
+  window.submitOrder = function(event) {
+      event.preventDefault(); 
 
-            if (quantity >= 2) {
-                totalPrice = totalPrice * (1 - discountRate);
-                promoApplied = true;
-            }
+      var custName = document.getElementById('custName').value;
+      var custCity = document.getElementById('custCity').value;
+      var custPhone = document.getElementById('custPhone').value;
 
-            let formattedUnit = basePrice.toLocaleString('fr-FR');
-            let formattedTotal = Math.round(totalPrice).toLocaleString('fr-FR');
+      closeOrderModal();
+      loadingOverlay.classList.add('active');
 
-            // 2. ENVOI DE L'ÉVÉNEMENT AU PIXEL META (LEAD)
-            // Cela indique à Facebook qu'une personne a cliqué pour commander
-            if (typeof fbq === 'function') {
-                fbq('track', 'Lead', {
-                    value: totalPrice,
-                    currency: 'XOF',
-                    content_name: 'Billard Premium 4 en 1',
-                    content_category: 'Jeux de salon'
-                });
-            }
+      var qty = state.qty;
+      var total = calculateTotal(qty);
 
-            // 3. Construction du message
-            let text = `*NOUVELLE COMMANDE - BILLARD PREMIUM*%0A%0A`;
-            text += `*Nom :* ${encodeURIComponent(name)}%0A`;
-            text += `*Téléphone :* ${encodeURIComponent(phone)}%0A`;
-            text += `*Lieu de livraison :* ${encodeURIComponent(location)}%0A%0A`;
-            
-            text += `*DÉTAILS DE LA COMMANDE :*%0A`;
-            text += `*Quantité :* ${quantity} table(s)%0A`;
-            text += `*Prix unitaire :* ${formattedUnit} FCFA%0A`;
-            
-            if (promoApplied) {
-                text += `*Promotion appliquée :* OUI (-20% sur le total) 🔥%0A`;
-                text += `*Total initial :* ${Math.round(originalTotal).toLocaleString('fr-FR')} FCFA%0A`;
-            }
-            
-            text += `*PRIX TOTAL À PAYER :* ${formattedTotal} FCFA%0A`;
-            text += `*Livraison :* GRATUITE (Promo Fêtes) 🎁%0A%0A`;
-            
-            if (message.trim() !== "") {
-                text += `*Message du client :* ${encodeURIComponent(message)}%0A`;
-            }
+      if (typeof fbq === 'function') {
+          fbq('track', 'Lead', {
+              value: total,
+              currency: 'XOF',
+              content_name: PRODUCT_NAME,
+              content_category: 'Jeux de salon'
+          });
+      }
 
-            // 4. Ouvrir WhatsApp après une courte pause (1.5 seconde) pour laisser l'animation tourner
-            setTimeout(() => {
-                window.open(`https://wa.me/${waNumber}?text=${text}`, '_blank');
-                
-                // Optionnel : Cacher l'overlay une fois ouvert au cas où le client revient sur l'onglet
-                setTimeout(() => {
-                    document.getElementById('loadingOverlay').classList.remove('active');
-                }, 2000);
-            }, 1500); 
-        }
-    </script>
+      // --- MESSAGE WHATSAPP BIEN STRUCTURÉ ---
+      let text = `*NOUVELLE COMMANDE - BILLARD PREMIUM*\n\n`;
+      
+      text += `*CLIENT -*\n`;
+      text += `Nom : ${custName}\n`;
+      text += `Téléphone : ${custPhone}\n`;
+      text += `Ville : ${custCity}\n\n`;
+      
+      text += `*DÉTAILS DE LA COMMANDE -*\n`;
+      text += `Produit : ${PRODUCT_NAME}\n`;
+      text += `Quantité : ${qty} table(s)\n`;
+
+      if (qty >= 2) {
+          text += `Promo appliquée : -20% 🔥\n`;
+          text += `Sous-total : ${formatFCFA(BASE_PRICE * qty)}\n`;
+      }
+
+      text += `LIVRAISON : Offerte (0 FCFA)\n`;
+      text += `*PRIX TOTAL À PAYER : ${formatFCFA(total)}*\n\n`;
+      
+      text += `Merci de me confirmer la disponibilité et le délai.`;
+
+      setTimeout(() => {
+          window.open(`https://wa.me/${WHATSAPP_NUMBER}?text=${encodeURIComponent(text)}`, '_blank');
+
+          setTimeout(() => {
+              loadingOverlay.classList.remove('active');
+          }, 2000);
+      }, 1500);
+  };
+
+  /* ---------- INIT ---------- */
+  updateUI();
+})();
+</script>
+
 </body>
 </html>
