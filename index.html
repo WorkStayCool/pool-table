@@ -10,6 +10,44 @@
 <!-- FAVICON -->
 <link rel="icon" type="image/png" href="assets/img/LOGO-Photoroom.png">
 
+<!-- =====================================================================
+     APERÇU RÉSEAUX SOCIAUX (Open Graph / Twitter Cards)
+     =====================================================================
+     ⚠️ À FAIRE AVANT DE PARTAGER LE LIEN :
+     1) Remplace TOUTES les occurrences de https://VOTRE-DOMAINE.com
+        par l'URL réelle de ton site (HTTPS obligatoire).
+        → 5 endroits : og:image, og:image:secure_url, og:url,
+          twitter:image, <link rel="canonical">.
+     2) L'image doit être accessible publiquement (pas localhost).
+        Format : 1200 × 630 px, JPG, < 300 Ko.
+     3) Teste l'aperçu :
+        - Facebook/WhatsApp : https://developers.facebook.com/tools/debug/
+          (clique "Scrape Again" après chaque modif)
+        - Twitter/X : https://cards-dev.twitter.com/validator
+        - Astuce cache : ajoute ?v=2 à l'URL testée.
+     ===================================================================== -->
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="BILLARD PRESTIGE">
+<meta property="og:locale" content="fr_FR">
+<meta property="og:title" content="Ensemble table de jeux 4-en-1 – Billard, Ping-Pong & Hockey">
+<meta property="og:description" content="Billard + Ping-Pong + Hockey + Snooker. Accessoires complets inclus. Livraison gratuite 24-48h. Commandez maintenant.">
+<meta property="og:image" content="https://VOTRE-DOMAINE.com/assets/img/table-de-billard-1.jpg">
+<meta property="og:image:secure_url" content="https://VOTRE-DOMAINE.com/assets/img/table-de-billard-1.jpg">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta property="og:image:type" content="image/jpeg">
+<meta property="og:image:alt" content="Ensemble table de jeux 4-en-1 Billard Prestige">
+<meta property="og:url" content="https://VOTRE-DOMAINE.com/">
+
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="Ensemble table de jeux 4-en-1 – Billard, Ping-Pong & Hockey">
+<meta name="twitter:description" content="Billard + Ping-Pong + Hockey + Snooker. Accessoires complets. Livraison gratuite.">
+<meta name="twitter:image" content="https://VOTRE-DOMAINE.com/assets/img/table-de-billard-1.jpg">
+<meta name="twitter:image:alt" content="Ensemble table de jeux 4-en-1">
+
+<link rel="canonical" href="https://VOTRE-DOMAINE.com/">
+<!-- ===================================================================== -->
+
 <!-- ========================================== -->
 <!-- CODE DE BASE DU PIXEL META (À COMPLÉTER)   -->
 <!-- ========================================== -->
@@ -23,7 +61,7 @@ t.src=v;s=b.getElementsByTagName(e)[0];
 s.parentNode.insertBefore(t,s)}(window, document,'script',
 'https://connect.facebook.net/en_US/fbevents.js');
 // REMPLACEZ 'VOTRE_ID_PIXEL' PAR VOTRE VRAI ID
-fbq('init', 'VOTRE_ID_PIXEL'); 
+fbq('init', 'VOTRE_ID_PIXEL');
 fbq('track', 'PageView');
 </script>
 <noscript><img height="1" width="1" style="display:none"
@@ -99,6 +137,10 @@ ul{padding-left:20px}
     0% { transform: rotate(0deg); }
     100% { transform: rotate(360deg); }
 }
+@keyframes promoPop {
+    0% { transform: scale(0.7); opacity: 0; }
+    100% { transform: scale(1); opacity: 1; }
+}
 
 /* =====================================================================
    HEADER & BANNIÈRES
@@ -115,7 +157,6 @@ ul{padding-left:20px}
 .brand-logo img{display:block;width:100%;height:100%;object-fit:cover}
 .brand-name{font-family:var(--font-head);font-size:18px;letter-spacing:.03em;white-space:nowrap}
 
-/* --- BANNIÈRE PROMO FÊTES --- */
 .promo-banner {
     background: linear-gradient(90deg, var(--rouge-noel), #ff4d4d, var(--rouge-noel));
     color: white;
@@ -167,10 +208,118 @@ ul{padding-left:20px}
 /* --- PRIX --- */
 .price-block { margin: 0 0 15px; }
 .old-price { font-size: 1.1rem; color: #888; text-decoration: line-through; font-weight: 500; display: block; margin-bottom: 2px; }
-.price { display: flex; align-items: baseline; gap: 8px; font-family: var(--font-head); font-size: 34px; font-weight: 600; color: var(--text); margin:0; line-height:1; }
+.price { display: flex; align-items: baseline; gap: 8px; font-family: var(--font-head); font-size: 34px; font-weight: 600; color: var(--text); margin:0; line-height:1; flex-wrap: wrap; }
 .price small{font-family:var(--font-body);font-size:13px;color:var(--muted);font-weight:500}
+.price-crossed {
+    font-size: 20px;
+    color: #999;
+    text-decoration: line-through;
+    font-weight: 500;
+    font-family: var(--font-body);
+}
+.promo-badge-price {
+    display: inline-block;
+    background: var(--wa);
+    color: #fff;
+    font-size: 11px;
+    font-weight: 700;
+    padding: 3px 9px;
+    border-radius: 999px;
+    letter-spacing: 0.5px;
+    align-self: center;
+    animation: promoPop 0.3s ease;
+    font-family: var(--font-body);
+}
 
 .delivery{display:flex;align-items:center;gap:8px;font-size:14px;color:var(--primary);margin:0 0 26px; font-weight: 600;}
+
+/* --- ZONE CODE PROMO (NOUVEAU) --- */
+.promo-zone {
+    margin: 0 0 22px;
+    padding: 16px;
+    background: linear-gradient(135deg, #F9FAF7, #EFF3EA);
+    border: 1px solid var(--line);
+    border-radius: var(--radius-md);
+}
+.promo-label {
+    font-size: 13.5px;
+    font-weight: 600;
+    color: var(--text);
+    margin: 0 0 10px;
+    display: flex;
+    align-items: center;
+    gap: 6px;
+}
+.promo-row {
+    display: flex;
+    gap: 8px;
+}
+.promo-row input {
+    flex: 1;
+    padding: 10px 12px;
+    border: 1.5px solid var(--line);
+    border-radius: 8px;
+    font-family: inherit;
+    font-size: 14px;
+    text-transform: uppercase;
+    letter-spacing: 1.5px;
+    background: #fff;
+    transition: border-color 0.2s;
+    color: var(--text);
+    min-width: 0;
+}
+.promo-row input:focus {
+    outline: none;
+    border-color: var(--primary);
+}
+.promo-row input:disabled {
+    background: #F0F0F0;
+    color: #888;
+    cursor: not-allowed;
+}
+.promo-row button {
+    padding: 10px 16px;
+    background: var(--primary);
+    color: #fff;
+    border: none;
+    border-radius: 8px;
+    font-weight: 600;
+    font-size: 14px;
+    cursor: pointer;
+    transition: background 0.2s;
+    white-space: nowrap;
+}
+.promo-row button:hover {
+    background: var(--primary-dark);
+}
+.promo-row button:disabled {
+    background: #B5BDB1;
+    cursor: not-allowed;
+}
+.promo-msg {
+    margin: 10px 0 0;
+    font-size: 13px;
+    min-height: 1.2em;
+    line-height: 1.4;
+}
+.promo-msg.success {
+    color: #1a8f4a;
+    font-weight: 600;
+}
+.promo-msg.error {
+    color: #d32f2f;
+}
+.promo-remove {
+    display: inline-block;
+    margin-top: 8px;
+    font-size: 12px;
+    color: var(--muted);
+    text-decoration: underline;
+    cursor: pointer;
+}
+.promo-remove:hover {
+    color: var(--text);
+}
 
 /* --- Paliers --- */
 .tiers{display:flex;flex-direction:column;gap:10px;margin:0 0 24px}
@@ -187,6 +336,7 @@ ul{padding-left:20px}
 .tier__unit{font-size:12.5px;color:var(--muted)}
 .tier__numbers{display:flex;flex-direction:column;align-items:flex-end;gap:2px;flex:none}
 .tier__total{font-weight:600;font-size:15px;white-space:nowrap}
+.tier__total s{color:#999;font-weight:400;font-size:12.5px;margin-right:4px}
 .tier__save{font-size:11.5px;font-weight:600;color:var(--primary);background:#E9EEE4;padding:2px 8px;border-radius:999px;white-space:nowrap}
 .badge{background:var(--accent);color:#fff;font-size:10.5px;letter-spacing:.06em;text-transform:uppercase;padding:3px 8px;border-radius:999px;font-weight:600;white-space:nowrap}
 
@@ -348,7 +498,6 @@ ul{padding-left:20px}
 .about h2{font-size:clamp(21px,2.5vw,27px);margin-top:34px; margin-bottom: 15px;}
 .about h2:first-of-type{margin-top:0}
 
-/* Section "Ce qui fait la différence" */
 .diff-badges {
     display: grid;
     grid-template-columns: 1fr 1fr;
@@ -379,7 +528,6 @@ ul{padding-left:20px}
     font-weight: 600;
 }
 
-/* Section "Installe l'ensemble" */
 .steps-list {
     display: flex;
     flex-direction: column;
@@ -414,13 +562,12 @@ ul{padding-left:20px}
 .figure{border-radius:var(--radius-md);overflow:hidden;margin:22px 0 26px;background:var(--secondary);box-shadow:var(--shadow-soft)}
 .figure img, .figure video{display:block;width:100%;height:auto;object-fit:cover;}
 
-/* Confiance */
 .trust-points{display:flex;flex-wrap:wrap;gap:12px;margin-top:20px}
 .trust-points span{display:inline-flex;align-items:center;gap:8px;font-size:13.5px;background:var(--secondary);padding:11px 16px;border-radius:999px;color:var(--body)}
 .trust-points .icon{color:var(--primary)}
 
 /* =====================================================================
-   AVIS CLIENTS (DÉFILEMENT HORIZONTAL AUTOMATIQUE)
+   AVIS CLIENTS
    ===================================================================== */
 .review-list {
     display: flex;
@@ -469,7 +616,6 @@ ul{padding-left:20px}
 .footer-brand{font-family:var(--font-head);font-size:18px;letter-spacing:.03em}
 .footer-inner p{font-size:13px;color:var(--muted);margin:0}
 
-/* --- BOUTON FLOTTANT --- */
 .wa-float{position:fixed;right:20px;bottom:22px;z-index:60;display:inline-flex;align-items:center;gap:10px;background:var(--wa);color:#fff;text-decoration:none;padding:14px 20px;border-radius:999px;font-weight:600;font-size:14px;box-shadow:0 16px 34px -14px rgba(37,211,102,.75);transition:transform .15s ease,background .15s; border: none; cursor: pointer;}
 .wa-float:hover{transform:translateY(-2px);background:#1EBE59}
 .wa-float .icon{width:20px;height:20px}
@@ -502,6 +648,8 @@ ul{padding-left:20px}
     box-shadow: 0 20px 40px rgba(0,0,0,0.2);
     transform: translateY(20px);
     transition: transform 0.3s ease;
+    max-height: 92vh;
+    overflow-y: auto;
 }
 .modal-overlay.active .modal-content {
     transform: translateY(0);
@@ -542,8 +690,13 @@ ul{padding-left:20px}
     display: flex;
     justify-content: space-between;
     margin-bottom: 8px;
+    align-items: center;
 }
-.modal-summary-row:last-child {
+.modal-summary-row.promo-active-row {
+    color: #1a8f4a;
+    font-weight: 600;
+}
+.modal-summary-row:last-of-type {
     margin-bottom: 0;
     border-top: 1px dashed #ccc;
     padding-top: 8px;
@@ -557,7 +710,7 @@ ul{padding-left:20px}
     color: var(--wa);
     font-weight: 600;
     font-size: 13px;
-    margin-top: 8px;
+    margin-top: 10px;
     background: rgba(37, 211, 102, 0.1);
     padding: 6px 10px;
     border-radius: 4px;
@@ -582,6 +735,7 @@ ul{padding-left:20px}
     font-family: inherit;
     font-size: 15px;
     transition: border-color 0.2s;
+    box-sizing: border-box;
 }
 .form-group input:focus {
     outline: none;
@@ -674,7 +828,7 @@ ul{padding-left:20px}
   .footer-inner{flex-direction:column;align-items:flex-start;gap:10px}
   .modal-content { padding: 20px; }
   .review { min-width: 260px; max-width: 260px; }
-  
+
   .compare th, .compare td { padding: 12px 10px; font-size: 13px; }
   .compare thead th:nth-child(2) { font-size: 12px; }
 }
@@ -711,7 +865,6 @@ ul{padding-left:20px}
       <!-- GALERIE -->
       <div class="gallery">
         <div class="gallery-main" id="galleryMain">
-          <!-- Ajout de l'événement onclick pour ouvrir en grand -->
           <div class="slide active">
               <video src="assets/videos/table-de-billard-1.mp4" muted loop playsinline autoplay onclick="openMediaModal('assets/videos/table-de-billard-1.mp4', 'video')"></video>
           </div>
@@ -731,7 +884,7 @@ ul{padding-left:20px}
               <video src="assets/videos/table-de-billard-2.mp4" muted loop playsinline onclick="openMediaModal('assets/videos/table-de-billard-2.mp4', 'video')"></video>
           </div>
         </div>
-        
+
         <div class="gallery-thumbs" id="galleryThumbs">
           <button type="button" aria-label="Vidéo 1" aria-pressed="true" data-index="0"><video src="assets/videos/table-de-billard-1.mp4" muted></video></button>
           <button type="button" aria-label="Image 2" aria-pressed="false" data-index="1"><img src="assets/img/table-de-billard-2.jpg" alt="Vignette 2"></button>
@@ -749,20 +902,23 @@ ul{padding-left:20px}
 
         <div class="stock-badge">⚠️ ALERTE STOCK : Plus que 5 en stock !</div>
 
+        <!-- PRIX : +15% appliqué. 123 000 × 1.15 = 141 450. Ancien 145 000 × 1.15 = 166 750 -->
         <div class="price-block">
-            <span class="old-price">145 000 FCFA</span>
+            <span class="old-price">166 750 FCFA</span>
             <p class="price">
-              <span id="priceUnit">123 000 FCFA</span>
+              <span class="price-crossed" id="priceCrossed" style="display:none"></span>
+              <span id="priceUnit">141 450 FCFA</span>
               <small id="priceUnitLabel">la pièce</small>
+              <span class="promo-badge-price" id="promoBadge" style="display:none">-10%</span>
             </p>
         </div>
-        
+
         <p class="delivery">
           <svg class="icon" viewBox="0 0 24 24"><path d="M14 18V6a2 2 0 0 0-2-2H4a2 2 0 0 0-2 2v11a1 1 0 0 0 1 1h2"/><path d="M15 18H9"/><path d="M19 18h2a1 1 0 0 0 1-1v-3.65a1 1 0 0 0-.22-.624l-3.48-4.35A1 1 0 0 0 17.52 8H14"/><circle cx="17" cy="18" r="2"/><circle cx="7" cy="18" r="2"/></svg>
           Livraison gratuite · 24 à 48 h
         </p>
 
-        <!-- PALIERS RECALCULÉS -->
+        <!-- PALIERS (prix +15%) -->
         <div class="tiers" role="radiogroup" aria-label="Choisis ta quantité">
           <p class="tiers-title">
             Choisis ta quantité
@@ -776,7 +932,7 @@ ul{padding-left:20px}
               <span class="tier__unit">Prix normal</span>
             </span>
             <span class="tier__numbers">
-              <span class="tier__total">123 000 FCFA</span>
+              <span class="tier__total" data-base="141450">141 450 FCFA</span>
             </span>
           </button>
 
@@ -787,8 +943,8 @@ ul{padding-left:20px}
               <span class="tier__unit">-20% sur le total</span>
             </span>
             <span class="tier__numbers">
-              <span class="tier__total">196 800 FCFA</span>
-              <span class="tier__save">−49 200 FCFA</span>
+              <span class="tier__total" data-base="226320">226 320 FCFA</span>
+              <span class="tier__save" data-base="56580">−56 580 FCFA</span>
             </span>
           </button>
 
@@ -799,18 +955,29 @@ ul{padding-left:20px}
               <span class="tier__unit">-20% sur le total</span>
             </span>
             <span class="tier__numbers">
-              <span class="tier__total">295 200 FCFA</span>
-              <span class="tier__save">−73 800 FCFA</span>
+              <span class="tier__total" data-base="339480">339 480 FCFA</span>
+              <span class="tier__save" data-base="84870">−84 870 FCFA</span>
             </span>
           </button>
         </div>
 
         <p class="desc">Réunis billard, ping-pong, hockey et snooker dans un même ensemble, avec les accessoires de jeu inclus.</p>
 
+        <!-- ZONE CODE PROMO (NOUVEAU) -->
+        <div class="promo-zone">
+          <p class="promo-label">🎟️ Vous avez un code promo ?</p>
+          <div class="promo-row">
+            <input type="text" id="promoInput" placeholder="Entrez votre code" autocomplete="off" aria-label="Code promo">
+            <button type="button" id="promoBtn" onclick="appliquerCode()">Appliquer</button>
+          </div>
+          <p class="promo-msg" id="promoMsg"></p>
+          <span class="promo-remove" id="promoRemove" style="display:none" onclick="retirerCode(event)">Retirer le code</span>
+        </div>
+
         <!-- BLOC DE RÉASSURANCE -->
         <div class="reassurance-box">
             <span class="reassurance-item">
-                <svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 13c0 5-3.5 7.5-7.66 8.95a1 1 0 0 1-.67-.01C7.5 20.5 4 18 4 13V6a1 1 0 0 1 1-1c2 0 4.5-1.2 6.24-2.72a1.17 1.17 0 0 1 1.52 0C14.51 3.81 17 5 19 5a1 1 0 0 1 1 1z"/><path d="m9 12 2 2 4-4"/></svg> 
+                <svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 13c0 5-3.5 7.5-7.66 8.95a1 1 0 0 1-.67-.01C7.5 20.5 4 18 4 13V6a1 1 0 0 1 1-1c2 0 4.5-1.2 6.24-2.72a1.17 1.17 0 0 1 1.52 0C14.51 3.81 17 5 19 5a1 1 0 0 1 1 1z"/><path d="m9 12 2 2 4-4"/></svg>
                 Commande sécurisée
             </span>
             <span class="reassurance-item">
@@ -825,9 +992,7 @@ ul{padding-left:20px}
 
         <!-- ZONE D'ACHAT -->
         <div class="purchase">
-          
           <div class="purchase-row">
-            <!-- Stepper -->
             <div class="qty-stepper" aria-label="Quantité">
               <button type="button" id="qtyMinus" aria-label="Diminuer la quantité">
                 <svg class="icon" viewBox="0 0 24 24"><path d="M5 12h14"/></svg>
@@ -838,9 +1003,8 @@ ul{padding-left:20px}
               </button>
             </div>
 
-            <!-- Bouton Commander -->
             <button class="btn-main-order" id="orderBtn" onclick="openOrderModal()">
-              Commander · <span id="orderTotal">123 000 FCFA</span>
+              Commander · <span id="orderTotal">141 450 FCFA</span>
               <svg class="icon" viewBox="0 0 24 24" style="width:18px;height:18px;stroke-width:2.5;margin-left:4px;"><path d="M5 12h14"/><path d="m12 5 7 7-7 7"/></svg>
             </button>
           </div>
@@ -848,20 +1012,19 @@ ul{padding-left:20px}
           <p class="payment-note">
             Frais de livraison à nos frais. Vous aurez juste à payer votre commande en ligne. La boutique t'appelle pour confirmer tes informations.
           </p>
-
         </div>
       </div>
     </div>
 
     <!-- ===================== STORY ===================== -->
     <div class="story">
-      
+
       <!-- COMPARATIF -->
       <section class="block compare-section">
         <span class="kicker">LA DIFFÉRENCE EN UN REGARD</span>
         <h2>Pourquoi choisir ce produit ?</h2>
         <p>Compare les points essentiels avant de te décider.</p>
-        
+
         <div style="overflow-x:auto">
           <table class="compare">
             <thead>
@@ -874,12 +1037,8 @@ ul{padding-left:20px}
             <tbody>
               <tr>
                 <th scope="row">Plusieurs jeux réunis à la maison</th>
-                <td class="cmp-yes" aria-label="Oui">
-                    <svg class="icon" viewBox="0 0 24 24"><path d="M20 6 9 17l-5-5"/></svg>
-                </td>
-                <td class="cmp-no" aria-label="Non">
-                    <svg class="icon" viewBox="0 0 24 24"><path d="M18 6 6 18"/><path d="m6 6 12 12"/></svg>
-                </td>
+                <td class="cmp-yes" aria-label="Oui"><svg class="icon" viewBox="0 0 24 24"><path d="M20 6 9 17l-5-5"/></svg></td>
+                <td class="cmp-no" aria-label="Non"><svg class="icon" viewBox="0 0 24 24"><path d="M18 6 6 18"/><path d="m6 6 12 12"/></svg></td>
               </tr>
               <tr>
                 <th scope="row">Accessoires de jeu inclus dans le lot</th>
@@ -905,13 +1064,12 @@ ul{padding-left:20px}
           </table>
         </div>
         <div class="figure" style="margin-top:30px;"><img src="assets/img/table-de-billard-18.png" alt="Accessoires inclus"></div>
-        
       </section>
 
-      <!-- À PROPOS (CONTENU DES IMAGES) -->
+      <!-- À PROPOS -->
       <section class="block about">
         <span class="kicker">DÉCOUVRIR LE PRODUIT</span>
-        
+
         <h2>Choisis une activité qui rassemble tes proches</h2>
         <p>Pour une rencontre en famille, tu peux vouloir une activité où chacun trouve son tour et son jeu. La table de billard permet de lancer une partie avec la queue et la boule incluses, tandis que la table de ping-pong se joue avec une raquette et un filet. La table de hockey offre une autre option visible dans l'ensemble. Tu peux organiser la soirée autour du jeu qui attire tes invités.</p>
 
@@ -919,7 +1077,7 @@ ul{padding-left:20px}
         <p>Avant de prévoir une place dans ton salon, il est utile de connaître l'encombrement annoncé. La description donne les dimensions de 95 × 51 × 64 cm pour la table. L'image présente les plateaux séparés au-dessus de la table de billard, avec le matériel de ping-pong et de hockey visible. Mesure l'espace disponible chez toi pour t'assurer que l'ensemble pourra y trouver sa place.</p>
 
         <h2>Ce qui fait la différence</h2>
-        
+
         <div class="diff-badges">
             <div class="diff-badge">
                 <svg class="icon" viewBox="0 0 24 24"><path d="M20 6 9 17l-5-5"/></svg>
@@ -944,7 +1102,7 @@ ul{padding-left:20px}
         </div>
 
         <h2>Installe l'ensemble et choisis ton jeu</h2>
-        
+
         <div class="steps-list">
             <div class="step-row">
                 <div class="step-num">01</div>
@@ -972,7 +1130,7 @@ ul{padding-left:20px}
             </div>
         </div>
 
-<div class="figure" style="margin-top:30px;"><img src="assets/img/table-de-billard-14.webp" alt="Accessoires inclus"></div>
+        <div class="figure" style="margin-top:30px;"><img src="assets/img/table-de-billard-14.webp" alt="Accessoires inclus"></div>
       </section>
 
       <!-- Confiance -->
@@ -986,13 +1144,11 @@ ul{padding-left:20px}
         </div>
       </section>
 
-      <!-- Avis (Défilement horizontal) -->
+      <!-- Avis -->
       <section class="block" id="avis">
         <span class="kicker">Ils en parlent</span>
         <h2>L'expérience de nos clients</h2>
-        <div class="review-list" id="reviewList">
-            <!-- Les avis sont injectés par JS -->
-        </div>
+        <div class="review-list" id="reviewList"></div>
       </section>
 
       <!-- FAQ -->
@@ -1050,16 +1206,19 @@ ul{padding-left:20px}
         <span class="close-btn" onclick="closeOrderModal()">&times;</span>
         <h3>Finaliser votre commande</h3>
         <p class="subtitle">Remplissez vos informations pour la livraison.</p>
-        
-        <!-- RECAPITULATIF DANS LE MODAL -->
+
         <div class="modal-summary">
             <div class="modal-summary-row">
                 <span>Votre sélection :</span>
                 <strong id="modalQtyDisplay">1 pièce</strong>
             </div>
+            <div class="modal-summary-row promo-active-row" id="modalPromoRow" style="display:none">
+                <span>Code promo :</span>
+                <strong id="modalPromoDisplay">DAV26 (-10%)</strong>
+            </div>
             <div class="modal-summary-row">
                 <span>Total à payer :</span>
-                <span id="modalPriceDisplay">123 000 FCFA</span>
+                <span id="modalPriceDisplay">141 450 FCFA</span>
             </div>
             <div class="modal-shipping">
                 <svg class="icon" style="width:16px;height:16px;" viewBox="0 0 24 24"><path d="M14 18V6a2 2 0 0 0-2-2H4a2 2 0 0 0-2 2v11a1 1 0 0 0 1 1h2"/><path d="M15 18H9"/><path d="M19 18h2a1 1 0 0 0 1-1v-3.65a1 1 0 0 0-.22-.624l-3.48-4.35A1 1 0 0 0 17.52 8H14"/><circle cx="17" cy="18" r="2"/><circle cx="7" cy="18" r="2"/></svg>
@@ -1080,7 +1239,7 @@ ul{padding-left:20px}
                 <label for="custPhone">Numéro de téléphone</label>
                 <input type="tel" id="custPhone" required placeholder="Ex: +228 90 00 00 00">
             </div>
-            
+
             <button type="submit" class="btn-main-order" style="width:100%; margin-top:10px;">
                 Confirmer ma commande
                 <svg class="icon" viewBox="0 0 24 24" style="width:18px;height:18px;stroke-width:2.5;margin-left:4px;"><path d="M5 12h14"/><path d="m12 5 7 7-7 7"/></svg>
@@ -1090,17 +1249,15 @@ ul{padding-left:20px}
 </div>
 
 <!-- =====================================================================
-     LIGHTBOX (MODAL POUR AFFICHER LES IMAGES/VIDEOS EN GRAND)
+     LIGHTBOX
      ===================================================================== -->
 <div id="mediaModal" class="media-modal" onclick="closeMediaModal()">
     <span class="close-media-btn" onclick="closeMediaModal()">&times;</span>
-    <div class="media-modal-content" id="mediaModalContent" onclick="event.stopPropagation()">
-        <!-- Le contenu (image ou vidéo) sera injecté ici par JS -->
-    </div>
+    <div class="media-modal-content" id="mediaModalContent" onclick="event.stopPropagation()"></div>
 </div>
 
 <!-- =====================================================================
-     ÉCRAN DE TRANSITION (LOADING)
+     ÉCRAN DE TRANSITION
      ===================================================================== -->
 <div id="loadingOverlay" class="loading-overlay">
     <div class="spinner"></div>
@@ -1119,42 +1276,70 @@ ul{padding-left:20px}
 (function(){
   'use strict';
 
-  /* ---------- CONFIG ---------- */
+  /* =========================================================================
+     CONFIGURATION GÉNÉRALE  —  MODIFIE ICI
+     ========================================================================= */
   var WHATSAPP_NUMBER = '22898722706';
   var SHOP_NAME       = 'BILLARD PRESTIGE';
   var PRODUCT_NAME    = 'Ensemble table de jeux 4-en-1';
-  var MAX_QTY         = 5; 
-  var BASE_PRICE      = 123000;
-  var DISCOUNT_RATE   = 0.20; 
+  var MAX_QTY         = 5;
 
+  /* --- PRIX ---
+     BASE_PRICE inclut déjà le +15 %.
+     Ton prix de base : 123 000 FCFA
+     123 000 × 1.15 = 141 450 FCFA  ← BASE_PRICE ci-dessous
+     Pour changer le prix : remplace 141450 (ou recalcule à partir de ton prix). */
+  var BASE_PRICE = 141450;
+
+  /* --- Remise quantité (2 pièces ou plus) --- */
+  var DISCOUNT_RATE = 0.20;
+
+  /* --- CODES PROMO ---
+     GUIDE POUR AJOUTER / MODIFIER UN CODE :
+     - Clé (entre guillemets) = code tapé par le client (MAJUSCULES)
+     - Valeur = réduction (0.10 = 10 %, 0.25 = 25 %, 0.50 = 50 %)
+     - Insensible à la casse : dav26 = DAV26 ✅
+     - Pour désactiver : supprime la ligne ou mets // devant
+     - Pour ajouter : copie une ligne et modifie-la.
+     ⚠️ Virgule à la fin de chaque ligne (sauf la dernière).
+
+     EXEMPLES :
+       'DAV26'     : 0.10,   →  -10 %
+       'BIENVENUE' : 0.05,   →  -5 %
+       'VIP20'     : 0.20,   →  -20 %
+       'NOEL50'    : 0.50,   →  -50 %
+  */
+  var PROMO_CODES = {
+    'DAV26': 0.10
+    // , 'BIENVENUE': 0.05
+    // , 'VIP20': 0.20
+  };
+
+  /* ---------- UTILITAIRES ---------- */
   function formatFCFA(n){
     return String(Math.round(n)).replace(/\B(?=(\d{3})+(?!\d))/g, ' ') + ' FCFA';
   }
-
-  function calculateTotal(qty) {
-      let total = BASE_PRICE * qty;
-      if (qty >= 2) {
-          total = total * (1 - DISCOUNT_RATE);
-      }
-      return total;
-  }
-
   function qtyLabel(qty){
     return qty + (qty > 1 ? ' pièces' : ' pièce');
   }
 
   /* ---------- STATE ---------- */
-  var state = { qty: 1 };
+  var state = { qty: 1, promoCode: '', promoRate: 0 };
 
   /* ---------- DOM ---------- */
   var $ = function(id){ return document.getElementById(id); };
-  var qtyDisplay     = $('qtyDisplay');
-  var orderTotal     = $('orderTotal');
-  var waFloatText    = $('waFloatText');
-  var modalQtyDisplay = $('modalQtyDisplay');
-  var modalPriceDisplay = $('modalPriceDisplay');
-  var modalOverlay   = $('orderModal');
-  var loadingOverlay = $('loadingOverlay');
+  var qtyDisplay         = $('qtyDisplay');
+  var orderTotal         = $('orderTotal');
+  var waFloatText        = $('waFloatText');
+  var modalQtyDisplay    = $('modalQtyDisplay');
+  var modalPriceDisplay  = $('modalPriceDisplay');
+  var modalPromoRow      = $('modalPromoRow');
+  var modalPromoDisplay  = $('modalPromoDisplay');
+  var modalOverlay       = $('orderModal');
+  var loadingOverlay     = $('loadingOverlay');
+  var priceUnitEl        = $('priceUnit');
+  var priceCrossedEl     = $('priceCrossed');
+  var promoBadgeEl       = $('promoBadge');
 
   var toastEl = $('toast');
   var toastTimer = null;
@@ -1163,6 +1348,21 @@ ul{padding-left:20px}
     toastEl.classList.add('show');
     clearTimeout(toastTimer);
     toastTimer = setTimeout(function(){ toastEl.classList.remove('show'); }, 2600);
+  }
+
+  /* ---------- CALCUL PRIX ---------- */
+  // Prix d'une quantité AVANT promo code
+  function calculateTierTotal(qty) {
+    var total = BASE_PRICE * qty;
+    if (qty >= 2) total = total * (1 - DISCOUNT_RATE);
+    return total;
+  }
+
+  // Prix final AVEC promo code (compounding sur le tier total)
+  function calculateTotal(qty) {
+    var total = calculateTierTotal(qty);
+    if (state.promoRate > 0) total = total * (1 - state.promoRate);
+    return total;
   }
 
   /* ---------- UI UPDATE ---------- */
@@ -1174,24 +1374,43 @@ ul{padding-left:20px}
 
     qtyDisplay.textContent = qtyLabel(qty);
     orderTotal.textContent = formatFCFA(total);
-    
-    if(waFloatText) {
-        waFloatText.textContent = `Valider la commande (${qtyLabel(qty)})`;
+
+    if (waFloatText) {
+      waFloatText.textContent = 'Valider la commande (' + qtyLabel(qty) + ')';
     }
 
+    // Paliers sélectionnés
     tierButtons.forEach(function(btn){
       var q = parseInt(btn.getAttribute('data-qty'), 10);
-      let isChecked = false;
-
+      var isChecked = false;
       if (qty === 1 && q === 1) isChecked = true;
       else if (qty === 2 && q === 2) isChecked = true;
       else if (qty >= 3 && q === 3) isChecked = true;
-
       btn.setAttribute('aria-checked', isChecked ? 'true' : 'false');
     });
+
+    // Prix affiché en haut de la buybox
+    updateTopPriceDisplay();
   }
 
-  /* ---------- ACTIONS QUANTITE ---------- */
+  function updateTopPriceDisplay() {
+    var base = BASE_PRICE;
+    var final1 = calculateTotal(1);
+
+    if (state.promoRate > 0) {
+      priceCrossedEl.textContent = formatFCFA(base);
+      priceCrossedEl.style.display = 'inline';
+      priceUnitEl.textContent = formatFCFA(final1);
+      promoBadgeEl.textContent = '-' + Math.round(state.promoRate * 100) + '%';
+      promoBadgeEl.style.display = 'inline-block';
+    } else {
+      priceCrossedEl.style.display = 'none';
+      priceUnitEl.textContent = formatFCFA(base);
+      promoBadgeEl.style.display = 'none';
+    }
+  }
+
+  /* ---------- ACTIONS QUANTITÉ ---------- */
   $('qtyMinus').addEventListener('click', function(){
     if (state.qty > 1){ state.qty--; updateUI(); }
   });
@@ -1208,6 +1427,61 @@ ul{padding-left:20px}
     });
   });
 
+  /* ---------- CODES PROMO ---------- */
+  window.appliquerCode = function() {
+    var input = $('promoInput');
+    var msg = $('promoMsg');
+    var code = input.value.trim().toUpperCase();
+
+    if (!code) {
+      msg.textContent = 'Veuillez saisir un code.';
+      msg.className = 'promo-msg error';
+      return;
+    }
+
+    if (PROMO_CODES.hasOwnProperty(code)) {
+      state.promoRate = PROMO_CODES[code];
+      state.promoCode = code;
+      msg.textContent = 'Code « ' + code + ' » appliqué : -' + Math.round(state.promoRate * 100) + '% sur votre total.';
+      msg.className = 'promo-msg success';
+      input.disabled = true;
+      $('promoBtn').disabled = true;
+      $('promoRemove').style.display = 'inline-block';
+      updateUI();
+    } else {
+      state.promoRate = 0;
+      state.promoCode = '';
+      msg.textContent = 'Code invalide ou expiré.';
+      msg.className = 'promo-msg error';
+      updateUI();
+    }
+  };
+
+  window.retirerCode = function(event) {
+    if (event) event.preventDefault();
+    state.promoRate = 0;
+    state.promoCode = '';
+    var input = $('promoInput');
+    var msg = $('promoMsg');
+    input.value = '';
+    input.disabled = false;
+    $('promoBtn').disabled = false;
+    $('promoRemove').style.display = 'none';
+    msg.textContent = 'Code promo retiré.';
+    msg.className = 'promo-msg';
+    updateUI();
+  };
+
+  // Validation avec Entrée
+  document.addEventListener('DOMContentLoaded', function(){
+    var pi = $('promoInput');
+    if (pi) {
+      pi.addEventListener('keydown', function(e){
+        if (e.key === 'Enter'){ e.preventDefault(); appliquerCode(); }
+      });
+    }
+  });
+
   /* ---------- GALERIE (AUTO-SCROLL) ---------- */
   var slides = document.querySelectorAll('#galleryMain .slide');
   var thumbs = document.querySelectorAll('#galleryThumbs button');
@@ -1215,12 +1489,12 @@ ul{padding-left:20px}
   var slideInterval;
 
   function goToSlide(index) {
-      slides.forEach(function(s, i){ 
-          s.classList.toggle('active', i === index); 
+      slides.forEach(function(s, i){
+          s.classList.toggle('active', i === index);
           var video = s.querySelector('video');
           if (video) {
               if (i === index) {
-                  video.play().catch(e => console.log("Auto-play blocked"));
+                  video.play().catch(function(){});
               } else {
                   video.pause();
                   video.currentTime = 0;
@@ -1249,9 +1523,8 @@ ul{padding-left:20px}
 
   startSlideShow();
 
-
-  /* ---------- GÉNÉRATION DES AVIS CLIENTS & AUTO-SCROLL ---------- */
-  const reviewsData = [
+  /* ---------- AVIS CLIENTS ---------- */
+  var reviewsData = [
     { name: "Koffi A.", city: "Lomé, Togo 🇹🇬", stars: 5, text: "Livraison très rapide à Lomé. Le colis était super bien emballé, aucune rayure sur la table. Mes enfants sont ravis !" },
     { name: "Aminata D.", city: "Abidjan, Côte d'Ivoire 🇨🇮", stars: 5, text: "J'ai reçu ma commande à Abidjan en 3 jours. La qualité est au rendez-vous, le tapis est parfait. Je recommande à 100%." },
     { name: "Ousmane S.", city: "Dakar, Sénégal 🇸🇳", stars: 5, text: "Très sérieux. La table est exactement comme sur les photos. Le livreur a même aidé à monter les pieds. Merci !" },
@@ -1272,82 +1545,70 @@ ul{padding-left:20px}
     { name: "Salifou M.", city: "Bobo-Dioulasso, Burkina Faso 🇧🇫", stars: 5, text: "Je recommande vivement. Le vendeur est de confiance, il m'a envoyé une vidéo du produit avant l'envoi." }
   ];
 
-  const reviewListContainer = document.getElementById('reviewList');
-
-  reviewsData.forEach(review => {
-    const starsHTML = '★'.repeat(review.stars) + '☆'.repeat(5 - review.stars);
-    const article = document.createElement('article');
+  var reviewListContainer = document.getElementById('reviewList');
+  reviewsData.forEach(function(review){
+    var starsHTML = '★'.repeat(review.stars) + '☆'.repeat(5 - review.stars);
+    var article = document.createElement('article');
     article.className = 'review';
-    article.innerHTML = `
-        <div class="stars" aria-label="Note ${review.stars} sur 5">${starsHTML}</div>
-        <p>"${review.text}"</p>
-        <p class="review__author">${review.name} — ${review.city}</p>
-    `;
+    article.innerHTML =
+        '<div class="stars" aria-label="Note ' + review.stars + ' sur 5">' + starsHTML + '</div>' +
+        '<p>"' + review.text + '"</p>' +
+        '<p class="review__author">' + review.name + ' — ' + review.city + '</p>';
     reviewListContainer.appendChild(article);
   });
 
-  // --- AUTO-SCROLL DES AVIS ---
-  let autoScrollInterval;
-
+  var autoScrollInterval;
   function startAutoScroll() {
-      autoScrollInterval = setInterval(() => {
-          // Si on est à la fin, on revient au début
+      autoScrollInterval = setInterval(function(){
           if (reviewListContainer.scrollLeft + reviewListContainer.clientWidth >= reviewListContainer.scrollWidth - 10) {
               reviewListContainer.scrollTo({ left: 0, behavior: 'smooth' });
           } else {
-              // Sinon on défile vers la droite (largeur de la carte + gap)
               reviewListContainer.scrollBy({ left: 320, behavior: 'smooth' });
           }
-      }, 3000); // Défilement toutes les 3 secondes
+      }, 3000);
   }
-
-  // Pause au survol
-  reviewListContainer.addEventListener('mouseenter', () => clearInterval(autoScrollInterval));
+  reviewListContainer.addEventListener('mouseenter', function(){ clearInterval(autoScrollInterval); });
   reviewListContainer.addEventListener('mouseleave', startAutoScroll);
-
-  // Démarrage de l'auto-scroll
   startAutoScroll();
 
-
-  /* ---------- LIGHTBOX (VISIONNEUSE D'IMAGES/VIDÉOS) ---------- */
+  /* ---------- LIGHTBOX ---------- */
   window.openMediaModal = function(src, type) {
-      const modal = document.getElementById('mediaModal');
-      const content = document.getElementById('mediaModalContent');
-
-      // Pause du carrousel principal
+      var modal = document.getElementById('mediaModal');
+      var content = document.getElementById('mediaModalContent');
       clearInterval(slideInterval);
-
       if (type === 'image') {
-          content.innerHTML = `<img src="${src}" alt="Zoom">`;
+          content.innerHTML = '<img src="' + src + '" alt="Zoom">';
       } else if (type === 'video') {
-          content.innerHTML = `<video src="${src}" controls autoplay playsinline></video>`;
+          content.innerHTML = '<video src="' + src + '" controls autoplay playsinline></video>';
       }
-
       modal.classList.add('active');
   };
 
   window.closeMediaModal = function() {
-      const modal = document.getElementById('mediaModal');
-      const content = document.getElementById('mediaModalContent');
-
+      var modal = document.getElementById('mediaModal');
+      var content = document.getElementById('mediaModalContent');
       modal.classList.remove('active');
-      content.innerHTML = ''; // Arrête la vidéo si elle tournait
-
-      // Relance du carrousel principal
+      content.innerHTML = '';
       startSlideShow();
   };
 
-
-  /* ---------- GESTION DU MODAL DE COMMANDE ---------- */
+  /* ---------- MODAL DE COMMANDE ---------- */
   window.openOrderModal = function() {
       var qty = state.qty;
       var total = calculateTotal(qty);
-      
-      if(modalQtyDisplay) modalQtyDisplay.textContent = qtyLabel(qty);
-      if(modalPriceDisplay) modalPriceDisplay.textContent = formatFCFA(total);
+
+      if (modalQtyDisplay) modalQtyDisplay.textContent = qtyLabel(qty);
+      if (modalPriceDisplay) modalPriceDisplay.textContent = formatFCFA(total);
+
+      if (state.promoRate > 0) {
+          modalPromoRow.style.display = 'flex';
+          modalPromoDisplay.textContent = state.promoCode + ' (-' + Math.round(state.promoRate * 100) + '%)';
+      } else {
+          modalPromoRow.style.display = 'none';
+      }
 
       modalOverlay.classList.add('active');
-      setTimeout(() => {
+      setTimeout(function(){
           document.getElementById('custName').focus();
       }, 300);
   };
@@ -1362,9 +1623,9 @@ ul{padding-left:20px}
       }
   });
 
-  /* ---------- SOUMISSION DU FORMULAIRE & REDIRECTION WHATSAPP ---------- */
+  /* ---------- SOUMISSION FORMULAIRE + WHATSAPP ---------- */
   window.submitOrder = function(event) {
-      event.preventDefault(); 
+      event.preventDefault();
 
       var custName = document.getElementById('custName').value;
       var custCity = document.getElementById('custCity').value;
@@ -1375,6 +1636,7 @@ ul{padding-left:20px}
 
       var qty = state.qty;
       var total = calculateTotal(qty);
+      var tierTotal = calculateTierTotal(qty);
 
       if (typeof fbq === 'function') {
           fbq('track', 'Lead', {
@@ -1385,32 +1647,35 @@ ul{padding-left:20px}
           });
       }
 
-      // --- MESSAGE WHATSAPP BIEN STRUCTURÉ ---
-      let text = `*NOUVELLE COMMANDE - BILLARD PREMIUM*\n\n`;
-      
-      text += `*CLIENT -*\n`;
-      text += `Nom : ${custName}\n`;
-      text += `Téléphone : ${custPhone}\n`;
-      text += `Ville : ${custCity}\n\n`;
-      
-      text += `*DÉTAILS DE LA COMMANDE -*\n`;
-      text += `Produit : ${PRODUCT_NAME}\n`;
-      text += `Quantité : ${qty} table(s)\n`;
+      // Message WhatsApp structuré
+      var text = '*NOUVELLE COMMANDE - BILLARD PRESTIGE*\n\n';
+
+      text += '*CLIENT -*\n';
+      text += 'Nom : ' + custName + '\n';
+      text += 'Téléphone : ' + custPhone + '\n';
+      text += 'Ville : ' + custCity + '\n\n';
+
+      text += '*DÉTAILS DE LA COMMANDE -*\n';
+      text += 'Produit : ' + PRODUCT_NAME + '\n';
+      text += 'Quantité : ' + qty + ' table(s)\n';
 
       if (qty >= 2) {
-          text += `Promo appliquée : -20% 🔥\n`;
-          text += `Sous-total : ${formatFCFA(BASE_PRICE * qty)}\n`;
+          text += 'Réduction quantité : -20% 🔥\n';
+          text += 'Sous-total : ' + formatFCFA(BASE_PRICE * qty) + '\n';
       }
 
-      text += `LIVRAISON : Offerte (0 FCFA)\n`;
-      text += `*PRIX TOTAL À PAYER : ${formatFCFA(total)}*\n\n`;
-      
-      text += `Merci de me confirmer la disponibilité et le délai.`;
+      if (state.promoRate > 0) {
+          text += 'Code promo : ' + state.promoCode + ' (-' + Math.round(state.promoRate * 100) + '%)\n';
+      }
 
-      setTimeout(() => {
-          window.open(`https://wa.me/${WHATSAPP_NUMBER}?text=${encodeURIComponent(text)}`, '_blank');
+      text += 'LIVRAISON : Offerte (0 FCFA)\n';
+      text += '*PRIX TOTAL À PAYER : ' + formatFCFA(total) + '*\n\n';
 
-          setTimeout(() => {
+      text += 'Merci de me confirmer la disponibilité et le délai.';
+
+      setTimeout(function(){
+          window.open('https://wa.me/' + WHATSAPP_NUMBER + '?text=' + encodeURIComponent(text), '_blank');
+          setTimeout(function(){
               loadingOverlay.classList.remove('active');
           }, 2000);
       }, 1500);
